@@ -1,0 +1,27 @@
+
+.del-bg {
+    position: absolute;
+    right: 40px;
+    top: 4px;
+    background: #fff;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.del-bg2 {
+    position: absolute;
+    right: 5px;
+    top: 4px;
+    background: #fff;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
