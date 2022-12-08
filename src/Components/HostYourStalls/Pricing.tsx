@@ -4,31 +4,30 @@ import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
     getStartedShow: () => void,
-
+    steps: Array<number> ,
+    setSteps: any,
+    // stepAdd: (value: any) => void
 }
-
 const Pricing = (props: props) => {
+    const {steps , setSteps , getStartedShow }=props
 
-    const { getStartedShow } = props
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/Pricing/:id`)
-
-
     const [state, setstate] = useState({
         listing_price: 0 as number,
         bookingAcceptType: 0 as number,
     })
-
     const handleState = (e: any) => {
         setstate({
             ...state,
             [e.target.name]: e.target.value
         })
     }
-
     const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
+            setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+
         } catch (error) {
             console.log(error);
         }
@@ -40,29 +39,25 @@ const Pricing = (props: props) => {
     }, [])
 
     const setPricing = async () => {
-
         let list = {
-
             id: match?.params.id,
             publicData:
             {
                 listing_price: state.listing_price,
                 bookingAcceptType: state.bookingAcceptType,
+                stepsCompleted: [...steps , 11],
             }
         }
         try {
 
+            // stepAdd(11)
+
             await HenceForthApi.Auth.Updatedlisting(list)
             navigate(`/create-stall/StripeConnect/${match?.params.id}`)
-
         } catch (error) {
             console.log(error);
         }
     }
-
-
-    console.log(state.bookingAcceptType);
-
 
     return (
         <>

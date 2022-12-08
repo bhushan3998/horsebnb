@@ -4,8 +4,8 @@ import _superagent from "superagent";
 const SuperagentPromise = require("superagent-promise");
 // import pagination from "../context/reducers/pagination";
 const superagent = SuperagentPromise(_superagent, global.Promise);
-const API_ROOT = " https://airbnb-clone.henceforthsolutions.com:3001/v1/api";
-const BUCKET_ROOT = "https://airbnbclone.sfo3.digitaloceanspaces.com/Uploads/"; //live
+const API_ROOT = " https://horsebnb.com:3001/v1/api";
+const BUCKET_ROOT = "https://horsebnb.s3.us-east-2.amazonaws.com/Uploads/"; //live
 const API_FILE_ROOT_MEDIUM = `${BUCKET_ROOT}Images/Medium/`;
 const API_FILE_ROOT_SMALL = `${BUCKET_ROOT}Images/Small/`;
 const API_FILE_ROOT_ORIGINAL = `${BUCKET_ROOT}Images/Original/`;
@@ -88,14 +88,18 @@ const Auth = {
     requests.post(`/own_listings/publish_draft`, info),
   resetPassword: (info: any) => requests.post("reset/password", info),
   signup: (info: any) => requests.post("/current_user/create", info),
-  Updatedlisting: (info: any) => requests.post("/own_listings/update", info),
+   Updatedlisting: (info: any) => requests.post("/own_listings/update", info),
   Uploadimage: (key:string,file:any) =>
     requests.file(
       `/upload/aws?storageType=5&environment=2&isDefaultAsset=0`,key,file
     ),
   updateProfileImage: (info: any) =>
     requests.post("/current_user/update_profile", info),
+
+    hostProfile:(hostId: any , perPage: any , page: any) => 
+    requests.get(`/host/listing?host_id=${hostId}&perPage=${perPage}&page=${page}`)
 };
+
 
 
 

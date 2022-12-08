@@ -7,11 +7,13 @@ import "./AddPhotos.css"
 
 type props = {
     getStartedShow: () => void,
-
+    steps: Array<number> ,
+    setSteps: any,
+    // stepAdd: (val: number) => void
 }
 
 const AddPhotos = (props: props) => {
-    const { getStartedShow } = props
+    const { getStartedShow , steps, setSteps } = props
     const [checkCoverImg, setCheckCoverImg] = useState<any>({
         caption: null,
         id: '',
@@ -19,7 +21,7 @@ const AddPhotos = (props: props) => {
         url: ""
     })
 
-    const [imgfile, setImgFile] = useState<any>([])
+    const [imgfile, setImgFile] = useState<Array<object>>([])
     console.log(imgfile);
 
     const navigate = useNavigate()
@@ -30,6 +32,7 @@ const AddPhotos = (props: props) => {
             let res = await HenceForthApi.Auth.Listid(match?.params?.id)
             setCheckCoverImg(res?.data?.attributes?.publicData?.cover_photo);
             setImgFile(res?.data?.attributes?.publicData?.images)
+            setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
         } catch (error) {
             console.log(error);
         }
@@ -76,7 +79,7 @@ const AddPhotos = (props: props) => {
                         caption: ""
                     }
                     ],
-                    stepsCompleted: [1, 3, 5, 6, 7]
+                   
                 }
             }) : (list = {
                 id: match?.params?.id,
@@ -87,7 +90,7 @@ const AddPhotos = (props: props) => {
                         priority: ar?.length,
                         caption: ""
                     },
-                    stepsCompleted: [1, 3, 5, 6, 7]
+                   
                 }
             })
         }
@@ -123,6 +126,7 @@ const AddPhotos = (props: props) => {
         try {
             await HenceForthApi?.Auth?.Updatedlisting(list)
             await listId()
+
         } catch (error) {
             console.log(error);
         }
@@ -133,7 +137,8 @@ const AddPhotos = (props: props) => {
             id: match?.params?.id,
             publicData: {
                 cover_photo: checkCoverImg,
-                images: [...imgfile]
+                images: [...imgfile],
+                stepsCompleted: [...steps , 7],
             }
         }
         if (checkCoverImg) {

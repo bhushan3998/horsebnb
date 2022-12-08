@@ -1,23 +1,59 @@
-import { useState } from "react"
-import { Link, useMatch } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { Link, useMatch , useNavigate } from "react-router-dom"
+import HenceForthApi from "../Utiles/HenceForthApi"
 
-const YourLocation = () => {
+type props ={
+    steps: Array<number>,
+    setSteps: any,
+    // stepAdd: (val : number) => void
+}
 
+const YourLocation = (props : props) => {
+    const {steps , setSteps }=props
     const [location , setLocation] = useState<string>("")
-
-
+        
+    const navigate = useNavigate()
     const match = useMatch(`/create-stall/YourLocation/:id`)
 
+    const listId = async () => {
+        try {
+            let res = await HenceForthApi.Auth.Listid(match?.params.id)
+            setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        listId()
+        // eslint-disable-next-line 
+    }, [])
 
+    const addLocation = async () => {
 
+        let list = {
+            id: match?.params.id,
+            publicData:{
+                stepsCompleted: [...steps , 5],
 
+            }
+        }
+        try {
+            await HenceForthApi.Auth.Updatedlisting(list)
+        } catch (error) {
+            console.log(error);
+            
+        }
+        navigate(`/create-stall/Amenities/${match?.params.id}`)
+       
+    }
+
+   
+        
 
     return (
-
         <>
             <div id="root">
                 <div className="App">
-
                     <section className="add_Location">
                         <div className="progress" style={{ height: "8px" }}>
                             <div className="progress-bar bg-info" role="progressbar" style={{ width: "21%" }}>
@@ -63,8 +99,8 @@ const YourLocation = () => {
                                                 </button>
                                                 </Link>
                                             </a>
-                                            <Link to={`/create-stall/Amenities/${match?.params.id}`}> <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" style={{ background: "rgb(0, 164, 180)" }}> Next
-                                            </button></Link>
+                                            <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" style={{ background: "rgb(0, 164, 180)" }} onClick={addLocation}> Next
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

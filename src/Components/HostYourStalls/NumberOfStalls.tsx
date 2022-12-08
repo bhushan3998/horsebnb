@@ -3,11 +3,15 @@ import { Link, useMatch, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
-const NumberOfStalls = () => {
+type props ={
+    steps: Array<number>,
+    setSteps: any,
+    stepsRun:number
+    // stepAdd: (val: number) => void
+}
+const NumberOfStalls = (props: props) => {
+    const {steps , setSteps,stepsRun } = props
     let [count, setCount] = useState<number>(1)
-
-
-
     // console.log(count);  
 
     const navigate = useNavigate();
@@ -15,6 +19,7 @@ const NumberOfStalls = () => {
     const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
+            setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
         } catch (error) {
             console.log(error);
         }
@@ -23,39 +28,22 @@ const NumberOfStalls = () => {
         listId()
         // eslint-disable-next-line 
     }, [])
-    // const Title = async () => {
-
-    //     try {
-    //         let res = await HenceForthApi.Auth.Updatedlisting(list)
-
-    //     } catch (error: any) {
-    //         console.log(error);
-    //     }
-    // }
-
-
-
-
-
-
-
-
+    
     const setStallsCount = async () => {
-
         const list = {
             id: match?.params.id,
             publicData: {
                 stalls: count,
-                stepsCompleted: [1, 3]
+                stepsCompleted: [...steps  , 3]
             }
         }
         try {
             if(count){
-            await HenceForthApi.Auth.Updatedlisting(list)
-            navigate(`/create-stall/YourLocation/${match?.params.id}`)
-        }else{
-            toast('Please fill  count', {
-                position: "top-right",
+                await HenceForthApi.Auth.Updatedlisting(list)
+                navigate(`/create-stall/YourLocation/${match?.params.id}`)
+            }else{
+                toast('Please fill  count', {
+                    position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -64,14 +52,18 @@ const NumberOfStalls = () => {
                 progress: undefined,
                 theme: "light",
             })
-            }
+        }
         } catch (error) {
             console.log(error);
-
         }
     }
 
-
+    // useEffect(() => {
+        
+    //     setStallsCount()
+    //     // eslint-disable-next-line 
+    // }, [stepsRun])
+    
     return (
         <>
 

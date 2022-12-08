@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom"
 const HostNavbar = () => {
     return (
         <>
-
             <nav className="navbar navbar-expand-lg navbar-light px-4 d-flex">
                 <a href="!#" className="navbar-brand">
                     <svg xmlns="http://www.w3.org/2000/svg" width="164.247" height="50" viewBox="0 0 164.247 50">

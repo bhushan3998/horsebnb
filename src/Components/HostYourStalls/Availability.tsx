@@ -6,21 +6,23 @@ import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
     getStartedShow: ()=>void,
+    steps: Array<number> ,
+    setSteps: any,
+    // stepAdd: (val: number) => void
 
 }
 const Availability = (props:props) => {
-
-    const {getStartedShow}= props
+    const {steps , setSteps , getStartedShow }=props
 
     const [check , setCheck] = useState()
 
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/Availability/:id`)
 
-
     const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
+            setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
         } catch (error) {
             console.log(error);
         }
@@ -31,30 +33,30 @@ const Availability = (props:props) => {
         // eslint-disable-next-line 
     }, [])
 
-
     const setAvailability = async() =>{
 
-
-        
-        if (check === true) {
-            navigate(`/create-stall/Calender/${match?.params.id}`)
-            
-        } else {
-            toast.warn("aggre the condition")
+        const list = {
+            id: match?.params.id,
+            publicData:{
+                gotIt:check,
+                stepsCompleted:[...steps , 14] 
+            }
         }
- 
-
+        try {
+            
+            await HenceForthApi.Auth.Updatedlisting(list)
+            navigate(`/create-stall/Calender/${match?.params.id}`)
+        } catch (error) {
+            console.log(error);
+            
+        }
     }
-
-
-
     return (
         <>
          <div className="progress" style={{ height: "8px" }}>
                             <div className="progress-bar bg-info" role="progressbar" style={{ width: "56%" }}>
                             </div>
                         </div>
-
             <div className="row mx-0">
                 <ToastContainer/>
                 <div className="col-md-6 py-5 frame-height overflow-y-auto">

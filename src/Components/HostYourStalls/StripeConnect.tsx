@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
-const StripeConnect = () => {
+
+type props = {
+    steps: Array<number>,
+    setSteps: any,
+    // stepAdd:(val: number) => void
+}
+
+const StripeConnect = (props: props) => {
+    const { steps, setSteps } = props
 
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/StripeConnect/:id`)
-
-
     const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
+            setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+
         } catch (error) {
             console.log(error);
         }
@@ -22,14 +29,28 @@ const StripeConnect = () => {
         // eslint-disable-next-line 
     }, [])
 
-    
+    const StripeConnect = async () => {
+
+        let list = {
+            id: match?.params.id,
+            publicData: {
+                stepsCompleted: [...steps, 12]
+            }
+        }
+        try {
+            await HenceForthApi.Auth.Updatedlisting(list)
+            navigate(`/create-stall/LastStep/${match?.params.id}`)
+        } catch (error) {
+        }
+        // stepAdd(12)
+    }
+
     return (
         <>
-         <div className="progress" style={{ height: "8px" }}>
-                            <div className="progress-bar bg-info" role="progressbar" style={{ width: "77%" }}>
-                            </div>
-                        </div>
-
+            <div className="progress" style={{ height: "8px" }}>
+                <div className="progress-bar bg-info" role="progressbar" style={{ width: "77%" }}>
+                </div>
+            </div>
             <div className="row mx-0">
                 <div className="col-md-6 py-5 steps-frame-height overflow-y-auto">
                     <div className="col-md-11 col-lg-8 px-md-0 mx-auto d-flex flex-column h-100">

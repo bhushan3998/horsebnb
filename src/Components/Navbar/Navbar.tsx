@@ -6,7 +6,9 @@ import HiddenNavbar from './HiddenNavbar'
 type props = {
   getStartedShow: () => void , 
   token: string | null,
-  setToken : any
+  setToken : any,
+  saveAndExit: (value: any) => void,
+  
 }
 
 const Navbar = (props: props) => {
@@ -15,7 +17,7 @@ const Navbar = (props: props) => {
   const [userPassword, setUserPassword] = useState<string>("")
   // const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
 
-const {getStartedShow , token , setToken} = props
+const {getStartedShow , token , setToken , saveAndExit} = props
 
 
   const handleToken = (token: string) => {
@@ -38,6 +40,9 @@ const {getStartedShow , token , setToken} = props
       console.log(error);
     }
   }
+
+
+ 
 
 
   return (
@@ -75,7 +80,7 @@ const {getStartedShow , token , setToken} = props
 
 
 
-          {token !== null ? <HiddenNavbar setToken={setToken} getStartedShow={getStartedShow} /> : (<div className="d-flex">
+          {token !== null ? <HiddenNavbar setToken={setToken} getStartedShow={getStartedShow} saveAndExit={saveAndExit} /> : (<div className="d-flex">
             <button className="btn  border-0" data-bs-toggle="modal" data-bs-target="#loginModal" onClick={() => { setModal(true) }}>Log In</button>
             <button
               className="btn text-white ms-2"

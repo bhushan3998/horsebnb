@@ -1,20 +1,34 @@
 import HenceForthApi from '../Utiles/HenceForthApi'
 import image2 from "../Images/explore_one.png"
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation , useNavigate } from 'react-router-dom';
+import SaveAndExit from '../SaveAndExit/SaveandExit';
+// import { match } from 'assert';
 
 type props = {
   setToken: any
   getStartedShow: () => void
+  saveAndExit: (value: any) => void
 }
 const HiddenNavbar = (props: props) => {
-  const { setToken, getStartedShow } = props
+  const { setToken, getStartedShow , saveAndExit } = props
+
+  const navigate=useNavigate()
 
   const location = useLocation()
   const logOut = () => {
     localStorage.removeItem("token")
     setToken(null)
 
-  }
+  }  
+
+  // const saveAndExitfun = () =>{
+  //   navigate(`/create-stall/LastStep/:id}`)
+  // }
+
+
+
+
+
   return (
     <>
       {!location.pathname.startsWith('/h') && (!location.pathname.startsWith('/c')) ? (<ul className="navbar-nav mb-2 mb-lg-0 navbar-nav ml-auto">
@@ -28,10 +42,10 @@ const HiddenNavbar = (props: props) => {
           <Link to="/hostStalls" className="nav-link fw-semibold" onClick={getStartedShow} >Host your Stalls</Link>
         </li>
         <li className="nav-item mx-3">
-          <a className="nav-link fw-semibold" href="!#">Host Guests</a>
+        <Link to={"/host-guests/"} className="nav-link fw-semibold" onClick={getStartedShow}>Host Guests</Link>
         </li>
         <li className="nav-item mx-3">
-          <a className="nav-link fw-semibold" href="!#">Host an Adventure</a>
+          <Link to={"/host-an-experience"} className="nav-link fw-semibold" >Host an Adventure</Link>
         </li>
         <li className="nav-item pt-2 mx-3">
           <a href="!#"><i className="bi bi-chat-dots text-dark fw-bold"></i></a>
@@ -56,13 +70,11 @@ const HiddenNavbar = (props: props) => {
         </li>
       </ul>) :
         location.pathname.startsWith('/create-stall/step1') ? ""
-          : (location.pathname.startsWith('/c') ? (<div className="saveAndExit">
-            <button className='btn btn-outline' style={{ background: "#00A4B4" }}>
-              Save And Exit
-            </button> </div>) : (<div className="getStarted">
+          : (location.pathname.startsWith('/c') ? <SaveAndExit/> : (<div className="getStarted">
               <Link to={"/create-stall/step1 "}> <button className='btn btn-outline' style={{ background: "#00A4B4" }}>
                 Get Started
-              </button></Link> </div>))
+              </button></Link> 
+              </div>))
       }
     </>
   )

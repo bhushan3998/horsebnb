@@ -3,10 +3,20 @@ import { Link, useMatch , useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import HenceForthApi from "../Utiles/HenceForthApi";
 
-const Amenities = () => {
+type props ={
+    steps: Array<number> ,
+    setSteps: any
+    // stepAdd: (val: number) => void
+}
+
+const Amenities = (props:props) => {
+
+    const {steps , setSteps } = props 
 
     const navigate = useNavigate()
-    const [checked, setChecked] = useState<any>([]);
+    const [checked, setChecked] = useState<Array<string>>([]);
+
+    
     const handleChecked = (e: any) => {
     let prev = checked;
     let value = e.target.value
@@ -19,12 +29,11 @@ const Amenities = () => {
     setChecked([...prev]);
   };
 
-
-
   const match = useMatch(`/create-stall/Amenities/:id`)
   const listId = async () => {
       try {
           let res = await HenceForthApi.Auth.Listid(match?.params.id)
+          setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
       } catch (error) {
           console.log(error);
       }
@@ -41,7 +50,7 @@ const uploadAmenities = async() => {
         id: match?.params.id,
         publicData: {
             amenities:checked,
-            stepsCompleted: [1, 3 , 5 , 6]
+            stepsCompleted: [...steps , 6],
         }
     }
 
@@ -49,6 +58,8 @@ const uploadAmenities = async() => {
         if (checked) {
             await HenceForthApi.Auth.Updatedlisting(list)
             navigate(`/create-stall/AddPhotos/${match?.params.id}`)
+            // stepAdd(6)
+            
             
         }else{
             toast('select Options', {

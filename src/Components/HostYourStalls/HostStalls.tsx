@@ -9,19 +9,13 @@ type props = {
 }
 
 const HostStalls = ( props: props) => {
- 
-const { getStartedShow }= props
+    const { getStartedShow }= props
 
-
-
-
-    return (
+return (
         <>
             <div className="container-fluid">
 
                 <div className="host-stall-bg py-5 px-5" style={{ backgroundImage: `url(${startedImg})`, height: '600px', backgroundRepeat: "no-repeat", backgroundSize: '100% 100%' }} >
-
-
                     <div className="col-md-12 py-5 text-center">
                         <h1 className="mb-3 py-3 text-white fw-bold">Learn more about hosting with HorseBnB</h1>
                         <Link to={"/create-stall/step1"}><button type="button" className="btn btn-outline-light px-4 py-2" onClick={getStartedShow}>Get Started</button></Link>
@@ -88,9 +82,5 @@ const { getStartedShow }= props
         </>
     )
 }
-
-
-
-
 export default HostStalls;
 

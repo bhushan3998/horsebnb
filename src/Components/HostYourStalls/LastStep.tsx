@@ -1,27 +1,127 @@
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { Link, useMatch, useNavigate } from "react-router-dom"
+import HenceForthApi from "../Utiles/HenceForthApi"
 import CompletedSteps from "./CompletedSteps"
 
-const LastStep = () => {
+type props ={
+    setSteps:any 
+    steps: Array<number>
+}
+
+const LastStep = (props: props) => {
+const {steps , setSteps}=props
+    let [ coverPhoto , setCoverPhoto ] = useState<string>("")
 
 
 
 
+    const navigate = useNavigate()
+    const match = useMatch(`/create-stall/LastStep/:id`)
+
+
+
+    const listId = async () => {
+        try {
+            let res = await HenceForthApi.Auth.Listid(match?.params.id)
+            console.log();
+            setCoverPhoto(res?.data?.attributes?.publicData?.cover_photo.url);
+            setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        listId()
+        // eslint-disable-next-line 
+    }, [])
+
+   
+    
     const allSteps = [
-        {id:1, step:"Title"  , url:"step1" },
-        {id:2, step:"Stalls" , url:"NumberOfStalls/:id"},
-        {id:3, step:"Location" , url:"YourLocation/:id"},
-        {id:4, step:"Amenities" , url:"Amenities/:id"},
-        {id:5, step:"Photos" , url:"AddPhotos/:id"},
-        {id:6, step:"Description" , url:"Description/:id"},
-        // {id:7, step:"Profile Photo" , url:"Timmings/:id"},
-        {id:7, step:"Check in and Check out" , url:"Timmings/:id"},
-        {id:8, step:"Agreement" , url:"Availability/:id"},
-        {id:9, step:"Calendar Availability" , url:"Calender/:id"},
-        {id:10, step:"Pricing" , url:"Pricing/:id"},
-        {id:11, step:"Stripe Connect" , url:"StripeConnect/:id"},
-        
+        {
+            id: 1,
+            step: "Title",
+            url: "create-stall/step1" ,
+            stepNumber:1
+        },
+        {
+            id: 2,
+            step: "Stalls",
+            url: `create-stallNumberOfStalls/${match?.params.id}`,
+            stepNumber:3
 
+        },
+        {
+            id: 3,
+            step: "Location",
+            url: `create-stall/YourLocation/${match?.params.id}`,
+            stepNumber:5
+
+        },
+        {
+            id: 4,
+            step: "Amenities",
+            url: `create-stall/Amenities/${match?.params.id}`,
+            stepNumber:6
+
+        },
+        {
+            id: 5,
+            step: "Photos",
+            url: `create-stall/AddPhotos/${match?.params.id}`,
+            stepNumber:7
+
+        },
+        {
+            id: 6,
+            step: "Description",
+            url: `create-stall/Description/${match?.params.id}`,
+            stepNumber:8
+
+        },
+        // {id:7, step:"Profile Photo" , url:"Timmings/:id"},
+        {
+            id: 7,
+            step: "Check in and Check out",
+            url: `create-stall/Timmings/${match?.params.id}`,
+            stepNumber:9
+
+        },
+        {
+            id: 8,
+            step: "Agreement",
+            url: `create-stall/Availability/${match?.params.id}`,
+            stepNumber:14
+
+        },
+        {
+            id: 9,
+            step: "Calendar Availability",
+            url: `create-stall/Calender/${match?.params.id}`,
+            stepNumber:15
+
+        },
+        {
+            id: 10,
+            step: "Pricing",
+            url: `create-stall/Pricing/${match?.params.id}`,
+            stepNumber:11
+
+        },
+        {
+            id: 11,
+            step: "Stripe Connect",
+            url: `create-stall/StripeConnect/${match?.params.id}`,
+            stepNumber:12
+            // checked: {}
+        },
     ]
+
+
+    const lastStep= () => {
+            navigate(`/manage-listing/publish-listing/${match?.params.id}`)
+    }
 
 
     return (
@@ -35,11 +135,9 @@ const LastStep = () => {
                     <div className="col-md-5">
                         <h3 className="heading-large text-black line-height-space mb-3">Finish your listing to start earning..</h3>
                         <h6 className="text-lite mb-3">You can always edit your listing after you publish it.</h6>
-
-
-                       {allSteps.map((e : any , index: any)=>
-                        <CompletedSteps stepName={e.step} key={index} url={e.url}/>
-                       )}
+                        {allSteps.map((e: any, index: any) =>
+                            <CompletedSteps stepsArray={steps} stepName={e.step} key={index} url={e.url} stepNumber={e.stepNumber} />
+                        )}
                     </div>
                     <div className="col-md-7 text-center d-flex flex-column">
                         <div className="d-flex align-items-center flex-column justify-content-center flex-grow-1">
@@ -52,7 +150,7 @@ const LastStep = () => {
                                             <Link className="pointer text-decoration-none" style={{ color: "#00A4B4" }} to={""}>Preview</Link>
                                         </div>
                                         <div className="prev-img">
-                                            <img alt="" className="obj-cover  ng-star-inserted ng-lazyloaded" ng-reflect-default-image="https://horsebnb.s3.us-east-2." ng-reflect-lazy-image="https://horsebnb.s3.us-east-2." src="https://horsebnb.s3.us-east-2.amazonaws.com/Uploads/Images/Medium/1669005557512-Albert.png" />
+                                            <img alt="" className="obj-cover  ng-star-inserted ng-lazyloaded" src={`${HenceForthApi.API_FILE_ROOT_MEDIUM}${coverPhoto}`} />
                                         </div>
                                     </div>
                                 </div>
@@ -70,10 +168,10 @@ const LastStep = () => {
                                     </Link>
                                 </div>
                                 <div className="">
-                                    <Link to="/create-stall/Publish">
-                                        <button className="btn my-3 px-3 text-white" style={{ background: "rgb(0, 164, 180)" }}> Next
+                                    
+                                        <button className="btn my-3 px-3 text-white" style={{ background: "rgb(0, 164, 180)" }} onClick={lastStep}> Next
                                         </button>
-                                    </Link>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -83,5 +181,4 @@ const LastStep = () => {
         </>
     )
 }
-
 export default LastStep

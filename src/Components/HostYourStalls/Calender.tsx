@@ -4,20 +4,22 @@ import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
     getStartedShow: ()=>void,
-
+    
+    steps: Array<number> ,
+    setSteps: any
+    // stepAdd: (val:number)=> void
 }
-
 const Calender = (props: props) => {
-
-    const {getStartedShow}= props
+    const {steps , setSteps , getStartedShow }=props
 
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/Calender/:id`)
 
-
     const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
+            setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+
         } catch (error) {
             console.log(error);
         }
@@ -28,6 +30,22 @@ const Calender = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
+    const setCalender = async () => {
+        let list = {
+            id: match?.params.id,
+            publicData:{
+                stepsCompleted: [...steps , 15],
+
+            }
+        }
+        try {
+           await HenceForthApi.Auth.Updatedlisting(list) 
+        } catch (error) {
+            
+        }
+        navigate(`/create-stall/Pricing/${match?.params.id}`)
+
+    }
 
 
 
@@ -42,8 +60,8 @@ const Calender = (props: props) => {
                     <div className="d-flex justify-content-between border-top mt-5">
                        <Link to={'/create-stall/Availability'}><button type="button" className="btn btn-transparent font-regular my-3 px-0" tabIndex={0}>
                             <img src="" className="pr-1" alt="" /> Back </button> </Link> 
-                      <Link to={`/create-stall/Pricing/${match?.params.id}`}>  <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center"> Next
-                        </button></Link>
+                      <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={setCalender}> Next
+                        </button>
                     </div>
                 </div>
                 <div className="col-md-6 px-md-0 d-none d-md-block">

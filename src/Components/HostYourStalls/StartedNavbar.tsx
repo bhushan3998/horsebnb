@@ -31,24 +31,16 @@ const StartedNavbar = () => {
                             </ul>
                         </div>
                     </div>
-
-
-
                     <div className="d-flex">
-
                         <button
                             className="btn text-white ms-2"
                             data-bs-toggle="modal" data-bs-target="#loginModal"
                             style={{ backgroundColor: "#00A4B4", border: "#00A4B4" }}
-
                         >
                             Get Started
                         </button>
                     </div>
                 </div>
-
-
-
             </nav >
         </>
     )

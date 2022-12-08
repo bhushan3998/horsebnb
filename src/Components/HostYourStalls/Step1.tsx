@@ -4,33 +4,32 @@ import { toast, ToastContainer } from "react-toastify"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
-    handleSteps: () => void
+    steps: Array<number>,
+    setSteps: any,
+    // stepAdd: (val: number) => void
 }
 
-const Step1 = (props:props) => {
+const Step1 = (props: props) => {
 
-    const {handleSteps} = props
-
-    const [stallType, setStallType] = useState<number | string>()
+    const { setSteps, steps } = props
+    const [stallType, setStallType] = useState()
     const [title, setTitle] = useState<string>("")
-
     const navigate = useNavigate()
-    console.log(title);
+
     const step1 = async () => {
         if (stallType && title) {
             try {
                 let res = await HenceForthApi.Auth.createdraftlisting({
                     title: title,
                     publicData: {
-                        stepsCompleted: [1],
-                        type: stallType
+                        stepsCompleted: [...steps, 1],
+                        type: parseInt(stallType)
                     }
                 })
                 navigate(`/create-stall/NumberOfStalls/${res.data.id.uuid}`)
-                // handleSteps()
             } catch (error) {
                 console.log(error);
-                }
+            }
         } else {
             toast('Please fill  Details', {
                 position: "top-right",
@@ -44,7 +43,6 @@ const Step1 = (props:props) => {
             })
         }
     }
-
     return (
         <>
             <section className="createStallStep container-fluid">
@@ -64,9 +62,9 @@ const Step1 = (props:props) => {
                             <div>
                                 <form className="form-group">
                                     <select className="form-control mt-4 decorated" name="stallType" value={stallType} onChange={(e: any) => { setStallType(e.target.value) }}>
-                                        <option value="0">Choose stall type</option>
-                                        <option value="1">Short term stall</option>
-                                        <option value="2">Monthly board</option>
+                                        <option value={0}>Choose stall type</option>
+                                        <option value={1}>Short term stall</option>
+                                        <option value={2}>Monthly board</option>
                                     </select>
                                     <h2 className="heading-big mt-4">Create a title for your listing?</h2>
                                     <p>Catch guest's attention with a listing title that highlights what makes your place special. This can not be your business name.</p>
@@ -84,8 +82,5 @@ const Step1 = (props:props) => {
             </section>
         </>
     )
-
-
 }
-
 export default Step1
