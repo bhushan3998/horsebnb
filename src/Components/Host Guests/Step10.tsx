@@ -27,7 +27,6 @@ const Step10 = (props: props) => {
         }
     }
     useEffect(() => {
-        // getStartedShow()
         listId()
         // eslint-disable-next-line 
     }, [])
@@ -63,6 +62,8 @@ const Step10 = (props: props) => {
             
         }
     }
+
+
     return (
         <>
          <div className="progress" style={{ height: "8px" }}>

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
+import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
@@ -15,10 +16,12 @@ const Step1 = (props: props) => {
     const [stallType, setStallType] = useState()
     const [title, setTitle] = useState<string>("")
     const navigate = useNavigate()
+    const [state , setState] =useState<boolean>(false)
 
     const step1 = async () => {
         if (stallType && title) {
             try {
+                setState(true)
                 let res = await HenceForthApi.Auth.createdraftlisting({
                     title: title,
                     publicData: {
@@ -68,9 +71,9 @@ const Step1 = (props: props) => {
                                     </select>
                                     <h2 className="heading-big mt-4">Create a title for your listing?</h2>
                                     <p>Catch guest's attention with a listing title that highlights what makes your place special. This can not be your business name.</p>
-                                    <input type="text" placeholder="Enter title" name="title" className="form-control mt-4" value={title} onChange={(e: any) => { setTitle(e.target.value) }} />
+                                    <input type="text" placeholder="Enter title" name="title" className="form-control mt-4" disabled={state} value={title} onChange={(e: any) => { setTitle(e.target.value) }} />
                                     <button type="button" className="btn btn-primary px-3 py-2 mt-4 position-relative d-flex align-items-center justify-content-center" style={{ background: "#00A4B4" }} onClick={step1}
-                                    > Continue </button>
+                                    > {!state ?   " Continue" : <Spinner/>}</button>
                                 </form>
                             </div>
                         </div>

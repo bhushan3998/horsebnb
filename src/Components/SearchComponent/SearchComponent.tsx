@@ -3,16 +3,18 @@ import { useLocation, useParams } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import "./SearchComponent.css"
 
-type props ={
-    to: any ,
-    state: any
+type props = {
+
+    pageNumber: any,
+    setPageNumber: any
+
 }
 
 
-const SearchComponent = () => {
-
+const SearchComponent = (props: props) => {
+    const { pageNumber, setPageNumber } = props
     const [check, setCheck] = useState<boolean>(true)
-    const {type} = useParams() as any
+    const { type } = useParams() as any
 
     const [types, setTypes] = useState<number>(type)
     const [loading, setLoading] = useState<boolean>(false)
@@ -32,7 +34,6 @@ const SearchComponent = () => {
 
     }
 
-
     const handleRow = (e: any) => {
         setCheck(e.target.checked)
     }
@@ -45,12 +46,13 @@ const SearchComponent = () => {
     useEffect(() => {
         getCardData()
         // eslint-disable-next-line
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }, [types])
     console.log(types);
-    return(
+    return (
         <>
 
-<div className="container-fluid">
+            <div className="container-fluid">
                 <div className="row">
                     <div className={!check ? `col-lg-12 overflow-scroll px-5` : `col-lg-6 overflow-scroll px-5`} style={{ height: '90vh' }}>
                         <div className="border-bottom pb-2">
@@ -67,7 +69,7 @@ const SearchComponent = () => {
                             <div className="my-3 d-flex justify-content-between flex-column flex-md-row">
                                 <div className="badges d-flex align-items-center flex-wrap flex-grow-1 pr-md-3">
                                     <div className="mybadge pointer mr-2 my-2 ml-0">
-                                        <select id="exampleFormControlSelect1"  value={types} className="form-control type-select fw-700 ng-untouched ng-pristine ng-valid" onChange={(e: any) => handleType(e)}>
+                                        <select id="exampleFormControlSelect1" value={types} className="form-control type-select fw-700 ng-untouched ng-pristine ng-valid" onChange={(e: any) => handleType(e)}>
                                             <option value="1" >Short Term Stalls</option>
                                             <option value="2" >Monthly Board</option>
                                             <option value="3" >Guest Accommodations</option>

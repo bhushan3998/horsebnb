@@ -7,9 +7,15 @@ import adventureImg from "../Images/explore_three.png"
 import HenceForthApi from '../Utiles/HenceForthApi';
 import Card from '../CardComponent/Card';
 import exploreBorading from "../Images/no_monthly_banner.png"
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const ExploreHorsebnb = () => {
+type props ={
+  pageNumber : any , 
+  setPageNumber: any
+}
+
+const ExploreHorsebnb = (props: props) => {
+  const {setPageNumber , pageNumber} = props
 
   const [dataList, setDataList] = useState<any>({
     shortTerm: [],
@@ -20,19 +26,23 @@ const ExploreHorsebnb = () => {
 
   const getAllListData = async () => {
     try {
-      let res1 = (await HenceForthApi.listing.querylisting(1, 8, 1)).data
+      let res1 = (await HenceForthApi.listing.querylisting(1, 8, 1))
+      // let resTest = (await HenceForthApi.listing.querylisting(1, 8, 1))
 
-      let res2 = (await HenceForthApi.listing.querylisting(2, 8, 1)).data
-      let res3 = (await HenceForthApi.listing.querylisting(3, 8, 1)).data
-      let res4 = (await HenceForthApi.listing.querylisting(4, 8, 1)).data
-      console.log(res1);
+      let res2 = (await HenceForthApi.listing.querylisting(2, 8, 1))
+      let res3 = (await HenceForthApi.listing.querylisting(3, 8, 1))
+      let res4 = (await HenceForthApi.listing.querylisting(4, 8, 1))
+      console.log(res1.data); 
+      console.log(res1.meta);
+      setPageNumber(res1.meta)
+      
       
       setDataList({
         ...dataList,
-        shortTerm: res1,
-        guestAcc: res2,
-        monthly: res3,
-        horseAdv: res4,
+        shortTerm: res1.data,
+        guestAcc: res2.data,
+        monthly: res3.data,
+        horseAdv: res4.data,
       });
     } catch (error) {
       console.log(error);

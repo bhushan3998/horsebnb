@@ -15,12 +15,10 @@ const BookingDetails = () => {
     }
     useEffect(() => {
         getUserData()
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }, [id])
     console.log(state);
     console.log(hostData);
-
-
-
 
     return (
         <>

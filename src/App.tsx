@@ -54,6 +54,8 @@ function App() {
   const [steps, setSteps] = useState<Array<number>>([])
   const [stepsRun, setStepsRun] = useState<number>(0)
 
+  const [pageNumber , setPageNumber] =  useState<any>({})
+
   console.log(steps);
 
 
@@ -85,7 +87,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='*' element={<Components getStartedShow={getStartedShow} token={token} saveAndExit={saveAndExit} setToken={setToken} />}>
-            <Route index element={<ExploreHorsebnb />} />
+            <Route index element={<ExploreHorsebnb setPageNumber={setPageNumber} pageNumber={pageNumber} />} />
             <Route path='hostStalls' element={<HostStalls getStartedShow={getStartedShow} />} />
             <Route path='create-stall/step1' element={<Step1  setSteps={setSteps} steps={steps}  />} />
             <Route path='create-stall/NumberOfStalls/:id' element={<NumberOfStalls setSteps={setSteps} stepsRun={stepsRun} steps={steps} />} />
@@ -138,7 +140,7 @@ function App() {
 
             <Route path="manage-listing/publish-listing/:id" element={<AdPublish />} />
             <Route path='ManageListing' element={<ManageListing />} />
-            <Route path="search/type=:type" element={<SearchComponent/>} />
+            <Route path="search/type=:type" element={<SearchComponent setPageNumber={setPageNumber} pageNumber={pageNumber} />} />
             <Route path="bookingdetails/:id" element={<BookingDetails/>} />
 
 

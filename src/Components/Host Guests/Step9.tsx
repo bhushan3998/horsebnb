@@ -9,9 +9,7 @@ type props = {
     setSteps: any , 
 }
 const Step9 = (props: props) => {
-
     const {steps , setSteps   }=props
-
     const [arrive, setArrive] = useState<string>("")
     const [leave, setLeave] = useState<string>("")
     const navigate = useNavigate()
@@ -41,7 +39,6 @@ const Step9 = (props: props) => {
         }
         try {
             if (arrive && leave) {
-                
                 await HenceForthApi.Auth.Updatedlisting(list)
                 navigate(`/create-guest/Step10/${match?.params.id}`)
             } else {
@@ -59,7 +56,6 @@ const Step9 = (props: props) => {
         } catch (error) {
         }
     }
-
     return (
         <>
             <div className="progress" style={{ height: "8px" }}>
@@ -68,7 +64,6 @@ const Step9 = (props: props) => {
             </div>
             <div className="row">
                 <ToastContainer/>
-
                 <div className="col-md-6 py-5 px-md-0 frame-height overflow-y-auto">
                     <div className="col-md-8 mx-auto d-flex flex-column h-100">
                         <h4 className="fw-600 heading-big text-black mb-1">Check In &amp; Check Out</h4>
@@ -89,11 +84,9 @@ const Step9 = (props: props) => {
                                 Back
                             </button>
                             </Link>
-                  
                             <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={uploadTimings} >
                                 Next
                             </button>
-                     
                         </div>
                     </div>
                 </div>
