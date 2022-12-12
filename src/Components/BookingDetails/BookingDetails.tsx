@@ -11,6 +11,8 @@ import tag from "../Images/tag.png"
 import horseOne from "../Images/horse_one.png"
 import security from "../Images/security.svg"
 import grade from "../Images/grade.png"
+import ContactHost from '../ContactHost/ContactHost';
+import AddStallsModal from './AddStallsModal';
 
 
 
@@ -18,12 +20,26 @@ const BookingDetails = () => {
     const { id } = useParams() as any
     const [state, setState] = useState<any>([])
     const [hostData, setHostData] = useState<any>([])
+    const [showContactHost, setShowContactHost] = useState<boolean>(false)
+    const [count, setCount] = useState<number>(0)
+    const [review, setReview] = useState<any>()
+
     const getUserData = async () => {
         let res = (await HenceForthApi.Auth.bookingListid(id)).data
         let hostRes = (await HenceForthApi.Auth.hostProfile(res.id.hostId, 3, 1)).data
+        let reviewRes = (await HenceForthApi.reviewListing.bookingReviews(id)).data
+        setReview(reviewRes)
         setState(res)
         setHostData(hostRes)
     }
+    let title: string = state?.attributes?.title
+    let amenities: Array<number> = state?.attributes?.publicData?.amenities
+    let description: string = state?.attributes?.description
+    let reviews: string = state?.attributes?.publicData?.reviews
+    let rating: string = state?.attributes?.publicData?.rating
+    let hostImg: string = state?.attributes?.publicData?.host_image
+    let hostName: string = state?.attributes?.publicData?.hosted_by
+    // let bookingType = state?.attributes?.publicData?.type
 
     useEffect(() => {
         getUserData()
@@ -32,16 +48,22 @@ const BookingDetails = () => {
     console.log(state);
     console.log(hostData);
 
+
+    const isImage = (url: string): boolean => {
+        return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+    }
+    console.log(review);
+
     return (
         <>
-            <div className="container">
+            {!showContactHost ? (<div className="container">
                 <div className="heading">
                     <h1 className="heading-big text-black float-left">{state?.attributes?.title}</h1>
                 </div>
                 <div className="d-flex justify-content-between mb-4">
                     <div className="d-flex">
                         <span className="text-black d-flex align-items-start">
-                            <img alt="star" src={starImg} className="pr-1" /> 4 <span className="text-lite"> &nbsp;(1 Reviews)</span>
+                            <img alt="star" src={starImg} className="pr-1" /> {rating} <span className="text-lite"> &nbsp;({reviews} Reviews)</span>
                         </span>
                         <span className="text-underline ml-2"> mohali,  Punjab </span>
                     </div>
@@ -99,7 +121,6 @@ const BookingDetails = () => {
                                 </span>
                             </div>
                         </div>
-
                         <div className="border-bottom py-3">
                             <div className="d-flex align-items-center">
                                 <span >
@@ -155,8 +176,10 @@ const BookingDetails = () => {
                                     </div>
                                 </div>
                                 <div className="w-100 border-top p-2 px-3 stall-dropdown">
-                                    <span className="d-flex justify-content-center p-2 font-small fw-700 ng-star-inserted"> ADD STALLS </span>
+                                    <span className="d-flex justify-content-center p-2 font-small fw-700 ng-star-inserted" data-bs-toggle="modal" data-bs-target="#examplemodal"> ADD STALLS </span>
                                 </div>
+                            <AddStallsModal count={count} setCount={setCount}/>
+                                
                             </div>
 
                             <table className="table borderless details-table mb-0">
@@ -208,26 +231,45 @@ const BookingDetails = () => {
                 <div className="">
                     <div className="mt-5">
                         <h3 className="font-22-ebold mb-4 text-black d-flex">
-                            <img src={starImg} className="pr-2" /> 4 (1 Reviews) </h3>
+                            <img src={starImg} className="pr-2" /> {rating} ({reviews} Reviews) </h3>
                     </div>
                     <div className="justify-content-between">
                         <div className="row ng-star-inserted">
-                            <div className="col-md-12 p-3 border-bottom ng-star-inserted">
-                                <div className="d-flex align-items-center mb-2">
-                                    <div className="rev-img d-inline-block mr-3">
-                                        <img className="obj-cover  ng-star-inserted ng-lazyloaded" src="https://horsebnb.s3.us-east-2.amazonaws.com/Uploads/Images/Original/1669956667967-disney-6993478__340.png" />
+
+                            {(Array.isArray(review) && review.length) ? review?.map((e: any, indx: any) =>
+
+                                <div className="col-md-12 p-3 border-bottom ng-star-inserted">
+                                    <div className="d-flex align-items-center mb-2">
+                                        <div className="rev-img d-inline-block mr-3">
+                                            <img className="obj-cover  ng-star-inserted ng-lazyloaded" alt='' src={
+                                                isImage(e?.attributes?.profile_image)
+                                                    ?
+                                                    `${HenceForthApi.API_FILE_ROOT_SMALL}${e?.attributes?.profile_image}`
+                                                    :
+                                                    (e?.attributes?.profile_image)
+                                            } />
+                                        </div>
+                                        <div className="d-flex flex-column flex-grow-1">
+                                            <h6 className="text-black font-medium-bold mb-0">{e?.attributes?.displayName}</h6>
+                                            <p className="text-line font-small mb-0">{(new Date(e?.attributes?.createdAt).toLocaleDateString())}</p>
+                                        </div>
                                     </div>
-                                    <div className="d-flex flex-column flex-grow-1">
-                                        <h6 className="text-black font-medium-bold mb-0">preet preet </h6>
-                                        <p className="text-line font-small mb-0">Dec 2, 2022, 1:16 PM</p>
-                                    </div>
+                                    <p className="font-regular-sm m-0 quotes three-line-ellipsis"> {e?.attributes?.content}
+                                    </p>
                                 </div>
-                                <p className="font-regular-sm m-0 quotes three-line-ellipsis"> review given by user
-                                </p>
-                            </div>
-                            <div className="col-md-12 mb-4 d-flex justify-content-center align-items-center ng-star-inserted">
-                                <button className="btn btn-primary my-3">Show More Reviews</button>
-                            </div>
+                            )
+                                :
+                                <div className="text-center fw-bold">
+                                    <h3 className='text-primary' >No Reviews Yet!!..</h3>
+                                </div>
+                            }
+                            {(Array.isArray(review) && review.length) ?
+                                <div className="col-md-12 mb-4 d-flex justify-content-center align-items-center ng-star-inserted">
+                                    <button className="btn btn-primary my-3">Show More Reviews</button>
+                                </div>
+                                :
+                                ""
+                            }
                         </div>
                     </div>
                 </div>
@@ -250,7 +292,7 @@ const BookingDetails = () => {
                             <img src={security} className="seurity-img pr-3" />
                             <div className="d-flex flex-column align-items-start">
                                 <p className="text-black fw-300 mt-0">To protect your payment, never transfer money or communicate outside of the HorseBnB website or app.</p>
-                                <button type="button" className="btn btn-outline-danger ng-star-inserted">Contact host </button>
+                                <button type="button" className="btn btn-outline-danger ng-star-inserted" onClick={() => { setShowContactHost(true) }}>Contact host </button>
                             </div>
                         </div>
                     </div>
@@ -282,12 +324,12 @@ const BookingDetails = () => {
                                                     <div className="row m-0">
                                                         <div className="col-12 p-0 d-flex">
                                                             <div className="image-about-detail flex-grow-1 pr-2">
-                                                                <h6 >business </h6>
+                                                                <h6 >{e.title}</h6>
                                                             </div>
 
                                                             <div className="starimg">
                                                                 <img src={grade} alt="" />
-                                                                <span >4</span>
+                                                                <span >{rating}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -296,14 +338,12 @@ const BookingDetails = () => {
                                         </Link>
                                     </div>
                                 )}
-
-
                             </div>
                         </div>
                     </div>
                 </div>
                 {/* <.......container-End..............> */}
-            </div>
+            </div>) : <ContactHost setShowContactHost={setShowContactHost} isImage={isImage} count={count} setCount={setCount} hostImg={hostImg} title={title} amenities={amenities} description={description} hostName={hostName} />}
 
         </>
     )

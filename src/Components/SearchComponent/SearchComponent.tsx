@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import "./SearchComponent.css"
 import mapImg from "../Images/map.svg"
@@ -17,25 +17,20 @@ const SearchComponent = (props: props) => {
 
     const [types, setTypes] = useState<number>(type)
     const [loading, setLoading] = useState<boolean>(false)
-    const [state, setstate] = useState({
-        shortTerm: []
-    })
+    const [state, setstate] = useState<any>([])
     HenceForthApi.setToken(localStorage.getItem('token'))
 
     const getCardData = async () => {
         setLoading(true)
         let res1 = (await HenceForthApi.listing.querylisting(types, 50, 1)).data
-        console.log(res1);
         setLoading(false)
-        setstate({
-            shortTerm: res1
-        })
-
+        setstate(res1)
     }
 
     const handleRow = (e: any) => {
         setCheck(e.target.checked)
     }
+
     const handleType = async (e: any) => {
         let types = e.target.value
         setTypes(types);
@@ -46,8 +41,6 @@ const SearchComponent = (props: props) => {
         // eslint-disable-next-line
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }, [types])
-
-    console.log(types);
     return (
         <>
             <div className="container-fluid">
@@ -94,7 +87,7 @@ const SearchComponent = (props: props) => {
                                 <span className="visually-hidden">Loading...</span>
                             </div>}
                         </div>
-                        {state.shortTerm.map((e: any, index: any) =>
+                        {state.map((e: any, index: any) =>
                             <div className="d-flex flex-column flex-md-row border-bottom py-4 ng-star-inserted"><div className="position-relative"><div className="result-img mr-3">
                                 <img alt="..." className="obj-cover  ng-star-inserted ng-lazyloaded" src={`${HenceForthApi.API_FILE_ROOT_MEDIUM}${e?.attributes?.publicData?.cover_photo?.url}`} />
                             </div>
@@ -111,16 +104,14 @@ const SearchComponent = (props: props) => {
                                     </div>
                                 </div>
                                 <div className="font-medium flex-grow-1 d-flex align-items-end justify-content-end">
-                                    <button className="btn btn-primary mt-3">View Details</button>
+                                  <Link to={`/bookingdetails/${e    ?.id?.uuid}`}>  <button className="btn btn-primary mt-3">View Details</button> </Link>
                                 </div>
                             </div>
                         )}
                     </div>
                     <div className={!check ? 'col-lg-6' : "d-none"}>Map</div>
                 </div>
-            </div>
-
-
+            </div>  
         </>
     )
 }

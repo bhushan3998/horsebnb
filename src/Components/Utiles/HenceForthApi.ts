@@ -55,6 +55,13 @@ querylisting:( pub_type:number,  perPage:number,  page:number)=>
 requests.get(`/listings/query?pub_type=${pub_type}&perPage=${perPage}&page=${page}`)
 }
 
+const reviewListing = {
+  bookingReviews: (listingId: number) =>
+    requests.get(
+      `/bookings/reviews?listingId=${listingId}&state=public&include=author`
+    )
+
+}
 
 const Auth = {
   availabiltycreate: (info: any) =>
@@ -113,6 +120,7 @@ export default {
   // Reports,
   Auth,
   listing,
+  reviewListing,
   // Administrator,
   // Staff,
   // Common,
