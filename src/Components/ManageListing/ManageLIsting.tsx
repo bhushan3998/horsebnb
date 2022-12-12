@@ -8,15 +8,12 @@ const ManageListing = () => {
     const ManageListing = async () => {
         let allres = await HenceForthApi.Auth.listedalltype()
         setAllData(allres.data)
-
     }
     console.log(allData);
     useEffect(() => {
         ManageListing()
     }, [])
 
-
-    
     return (
         <>
             <div className="min-frame-height py-5">
@@ -58,10 +55,10 @@ const ManageListing = () => {
                                                     </div>
                                                 </td>
                                                 <td >
-                                                   <Link to={""}> <button className="btn btn-outline-dark px-3" tabIndex={0}>
+                                                    <Link to={""}> <button className="btn btn-outline-dark px-3" tabIndex={0}>
                                                         {e.attributes.state}</button>
 
-                                                        </Link>
+                                                    </Link>
                                                 </td>
                                                 <td >
                                                     {e.attributes.publicData.type === 1 ? <span className="ng-star-inserted"> Short Term Stalls </span> : e.attributes.publicData.type === 2 ? <span className="ng-star-inserted"> Monthly Term Stalls </span> : e.attributes.publicData.type !== 3 ? <span className="ng-star-inserted"> Host For Guest </span> : <span className="ng-star-inserted"> Host Advantures </span>}
