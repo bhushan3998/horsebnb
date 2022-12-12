@@ -6,15 +6,15 @@ import CompletedSteps from "./CompletedSteps"
 import finishListing from "../Images/finish_your_listing.svg"
 import backArrow from "../Images/chevron-left-primary.svg"
 
-type props ={
-    setSteps:(value : Array<number>) => void 
+type props = {
+    setSteps: (value: Array<number>) => void
     steps: Array<number>,
     spinner: boolean,
     setSpinner: (value: boolean) => void
 }
 const LastStep = (props: props) => {
-const {steps , setSteps , spinner , setSpinner}=props
-    let [ coverPhoto , setCoverPhoto  ] = useState<string>("")
+    const { steps, setSteps, spinner, setSpinner } = props
+    let [coverPhoto, setCoverPhoto] = useState<string>("")
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/LastStep/:id`)
 
@@ -34,48 +34,48 @@ const {steps , setSteps , spinner , setSpinner}=props
         // eslint-disable-next-line 
     }, [])
 
-   
-    
+
+
     const allSteps = [
         {
             id: 1,
             step: "Title",
-            url: "create-stall/step1" ,
-            stepNumber:1
+            url: "create-stall/step1",
+            stepNumber: 1
         },
         {
             id: 2,
             step: "Stalls",
             url: `create-stallNumberOfStalls/${match?.params.id}`,
-            stepNumber:3
+            stepNumber: 3
 
         },
         {
             id: 3,
             step: "Location",
             url: `create-stall/YourLocation/${match?.params.id}`,
-            stepNumber:5
+            stepNumber: 5
 
         },
         {
             id: 4,
             step: "Amenities",
             url: `create-stall/Amenities/${match?.params.id}`,
-            stepNumber:6
+            stepNumber: 6
 
         },
         {
             id: 5,
             step: "Photos",
             url: `create-stall/AddPhotos/${match?.params.id}`,
-            stepNumber:7
+            stepNumber: 7
 
         },
         {
             id: 6,
             step: "Description",
             url: `create-stall/Description/${match?.params.id}`,
-            stepNumber:8
+            stepNumber: 8
 
         },
         // {id:7, step:"Profile Photo" , url:"Timmings/:id"},
@@ -83,45 +83,45 @@ const {steps , setSteps , spinner , setSpinner}=props
             id: 7,
             step: "Check in and Check out",
             url: `create-stall/Timmings/${match?.params.id}`,
-            stepNumber:9
+            stepNumber: 9
 
         },
         {
             id: 8,
             step: "Agreement",
             url: `create-stall/Availability/${match?.params.id}`,
-            stepNumber:14
+            stepNumber: 14
 
         },
         {
             id: 9,
             step: "Calendar Availability",
             url: `create-stall/Calender/${match?.params.id}`,
-            stepNumber:15
+            stepNumber: 15
 
         },
         {
             id: 10,
             step: "Pricing",
             url: `create-stall/Pricing/${match?.params.id}`,
-            stepNumber:11
+            stepNumber: 11
 
         },
         {
             id: 11,
             step: "Stripe Connect",
             url: `create-stall/StripeConnect/${match?.params.id}`,
-            stepNumber:12
+            stepNumber: 12
             // checked: {}
         },
     ]
 
 
-    const lastStep= () => {
+    const lastStep = () => {
         setSpinner(true)
-            navigate(`/manage-listing/publish-listing/${match?.params.id}`)
-            setSpinner(false)
-        }
+        navigate(`/manage-listing/publish-listing/${match?.params.id}`)
+        setSpinner(false)
+    }
 
 
     return (
@@ -168,10 +168,9 @@ const {steps , setSteps , spinner , setSpinner}=props
                                     </Link>
                                 </div>
                                 <div className="">
-                                    
-                                        <button className="btn my-3 px-3 text-white" style={{ background: "rgb(0, 164, 180)" }} disabled={spinner} onClick={lastStep}> {!spinner ?   " Next" : <Spinner/>}
-                                        </button>
-                                    
+                                    <button className="btn my-3 px-3 text-white" style={{ background: "rgb(0, 164, 180)" }} disabled={spinner} onClick={lastStep}> {!spinner ? " Next" : <Spinner />}
+                                    </button>
+
                                 </div>
                             </div>
                         </div>

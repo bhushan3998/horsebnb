@@ -11,12 +11,12 @@ const AdPublish = () => {
     const match = useMatch('/manage-listing/publish-listing/:id')
     HenceForthApi.setToken(localStorage.getItem('token'));
     const navigate = useNavigate()
-
     const [coverImg, setCoverImg] = useState({ url:"" as string})
     const [check, setCheck] = useState<any>()
     const [amount, setAmount ] = useState<string>()
-
+    
     useEffect(() => {
+        
         const getData = async () => {
             try {
                 let res = await HenceForthApi.Auth.Listid(match?.params.id)
@@ -63,9 +63,7 @@ const AdPublish = () => {
                 theme: "light",
             })
         }
-
     }
-
     console.log(check);
 
     return (

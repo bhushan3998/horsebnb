@@ -5,13 +5,13 @@ import readyToLearn from "../Images/ready_to_learn.svg"
 import "./HostStalls.css"
 
 type props = {
-    getStartedShow: ()=> void 
+    getStartedShow: () => void
 }
 
-const HostStalls = ( props: props) => {
-    const { getStartedShow }= props
+const HostStalls = (props: props) => {
+    const { getStartedShow } = props
 
-return (
+    return (
         <>
             <div className="container-fluid">
 
@@ -37,7 +37,7 @@ return (
                 <div className="stepsInHosting">
                     <div className="padd-t-host">
                         <h3 className="text-center text-black hosting">Hosting in 3 steps</h3>
-                                    <hr className="host-stall-hr py-5" />
+                        <hr className="host-stall-hr py-5" />
                         <div className="row">
                             <div className="col-md-4 mb-4 mb-md-0">
                                 <div className="h-100 border p-5 p-lg-4 br-4">
@@ -64,15 +64,15 @@ return (
                     </div>
                 </div>
                 <div className="bottomCoverImg pt-4">
-                    <div className="host-earn padd-y-sm container-fluid" style={{backgroundColor: '#00a4b4'}}>
+                    <div className="host-earn padd-y-sm container-fluid" style={{ backgroundColor: '#00a4b4' }}>
                         <div className="container">
                             <div className="row justify-content-between align-items-center">
                                 <div className="col-md-4 mb-5 mb-md-0">
-                                    <img src={readyToLearn} alt="" className="w-100"/>
+                                    <img src={readyToLearn} alt="" className="w-100" />
                                 </div>
                                 <div className="col-md-4">
                                     <h4 className="text-dark mb-5">Ready to earn ?</h4>
-                                <Link to={"/create-stall/step1"}><button className="btn btn-outline-light" tabIndex={0}  onClick={getStartedShow}>Get started</button></Link>
+                                    <Link to={"/create-stall/step1"}><button className="btn btn-outline-light" tabIndex={0} onClick={getStartedShow}>Get started</button></Link>
                                 </div>
                             </div>
                         </div>

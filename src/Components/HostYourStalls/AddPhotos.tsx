@@ -203,7 +203,7 @@ const AddPhotos = (props: props) => {
                                             <img src={deleteImg} height="18px" />
                                         </span>
                                         <span className="del-bg del-bg2 border">
-                                            <img src={deleteImg} height="18px" />
+                                            <img src={edit} height="18px" />
                                             <input type="file" className="d-none" />
                                         </span>
                                     </div>): ""}

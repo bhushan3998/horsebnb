@@ -24,10 +24,10 @@ const BookingDetails = () => {
         setState(res)
         setHostData(hostRes)
     }
-    
+
     useEffect(() => {
         getUserData()
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }, [id])
     console.log(state);
     console.log(hostData);
@@ -140,25 +140,25 @@ const BookingDetails = () => {
                     </div>
                     <div className="col-md-6 col-lg-4">
                         <div id="booking-data" className="booking-data p-3">
-                          
-                                <div className="border br-6 row mx-0">
-                                    <div className="d-flex w-100 ng-star-inserted">
-                                        <div className="border-right col-6 p-2 px-3">
-                                            <label htmlFor="enddate" className="color-light-grey position-relative d-flex justify-content-center flex-column align-items-center p-2 px-3 text-black font-mini fw-700">
-                                                <input id="enddate" className="date-picker-input text-black font-mini fw-700 ng-untouched ng-pristine ng-invalid" />CHECK-IN <p className="mb-0 font-small fw-300 mt-0" >  </p>
-                                            </label>
-                                        </div>
-                                        <div className="col-6 p-2 px-3">
-                                            <label htmlFor="enddate1" className="color-light-grey position-relative d-flex justify-content-center flex-column align-items-center p-2 px-3 text-black font-mini fw-700">
-                                                <input id="enddate1" className="date-picker-input text-black font-mini fw-700 ng-untouched ng-pristine ng-invalid" />CHECK-OUT <p className="mb-0 font-small fw-300 mt-0">  </p>
-                                            </label>
-                                        </div>
+
+                            <div className="border br-6 row mx-0">
+                                <div className="d-flex w-100 ng-star-inserted">
+                                    <div className="border-right col-6 p-2 px-3">
+                                        <label htmlFor="enddate" className="color-light-grey position-relative d-flex justify-content-center flex-column align-items-center p-2 px-3 text-black font-mini fw-700">
+                                            <input id="enddate" className="date-picker-input text-black font-mini fw-700 ng-untouched ng-pristine ng-invalid" />CHECK-IN <p className="mb-0 font-small fw-300 mt-0" >  </p>
+                                        </label>
                                     </div>
-                                    <div className="w-100 border-top p-2 px-3 stall-dropdown">
-                                        <span className="d-flex justify-content-center p-2 font-small fw-700 ng-star-inserted"> ADD STALLS </span>
+                                    <div className="col-6 p-2 px-3">
+                                        <label htmlFor="enddate1" className="color-light-grey position-relative d-flex justify-content-center flex-column align-items-center p-2 px-3 text-black font-mini fw-700">
+                                            <input id="enddate1" className="date-picker-input text-black font-mini fw-700 ng-untouched ng-pristine ng-invalid" />CHECK-OUT <p className="mb-0 font-small fw-300 mt-0">  </p>
+                                        </label>
                                     </div>
                                 </div>
-                         
+                                <div className="w-100 border-top p-2 px-3 stall-dropdown">
+                                    <span className="d-flex justify-content-center p-2 font-small fw-700 ng-star-inserted"> ADD STALLS </span>
+                                </div>
+                            </div>
+
                             <table className="table borderless details-table mb-0">
                                 <tbody className="ng-star-inserted">
                                     <tr >
