@@ -6,8 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import HenceForthApi from "../Utiles/HenceForthApi";
 
 type props = {
-    adSteps: any
-    setAdSteps: any;
+    adSteps: Array<number>
+    setAdSteps: (value : Array<number>) => void;
 }
 const AdStep9 = (props: props) => {
     const { adSteps, setAdSteps } = props
@@ -19,7 +19,6 @@ const AdStep9 = (props: props) => {
             setAdSteps(res.data.attributes.publicData.stepsCompleted)
         }
         catch (error) {
-
         }
     }
 

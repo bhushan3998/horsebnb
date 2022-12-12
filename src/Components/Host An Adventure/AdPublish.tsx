@@ -10,11 +10,9 @@ const AdPublish = () => {
     HenceForthApi.setToken(localStorage.getItem('token'));
     const navigate = useNavigate()
 
-    const [coverImg, setCoverImg] = useState<any>()
-    const [check, setCheck] = useState()
+    const [coverImg, setCoverImg] = useState({ url:"" as string})
+    const [check, setCheck] = useState<any>()
     const [amount, setAmount ] = useState<string>()
-
-
 
     useEffect(() => {
         const getData = async () => {

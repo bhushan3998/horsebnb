@@ -4,13 +4,13 @@ import { toast, ToastContainer } from "react-toastify"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
-    steps: any ,
+    steps: Array<number> ,
 }
 const GuestStep1 = (props: props) => {
  const { steps} = props
 
 const [title , setTitle]= useState<string>("")
-const [res , setRes] = useState<any>([])
+
     const navigate = useNavigate()
     let step1 = async () => {
         if (title) {

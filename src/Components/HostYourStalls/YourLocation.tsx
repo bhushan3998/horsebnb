@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react"
 import { Link, useMatch , useNavigate } from "react-router-dom"
+import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props ={
     steps: Array<number>,
-    setSteps: any,
+    setSteps: (value : Array<number>) => void,
+    spinner: boolean,
+    setSpinner: (value: boolean) => void
     // stepAdd: (val : number) => void
 }
 
 const YourLocation = (props : props) => {
-    const {steps , setSteps }=props
+    const {steps , setSteps , spinner , setSpinner }=props
     const [location , setLocation] = useState<string>("")
         
     const navigate = useNavigate()
@@ -38,7 +41,10 @@ const YourLocation = (props : props) => {
             }
         }
         try {
+            setSpinner(true)
             await HenceForthApi.Auth.Updatedlisting(list)
+            setSpinner(false)
+
         } catch (error) {
             console.log(error);
             
@@ -99,7 +105,7 @@ const YourLocation = (props : props) => {
                                                 </button>
                                                 </Link>
                                             </a>
-                                            <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" style={{ background: "rgb(0, 164, 180)" }} onClick={addLocation}> Next
+                                            <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={addLocation}> {!spinner ?   " Next" : <Spinner/>}
                                             </button>
                                         </div>
                                     </div>

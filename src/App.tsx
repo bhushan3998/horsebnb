@@ -53,26 +53,14 @@ function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
   const [steps, setSteps] = useState<Array<number>>([])
   const [stepsRun, setStepsRun] = useState<number>(0)
-
+  const [spinner , setSpinner] =useState<boolean>(false)
   const [pageNumber , setPageNumber] =  useState<any>({})
 
   console.log(steps);
 
-
-
-
-
   const saveAndExit = (x: any) => {
     setStepsRun(x)
   }
-
-
-
-
-
-
-  
-
 
   HenceForthApi.setToken(localStorage.getItem("token"))
   const getStartedShow = async () => {
@@ -89,18 +77,18 @@ function App() {
           <Route path='*' element={<Components getStartedShow={getStartedShow} token={token} saveAndExit={saveAndExit} setToken={setToken} />}>
             <Route index element={<ExploreHorsebnb setPageNumber={setPageNumber} pageNumber={pageNumber} />} />
             <Route path='hostStalls' element={<HostStalls getStartedShow={getStartedShow} />} />
-            <Route path='create-stall/step1' element={<Step1  setSteps={setSteps} steps={steps}  />} />
-            <Route path='create-stall/NumberOfStalls/:id' element={<NumberOfStalls setSteps={setSteps} stepsRun={stepsRun} steps={steps} />} />
-            <Route path='create-stall/YourLocation/:id' element={<YourLocation setSteps={setSteps} steps={steps} />} />
-            <Route path='create-stall/Amenities/:id' element={<Amenities setSteps={setSteps} steps={steps} />} />
-            <Route path='create-stall/AddPhotos/:id' element={<AddPhotos getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} />} />
-            <Route path='create-stall/Description/:id' element={<Description getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} />} />
-            <Route path='create-stall/Timmings/:id' element={<Timmings getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} />} />
-            <Route path='create-stall/Availability/:id' element={<Availability getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} />} />
-            <Route path='create-stall/Calender/:id' element={<Calender getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} />} />
-            <Route path='create-stall/Pricing/:id' element={<Pricing getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} />} />
-            <Route path='create-stall/StripeConnect/:id' element={<StripeConnect setSteps={setSteps} steps={steps} />} />
-            <Route path='create-stall/LastStep/:id' element={<LastStep setSteps={setSteps} steps={steps} />} />
+            <Route path='create-stall/step1' element={<Step1  setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/NumberOfStalls/:id' element={<NumberOfStalls setSteps={setSteps} stepsRun={stepsRun} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/YourLocation/:id' element={<YourLocation setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/Amenities/:id' element={<Amenities setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/AddPhotos/:id' element={<AddPhotos getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/Description/:id' element={<Description getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/Timmings/:id' element={<Timmings getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/Availability/:id' element={<Availability getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/Calender/:id' element={<Calender getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/Pricing/:id' element={<Pricing getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/StripeConnect/:id' element={<StripeConnect setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/LastStep/:id' element={<LastStep setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
 
             {/* <Route path='create-stall/Publish/:id' element={<Publish />} /> */}
 

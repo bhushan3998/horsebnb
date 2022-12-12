@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
+import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import "./AddPhotos.css"
 
@@ -8,17 +9,19 @@ import "./AddPhotos.css"
 type props = {
     getStartedShow: () => void,
     steps: Array<number> ,
-    setSteps: any,
+    setSteps: (value : Array<number>) => void,
+    spinner: boolean,
+    setSpinner: (value: boolean) => void
     // stepAdd: (val: number) => void
 }
 
 const AddPhotos = (props: props) => {
-    const { getStartedShow , steps, setSteps } = props
-    const [checkCoverImg, setCheckCoverImg] = useState<any>({
-        caption: null,
-        id: '',
-        priority: 0,
-        url: ""
+    const { getStartedShow , steps, setSteps , spinner , setSpinner } = props
+    const [checkCoverImg, setCheckCoverImg] = useState({
+        caption: null as string | null,
+        id: '' as string ,
+        priority: 0 as number,
+        url: "" as string
     })
 
     const [imgfile, setImgFile] = useState<Array<object>>([])
@@ -51,6 +54,8 @@ const AddPhotos = (props: props) => {
         e.preventDefault();
         let files = e.target.files[0];
         try {
+           
+            
             let imgApi = (await HenceForthApi.Auth.Uploadimage("file", files))
             await uploadImg([...imgfile, { url: imgApi.filename, id: imgApi.id }])
             listId()
@@ -143,8 +148,11 @@ const AddPhotos = (props: props) => {
         }
         if (checkCoverImg) {
             try {
+                setSpinner(true)
                 await HenceForthApi?.Auth?.Updatedlisting(list)
                 navigate(`/create-stall/Description/${match?.params.id}`)
+                setSpinner(false)
+                
             } catch (error) {
                 console.log(error);
             }
@@ -219,7 +227,7 @@ const AddPhotos = (props: props) => {
                                         className="pr-1" /> Back
                                 </button>
                             </Link>
-                            <button className="btn my-3 px-3 text-white" onClick={nextPage} style={{ background: "rgb(0, 164, 180)" }}> Next
+                            <button className="btn my-3 px-3 text-white" onClick={nextPage} disabled={spinner} style={{ background: "rgb(0, 164, 180)" }}> {!spinner ?   " Next" : <Spinner/>}
                             </button>
                         </div>
                     </div>

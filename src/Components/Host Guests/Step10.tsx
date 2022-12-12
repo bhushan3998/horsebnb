@@ -5,14 +5,14 @@ import HenceForthApi from "../Utiles/HenceForthApi"
 
 
 type props = {
-    setSteps: any ,
-    steps: Array<number>
+    steps: Array<number>,
+    setSteps: (value : Array<number> ) => void
 }
 
 
 const Step10 = (props: props) => {
  const {steps , setSteps}= props
-    const [check , setCheck] = useState()
+    const [check , setCheck] = useState<any>()
 
 
     const navigate = useNavigate()
@@ -40,7 +40,7 @@ const Step10 = (props: props) => {
                 stepsCompleted:[...steps , 14] 
             }
         }
-        if ( check===true) {
+        if ( check === true) {
             
             try {
                 await HenceForthApi.Auth.Updatedlisting(list)

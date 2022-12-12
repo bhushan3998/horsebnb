@@ -5,8 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import HenceForthApi from "../Utiles/HenceForthApi";
 
 type props = {
-    steps: any,
-    setSteps: any
+    steps: Array<number>,
+    setSteps: (value : Array<number> ) => void
 }
 const Step3 = (props: props) => {
 

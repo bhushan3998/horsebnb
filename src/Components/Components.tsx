@@ -5,7 +5,7 @@ import Navbar from './Navbar/Navbar'
 type props = {
   getStartedShow: () => void
   token: string | null,
-  setToken: any,
+  setToken: (token : string | null) => void ,
   saveAndExit : (value: any) => void
 }
 export const Components = (props: props) => {

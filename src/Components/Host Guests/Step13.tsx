@@ -5,17 +5,14 @@ import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
     steps : Array<number>,
-    setSteps:any,
+    setSteps:(value : Array<number> ) => void,
 }
 
 const Step13 = (props: props) => {
  const {steps , setSteps} = props 
 
-
-
     const navigate = useNavigate()
     const match = useMatch(`/create-guest/Step13/:id`)
-
     const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)

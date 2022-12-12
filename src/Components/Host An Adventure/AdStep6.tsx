@@ -4,8 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HenceForthApi from "../Utiles/HenceForthApi";
 type props = {
-    adSteps: any
-    setAdSteps: any;
+    adSteps: Array<number>
+    setAdSteps: (value : Array<number>) => void;
 }
 
 const AdStep6 = (props: props) => {

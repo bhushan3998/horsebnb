@@ -3,19 +3,22 @@ import { Link, useMatch, useNavigate } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Spinner from "../Spinner/Spinner";
 
 type props = {
     getStartedShow: () => void,
         steps: Array<number> ,
-        setSteps: any
+        setSteps: (value : Array<number>) => void,
+        spinner: boolean,
+        setSpinner: (value: boolean) => void
         // stepAdd: (val: number) => void
 }
 const Description = (props: props) => {
-    const {steps , setSteps , getStartedShow }=props
+    const {steps , setSteps , getStartedShow  , spinner , setSpinner}=props
 
     const [state, setstate] = useState({
-        description: "",
-        extra_detail: ""
+        description: "" as string,
+        extra_detail: "" as string
     })
     const [checked, setChacked] = useState<string | number | readonly string[] | undefined>()
     console.log(checked);
@@ -44,7 +47,7 @@ const Description = (props: props) => {
     const postDescription = async () => {
         if (state.description && state.extra_detail) {
             try {
-                
+                setSpinner(true);
                 (await HenceForthApi.Auth.Updatedlisting({
                     description: state.description,
                     id: match?.params.id,
@@ -54,6 +57,7 @@ const Description = (props: props) => {
                         stepsCompleted: [...steps , 8],
                     }
                 }))
+                setSpinner(false)
                 
                 navigate(`/create-stall/Timmings/${match?.params.id}`)
             }
@@ -111,7 +115,7 @@ const Description = (props: props) => {
                                     <img src="https://horsebnb.com/assets/img/chevron-left-primary.svg" className="pr-1" alt="" /> Back
                                 </button>
 
-                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " style={{ background: "rgb(0, 164, 180)" }} onClick={postDescription}> Next
+                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={postDescription}> {!spinner ?   " Next" : <Spinner/>}
                                 </button>
 
                             </div>

@@ -1,24 +1,20 @@
 import { useEffect, useState } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
+import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import CompletedSteps from "./CompletedSteps"
 
 type props ={
-    setSteps:any 
-    steps: Array<number>
+    setSteps:(value : Array<number>) => void 
+    steps: Array<number>,
+    spinner: boolean,
+    setSpinner: (value: boolean) => void
 }
-
 const LastStep = (props: props) => {
-const {steps , setSteps}=props
-    let [ coverPhoto , setCoverPhoto ] = useState<string>("")
-
-
-
-
+const {steps , setSteps , spinner , setSpinner}=props
+    let [ coverPhoto , setCoverPhoto  ] = useState<string>("")
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/LastStep/:id`)
-
-
 
     const listId = async () => {
         try {
@@ -120,8 +116,10 @@ const {steps , setSteps}=props
 
 
     const lastStep= () => {
+        setSpinner(true)
             navigate(`/manage-listing/publish-listing/${match?.params.id}`)
-    }
+            setSpinner(false)
+        }
 
 
     return (
@@ -169,7 +167,7 @@ const {steps , setSteps}=props
                                 </div>
                                 <div className="">
                                     
-                                        <button className="btn my-3 px-3 text-white" style={{ background: "rgb(0, 164, 180)" }} onClick={lastStep}> Next
+                                        <button className="btn my-3 px-3 text-white" style={{ background: "rgb(0, 164, 180)" }} disabled={spinner} onClick={lastStep}> {!spinner ?   " Next" : <Spinner/>}
                                         </button>
                                     
                                 </div>

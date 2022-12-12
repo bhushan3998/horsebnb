@@ -2,17 +2,20 @@ import { error } from "console"
 import { useEffect, useState } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
+import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
     getStartedShow: ()=>void,
     steps: Array<number> ,
-    setSteps: any,
+    setSteps: (value : Array<number>) => void,
+    spinner: boolean,
+    setSpinner: (value: boolean) => void
     // stepAdd: (val: number) => void
 
 }
 const Availability = (props:props) => {
-    const {steps , setSteps , getStartedShow }=props
+    const {steps , setSteps , getStartedShow , spinner , setSpinner }=props
 
     const [check , setCheck] = useState()
 
@@ -43,9 +46,11 @@ const Availability = (props:props) => {
             }
         }
         try {
-            
+            setSpinner(true)
             await HenceForthApi.Auth.Updatedlisting(list)
             navigate(`/create-stall/Calender/${match?.params.id}`)
+            setSpinner(false)
+
         } catch (error) {
             console.log(error);
             
@@ -73,7 +78,7 @@ const Availability = (props:props) => {
                         <div className="d-flex justify-content-between border-top mt-auto">
                          <Link to={"/create-stall/Timmings"}>   <button type="button" className="btn btn-transparent font-regular my-3 px-0">
                                 <img src="../../.././../assets/img/chevron-left-primary.svg" className="pr-1" alt="" /> Back </button></Link>
-                           <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={setAvailability}> Next </button>
+                           <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={setAvailability}> {!spinner ?   " Next" : <Spinner/>} </button>
                         </div>
                     </div>
                 </div>

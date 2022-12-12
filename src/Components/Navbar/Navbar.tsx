@@ -6,7 +6,7 @@ import HiddenNavbar from './HiddenNavbar'
 type props = {
   getStartedShow: () => void , 
   token: string | null,
-  setToken : any,
+  setToken : (token : string | null) => void,
   saveAndExit: (value: any) => void,
   
 }

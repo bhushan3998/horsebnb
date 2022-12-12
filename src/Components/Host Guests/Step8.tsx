@@ -4,8 +4,8 @@ import { toast, ToastContainer } from "react-toastify"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
-    setSteps: any,
-    steps: Array<number>
+    steps: Array<number>,
+    setSteps: (value : Array<number> ) => void
 }
 
 const Step8 = (props: props) => {
@@ -13,8 +13,8 @@ const Step8 = (props: props) => {
     const { steps, setSteps } = props
 
     const [state, setState] = useState({
-        description: "",
-        extra_detail: ""
+        description: "" as string,
+        extra_detail: "" as string
 
     })
 

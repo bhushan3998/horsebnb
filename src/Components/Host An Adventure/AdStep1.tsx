@@ -4,11 +4,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HenceForthApi from "../Utiles/HenceForthApi";
 type props = {
-    adSteps: any
+    adSteps: Array<number>
+  
 }
 
 const AdStep1 = ({ adSteps }: props) => {
-
     HenceForthApi.setToken(localStorage.getItem("token"))
     const navigate = useNavigate()
 
@@ -17,7 +17,7 @@ const AdStep1 = ({ adSteps }: props) => {
 
     const postStep1Data = async () => {
         try {
-            // if (title) {
+            if (title) {
             let res = await HenceForthApi.Auth.createdraftlisting({
                 title: title,
                 publicData: {
@@ -30,19 +30,19 @@ const AdStep1 = ({ adSteps }: props) => {
             })
             console.log(res);
             navigate(`/add-experience/step2/${res.data.id.uuid}`);
-            // }
-            // else {
-            //     toast('🦄 Please fill the details', {
-            //         position: "top-right",
-            //         autoClose: 1000,
-            //         hideProgressBar: false,
-            //         closeOnClick: true,
-            //         pauseOnHover: true,
-            //         draggable: true,
-            //         progress: undefined,
-            //         theme: "light",
-            //     });
-            // }
+            }
+            else {
+                toast('🦄 Please fill the details', {
+                    position: "top-right",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
         } catch (error) {
             console.log(error);
         }

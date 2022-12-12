@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
+import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
     getStartedShow: () => void,
     steps: Array<number> ,
-    setSteps: any,
+    setSteps: (value : Array<number>) => void,
+    spinner: boolean,
+    setSpinner: (value: boolean) => void
     // stepAdd: (value: any) => void
 }
 const Pricing = (props: props) => {
-    const {steps , setSteps , getStartedShow }=props
+    const {steps , setSteps , getStartedShow , spinner , setSpinner }=props
 
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/Pricing/:id`)
@@ -17,7 +20,7 @@ const Pricing = (props: props) => {
         listing_price: 0 as number,
         bookingAcceptType: 0 as number,
     })
-    const handleState = (e: any) => {
+    const handleState = (e:any) => {
         setstate({
             ...state,
             [e.target.name]: e.target.value
@@ -49,10 +52,11 @@ const Pricing = (props: props) => {
             }
         }
         try {
-
             // stepAdd(11)
-
+            setSpinner(true)
             await HenceForthApi.Auth.Updatedlisting(list)
+            setSpinner(false)
+
             navigate(`/create-stall/StripeConnect/${match?.params.id}`)
         } catch (error) {
             console.log(error);
@@ -99,7 +103,7 @@ const Pricing = (props: props) => {
                                     </button>
                                 </Link>
 
-                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " style={{ background: "rgb(0, 164, 180)" }} onClick={setPricing}> Next
+                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " style={{ background: "rgb(0, 164, 180)" }} disabled={spinner} onClick={setPricing}> {!spinner ?   " Next" : <Spinner/>}
                                 </button>
                             </div>
                         </div>

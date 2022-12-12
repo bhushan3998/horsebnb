@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
+import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 
 type props = {
     steps: Array<number>,
-    setSteps: any,
+    setSteps: (value : Array<number>) => void,
+    spinner: boolean,
+    setSpinner: (value: boolean) => void
     // stepAdd:(val: number) => void
 }
 
 const StripeConnect = (props: props) => {
-    const { steps, setSteps } = props
+    const { steps, setSteps , spinner , setSpinner } = props
 
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/StripeConnect/:id`)
@@ -70,7 +73,7 @@ const StripeConnect = (props: props) => {
                                 </button>
                             </Link>
                             <Link to="/create-stall/L">
-                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " style={{ background: "rgb(0, 164, 180)" }}> Next
+                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " disabled={spinner} style={{ background: "rgb(0, 164, 180)" }}> {!spinner ?   " Next" : <Spinner/>}
                                 </button>
                             </Link>
                         </div>

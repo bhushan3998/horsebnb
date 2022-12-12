@@ -4,7 +4,7 @@ import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
     steps: Array<number> ,
-    setSteps: any
+    setSteps: (value : Array<number>) => void
 }
 
 const Step11 = (props: props) => {

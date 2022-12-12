@@ -11,8 +11,8 @@ const BookingDetails = () => {
         let hostRes = (await HenceForthApi.Auth.hostProfile(res.id.hostId, 3, 1)).data
         setState(res)
         setHostData(hostRes)
-
     }
+    
     useEffect(() => {
         getUserData()
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});

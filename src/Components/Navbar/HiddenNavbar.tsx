@@ -5,7 +5,7 @@ import SaveAndExit from '../SaveAndExit/SaveandExit';
 // import { match } from 'assert';
 
 type props = {
-  setToken: any
+  setToken: (token: string | null) => void
   getStartedShow: () => void
   saveAndExit: (value: any) => void
 }

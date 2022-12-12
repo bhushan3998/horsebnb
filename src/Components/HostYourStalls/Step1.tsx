@@ -6,22 +6,24 @@ import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
     steps: Array<number>,
-    setSteps: any,
+    setSteps: (value: Array<number>) => void ,
+    spinner: boolean,
+    setSpinner: (value: boolean) => void
     // stepAdd: (val: number) => void
 }
 
 const Step1 = (props: props) => {
 
-    const { setSteps, steps } = props
+    const { setSteps, steps , spinner , setSpinner } = props
     const [stallType, setStallType] = useState()
     const [title, setTitle] = useState<string>("")
     const navigate = useNavigate()
-    const [state , setState] =useState<boolean>(false)
+    
 
     const step1 = async () => {
         if (stallType && title) {
             try {
-                setState(true)
+                setSpinner(true)
                 let res = await HenceForthApi.Auth.createdraftlisting({
                     title: title,
                     publicData: {
@@ -29,6 +31,7 @@ const Step1 = (props: props) => {
                         type: parseInt(stallType)
                     }
                 })
+                setSpinner(false)
                 navigate(`/create-stall/NumberOfStalls/${res.data.id.uuid}`)
             } catch (error) {
                 console.log(error);
@@ -71,9 +74,9 @@ const Step1 = (props: props) => {
                                     </select>
                                     <h2 className="heading-big mt-4">Create a title for your listing?</h2>
                                     <p>Catch guest's attention with a listing title that highlights what makes your place special. This can not be your business name.</p>
-                                    <input type="text" placeholder="Enter title" name="title" className="form-control mt-4" disabled={state} value={title} onChange={(e: any) => { setTitle(e.target.value) }} />
+                                    <input type="text" placeholder="Enter title" name="title" className="form-control mt-4" disabled={spinner} value={title} onChange={(e: any) => { setTitle(e.target.value) }} />
                                     <button type="button" className="btn btn-primary px-3 py-2 mt-4 position-relative d-flex align-items-center justify-content-center" style={{ background: "#00A4B4" }} onClick={step1}
-                                    > {!state ?   " Continue" : <Spinner/>}</button>
+                                    > {!spinner ?   " Continue" : <Spinner/>}</button>
                                 </form>
                             </div>
                         </div>

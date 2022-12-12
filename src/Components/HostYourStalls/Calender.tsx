@@ -1,16 +1,19 @@
 import { useEffect } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
+import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
     getStartedShow: ()=>void,
     
     steps: Array<number> ,
-    setSteps: any
+    setSteps: (value : Array<number>) => void,
+    spinner: boolean,
+    setSpinner: (value: boolean) => void
     // stepAdd: (val:number)=> void
 }
 const Calender = (props: props) => {
-    const {steps , setSteps , getStartedShow }=props
+    const {steps , setSteps , getStartedShow , spinner , setSpinner }=props
 
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/Calender/:id`)
@@ -39,7 +42,11 @@ const Calender = (props: props) => {
             }
         }
         try {
+            setSpinner(true)
+
            await HenceForthApi.Auth.Updatedlisting(list) 
+           setSpinner(false)
+
         } catch (error) {
             
         }
@@ -60,7 +67,7 @@ const Calender = (props: props) => {
                     <div className="d-flex justify-content-between border-top mt-5">
                        <Link to={'/create-stall/Availability'}><button type="button" className="btn btn-transparent font-regular my-3 px-0" tabIndex={0}>
                             <img src="" className="pr-1" alt="" /> Back </button> </Link> 
-                      <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={setCalender}> Next
+                      <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={setCalender}> {!spinner ?   " Next" : <Spinner/>}
                         </button>
                     </div>
                 </div>

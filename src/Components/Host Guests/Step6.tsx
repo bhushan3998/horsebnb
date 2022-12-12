@@ -5,16 +5,14 @@ import { toast, ToastContainer } from "react-toastify";
 import HenceForthApi from "../Utiles/HenceForthApi";
 
 type props = {
-    setSteps: any,
-    steps: Array<number>
+    steps: Array<number>,
+    setSteps: (value : Array<number> ) => void
 }
 
 const Step6 = (props: props) => {
 
     const {steps , setSteps} = props
-
     const [checked, setChecked] = useState<Array<string>>([])
-
     const navigate = useNavigate();
     const match = useMatch(`/create-guest/Step6/:id`)
 
@@ -66,7 +64,6 @@ const Step6 = (props: props) => {
                 navigate(`/create-guest/Step7/${match?.params.id}`)
             } catch (error) {
                 console.log(error);
-                
             }
         } else {
             toast('Select any  one offer', {

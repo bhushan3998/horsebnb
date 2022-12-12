@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props ={
     steps: Array<number>,
-    setSteps: any,
+    setSteps: (value: Array<number>)=> void,
     stepsRun:number
+    spinner: boolean,
+    setSpinner: (value: boolean) => void
     // stepAdd: (val: number) => void
 }
 const NumberOfStalls = (props: props) => {
-    const {steps , setSteps,stepsRun } = props
+    const {steps , setSteps,stepsRun , spinner , setSpinner } = props
     let [count, setCount] = useState<number>(1)
     // console.log(count);  
 
@@ -39,11 +42,14 @@ const NumberOfStalls = (props: props) => {
         }
         try {
             if(count){
+                setSpinner(true)
                 await HenceForthApi.Auth.Updatedlisting(list)
                 navigate(`/create-stall/YourLocation/${match?.params.id}`)
+                setSpinner(false)
+
             }else{
                 toast('Please fill  count', {
-                    position: "top-right",
+                position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -101,7 +107,8 @@ const NumberOfStalls = (props: props) => {
                                         <Link to={"/create-stall/step1"}><button className="btn border-0 font-regular px-0 my-3" style={{ color: "rgb(0, 164, 180)" }}>
                                             <img src="https://horsebnb.com/assets/img/chevron-left-primary.svg" alt="" className="ps-1" /> Back</button></Link>
                                     </a>
-                                   <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" style={{ background: "rgb(0, 164, 180)" }} onClick={setStallsCount} > Next</button>
+                                   <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={setStallsCount} > {!spinner ?   " Next" : <Spinner/>}
+                                   </button>
                                 </div>
                             </div>
                         </div>

@@ -4,8 +4,8 @@ import { toast, ToastContainer } from "react-toastify"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
-    setSteps: any,
-    steps: Array<number>
+    steps: Array<number>,
+    setSteps: (value : Array<number> ) => void
 }
 
 const Step7 = (props: props) => {
@@ -13,11 +13,11 @@ const Step7 = (props: props) => {
     const { steps, setSteps } = props
 
 
-    const [checkCoverImg, setCheckCoverImg] = useState<any>({
-        caption: null,
-        id: '',
-        priority: 0,
-        url: ""
+    const [checkCoverImg, setCheckCoverImg] = useState({
+        caption: null as string | null,
+        id: '' as string ,
+        priority: 0 as number,
+        url: "" as string
     })
 
     const [imgfile, setImgFile] = useState<Array<object>>([])

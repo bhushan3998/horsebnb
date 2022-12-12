@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import "./HostGuests.css"
 
 type props = {
-    getStartedShow: ()=> void
+    getStartedShow: () => void
 }
 
 const HostGuests = (props: props) => {

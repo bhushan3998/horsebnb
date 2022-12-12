@@ -4,8 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HenceForthApi from "../Utiles/HenceForthApi";
 type props = {
-    adSteps: any
-    setAdSteps: any;
+    adSteps: Array<number>
+    setAdSteps: (value : Array<number>) => void;
 }
 
 const AdStep4 = (props: props) => {
@@ -16,8 +16,8 @@ const AdStep4 = (props: props) => {
     const navigate = useNavigate()
 
     const [state, setstate] = useState({
-        description: "",
-        extra_detail: "",
+        description: "" as string,
+        extra_detail: "" as string,
     })
     const updateState = (e: any) => {
         setstate({
@@ -40,7 +40,7 @@ const AdStep4 = (props: props) => {
         list()
     })
     const postStep4Data = async () => {
-        // if (state.description && state.extra_detail) {
+        if (state.description && state.extra_detail) {
         try {
             (await HenceForthApi.Auth.Updatedlisting({
                 description: state.description,
@@ -59,18 +59,18 @@ const AdStep4 = (props: props) => {
             console.log(error);
 
         }
-        // } else {
-        //     toast('🦄 Please Enter Details', {
-        //         position: "top-right",
-        //         autoClose: 2000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //         draggable: true,
-        //         progress: undefined,
-        //         theme: "light",
-        //     })
-        // }
+        } else {
+            toast('🦄 Please Enter Details', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
 
     }
 

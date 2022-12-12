@@ -4,7 +4,7 @@ import HenceForthApi from "../Utiles/HenceForthApi";
 
 type props = {
     steps: Array<number>,
-    setSteps: any,
+    setSteps: (value : Array<number> ) => void
 }
 
 
@@ -23,7 +23,6 @@ const Step5 = (props: props) => {
         }
     }
     useEffect(() => {
-        // getStartedShow()
         listId()
         // eslint-disable-next-line 
     }, [])

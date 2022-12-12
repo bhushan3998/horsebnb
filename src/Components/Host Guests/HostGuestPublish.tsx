@@ -8,7 +8,7 @@ const HostGuestPublish = () => {
     HenceForthApi.setToken(localStorage.getItem('token'));
     const navigate = useNavigate()
 
-    const [coverImg, setCoverImg] = useState<string>()
+    const [coverImg, setCoverImg] = useState<string>("")
 
 
     useEffect(() => {

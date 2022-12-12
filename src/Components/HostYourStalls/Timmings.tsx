@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 type props = {
     getStartedShow: () => void,
     steps: Array<number> ,
-    setSteps: any,
+    setSteps: (value : Array<number>) => void,
+    spinner: boolean,
+    setSpinner: (value: boolean) => void
     // stepAdd: (val: number) => void
 }
 
 const Timmings = (props: props) => {
-    const {steps , setSteps , getStartedShow  }=props
+    const {steps , setSteps , getStartedShow , spinner , setSpinner  }=props
 
     const [arrive, setArrive] = useState<string>("")
     const [leave, setLeave] = useState<string>("")
@@ -42,8 +45,11 @@ const Timmings = (props: props) => {
         }
         try {
             if (arrive && leave) {
+                setSpinner(true)
                 
                 await HenceForthApi.Auth.Updatedlisting(list)
+                setSpinner(false)
+
                 navigate(`/create-stall/Availability/${match?.params.id}`)
             } else {
                 toast('select Options', {
@@ -88,8 +94,8 @@ const Timmings = (props: props) => {
                                 <img src="" alt="" className="pr-1" />
                                 Back
                             </button></Link>
-                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={uploadTimings}>
-                                Next
+                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={uploadTimings}>
+                            {!spinner ?   " Next" : <Spinner/>}
                             </button>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useLocation, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import "./SearchComponent.css"
 
@@ -7,14 +7,13 @@ type props = {
 
     pageNumber: any,
     setPageNumber: any
-
 }
 
 
 const SearchComponent = (props: props) => {
     const { pageNumber, setPageNumber } = props
     const [check, setCheck] = useState<boolean>(true)
-    const { type } = useParams() as any
+    const { type } = useParams()  as any
 
     const [types, setTypes] = useState<number>(type)
     const [loading, setLoading] = useState<boolean>(false)
@@ -37,7 +36,6 @@ const SearchComponent = (props: props) => {
     const handleRow = (e: any) => {
         setCheck(e.target.checked)
     }
-
     const handleType = async (e: any) => {
         let types = e.target.value
         setTypes(types);
@@ -48,10 +46,10 @@ const SearchComponent = (props: props) => {
         // eslint-disable-next-line
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }, [types])
+
     console.log(types);
     return (
         <>
-
             <div className="container-fluid">
                 <div className="row">
                     <div className={!check ? `col-lg-12 overflow-scroll px-5` : `col-lg-6 overflow-scroll px-5`} style={{ height: '90vh' }}>

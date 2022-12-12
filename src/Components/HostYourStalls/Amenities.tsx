@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link, useMatch , useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Spinner from "../Spinner/Spinner";
 import HenceForthApi from "../Utiles/HenceForthApi";
 
 type props ={
     steps: Array<number> ,
-    setSteps: any
+    setSteps: (value : Array<number>) => void,
+    spinner: boolean,
+    setSpinner: (value: boolean) => void
     // stepAdd: (val: number) => void
 }
 
 const Amenities = (props:props) => {
 
-    const {steps , setSteps } = props 
+    const {steps , setSteps , spinner , setSpinner } = props 
 
     const navigate = useNavigate()
     const [checked, setChecked] = useState<Array<string>>([]);
@@ -56,8 +59,12 @@ const uploadAmenities = async() => {
 
     try {
         if (checked) {
+            setSpinner(true)
+
             await HenceForthApi.Auth.Updatedlisting(list)
             navigate(`/create-stall/AddPhotos/${match?.params.id}`)
+            setSpinner(false)
+
             // stepAdd(6)
             
             
@@ -157,7 +164,7 @@ const uploadAmenities = async() => {
                                 <img src="https://horsebnb.com/assets/img/chevron-left-primary.svg" alt="" className="ps-1" /> Back
                             </button>
                         </a>
-                        <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" style={{ background: "rgb(0, 164, 180)" }} onClick={uploadAmenities}> Next
+                        <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={uploadAmenities}> {!spinner ?   " Next" : <Spinner/>}
                         </button>
                     </div>
                 </div>

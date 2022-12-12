@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, useMatch, useNavigate, useSearchParams } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi";
 type props = {
-    adSteps: any
-    setAdSteps: any;
+    adSteps: Array<number>
+    setAdSteps: (value : Array<number>) => void;
 }
 
 const AdStep2 = (props: props) => {
@@ -21,7 +21,6 @@ const AdStep2 = (props: props) => {
 
         }
     }
-
     useState(() => {
         list()
     })
@@ -60,7 +59,6 @@ const AdStep2 = (props: props) => {
                                     <p className="font-small-bold my-3">Please input your exact address. Guests will not be able to see your exact address until they have made a booking.</p>
                                     <button className="btn btn-sky-outline-lg my-3 mb-4 position-relative d-flex align-items-center justify-content-center" style={{ border: "1px solid rgb(0, 164, 180)" }}>
                                         <img src="../../Horsebnb Assets/near_me.svg" alt="" className="img-fluid" />Use current location </button>
-
                                 </div>
                                 <div className="d-flex justify-content-between mt-5 mb-0 border-top">
                                     <Link to="">
