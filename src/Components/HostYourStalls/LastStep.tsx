@@ -3,6 +3,8 @@ import { Link, useMatch, useNavigate } from "react-router-dom"
 import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import CompletedSteps from "./CompletedSteps"
+import finishListing from "../Images/finish_your_listing.svg"
+import backArrow from "../Images/chevron-left-primary.svg"
 
 type props ={
     setSteps:(value : Array<number>) => void 
@@ -140,7 +142,7 @@ const {steps , setSteps , spinner , setSpinner}=props
                     <div className="col-md-7 text-center d-flex flex-column">
                         <div className="d-flex align-items-center flex-column justify-content-center flex-grow-1">
                             <div className="d-flex flex-column w-md-100">
-                                <img alt="" src="https://horsebnb.com/assets/img/create-stalls/finish_your_listing.svg" width="400px" className="d-none d-md-block" />
+                                <img alt="" src={finishListing} width="400px" className="d-none d-md-block" />
                                 <div className="px-0 mt-4 flex-basis-auto">
                                     <div className="steps-preview d-flex align-items-center justify-content-between p-3 ml-md-5">
                                         <div className="text-left">
@@ -161,7 +163,7 @@ const {steps , setSteps , spinner , setSpinner}=props
                                 <div className="">
                                     <Link to="/create-stall/StripeConnect">
                                         <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
-                                            <img alt="" src="https://horsebnb.com/assets/img/chevron-left-primary.svg" className="pr-1" /> Back
+                                            <img alt="" src={backArrow} className="pr-1" /> Back
                                         </button>
                                     </Link>
                                 </div>

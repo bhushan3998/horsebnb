@@ -4,6 +4,8 @@ import HenceForthApi from "../Utiles/HenceForthApi"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from "../Spinner/Spinner";
+import backArrow from "../Images/chevron-left-primary.svg"
+import horseImg from "../Images/horseImage.png"
 
 type props = {
     getStartedShow: () => void,
@@ -112,7 +114,7 @@ const Description = (props: props) => {
                             </div>
                             <div className="d-flex justify-content-between border-top mt-5">
                                 <button type="button" className="btn btn-transparent font-regular my-3 px-0"  >
-                                    <img src="https://horsebnb.com/assets/img/chevron-left-primary.svg" className="pr-1" alt="" /> Back
+                                    <img src={backArrow} className="pr-1" alt="" /> Back
                                 </button>
 
                                 <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={postDescription}> {!spinner ?   " Next" : <Spinner/>}
@@ -125,7 +127,7 @@ const Description = (props: props) => {
                 </div>
                 <div className="col-md-6 text-center px-md-0 d-none d-md-block">
                     <div className="py-5 h-100 d-flex align-items-center bg-light justify-content-center">
-                        <img src="https://horsebnb.com/assets/img/create-stalls/horse_image.png" width="250px" alt="" />
+                        <img src={horseImg} width="250px" alt="" />
                     </div>
                 </div>
             </div>

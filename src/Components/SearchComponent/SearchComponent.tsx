@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import "./SearchComponent.css"
-
+import mapImg from "../Images/map.svg"
 type props = {
 
     pageNumber: any,
@@ -57,7 +57,7 @@ const SearchComponent = (props: props) => {
                             <div className="d-flex flex-column">
                                 <div className="col-md-12 d-flex mt-2 mb-3 mt-md-0 align-items-center justify-content-md-end">
                                     <span className="pr-2 wsp-nowrap mx-2">
-                                        <img src="	https://horsebnb.com:8081/assets/img/map.svg" className="pr-2" alt='' />Show map </span>
+                                        <img src={mapImg} className="pr-2" alt='' />Show map </span>
 
                                     <div className="form-check form-switch">
                                         <input className='form-check-input' type="checkbox" checked={check} onChange={(e: any) => { handleRow(e) }} />

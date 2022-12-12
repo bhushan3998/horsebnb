@@ -3,18 +3,17 @@ import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HenceForthApi from "../Utiles/HenceForthApi";
+import experienceImg from "../Images/experience.png"
+
+
 type props = {
     adSteps: Array<number>
-  
 }
 
 const AdStep1 = ({ adSteps }: props) => {
     HenceForthApi.setToken(localStorage.getItem("token"))
     const navigate = useNavigate()
-
     const [title, setTitle] = useState<string>("")
-
-
     const postStep1Data = async () => {
         try {
             if (title) {
@@ -69,7 +68,7 @@ const AdStep1 = ({ adSteps }: props) => {
                         </div>
                         <div className="col-md-6 text-center px-md-0 d-none d-md-block">
                             <div className="py-5 h-100 d-flex align-items-center bg-light justify-content-center">
-                                <img src="https://horsebnb.com/assets/img/experience.png" width="350px" />
+                                <img src={experienceImg} width="350px" />
                             </div>
                         </div>
                     </div>

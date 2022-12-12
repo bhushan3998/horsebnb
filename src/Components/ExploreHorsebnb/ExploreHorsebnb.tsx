@@ -8,14 +8,17 @@ import HenceForthApi from '../Utiles/HenceForthApi';
 import Card from '../CardComponent/Card';
 import exploreBorading from "../Images/no_monthly_banner.png"
 import { Link } from 'react-router-dom';
+import emptyImg from "../Images/empty.png"
+import arrow from "../Images/blue-arw.svg"
 
-type props ={
-  pageNumber : any , 
+
+type props = {
+  pageNumber: any,
   setPageNumber: any
 }
 
 const ExploreHorsebnb = (props: props) => {
-  const {setPageNumber , pageNumber} = props
+  const { setPageNumber, pageNumber } = props
 
   const [dataList, setDataList] = useState<any>({
     shortTerm: [],
@@ -32,11 +35,11 @@ const ExploreHorsebnb = (props: props) => {
       let res2 = (await HenceForthApi.listing.querylisting(2, 8, 1))
       let res3 = (await HenceForthApi.listing.querylisting(3, 8, 1))
       let res4 = (await HenceForthApi.listing.querylisting(4, 8, 1))
-      console.log(res1.data); 
+      console.log(res1.data);
       console.log(res1.meta);
       setPageNumber(res1.meta)
-      
-      
+
+
       setDataList({
         ...dataList,
         shortTerm: res1.data,
@@ -76,9 +79,7 @@ const ExploreHorsebnb = (props: props) => {
         </div>
         <div className="row d-flex">
           {explore.map((e: any, index) =>
-
             <div className="col-3" key={index}>
-
               <Link to={`/search/type=${e.id}`}  >
                 <div className="card  shadow" style={{ width: "18rem" }} />
                 <img src={e.img} style={{ height: "222px" }} className="card-img-top" alt="..." />
@@ -119,28 +120,26 @@ const ExploreHorsebnb = (props: props) => {
               uid={res1?.id?.uuid}
             />)
               : <div className="d-flex justify-content-center">
-                < img className='p-2' alt="" src={'https://horsebnb.com:8081/assets/img/create-stalls/empty.png'} width="253" height="168" />
+                < img className='p-2' alt="" src={emptyImg} width="253" height="168" />
               </div>}
 
           </div>
         </div>
         <Link to="/search/type=1" className="text-decoration-none">
-                    <div className="container my-3">
-                        <div className="heading h5">
-                            <span style={{ color: "#00a4b4" }}>
-                                Show all Short Term Stalls
-                            </span>
-                            <img src="https://horsebnb.com:8081/assets/img/blue-arw.svg" alt="" />
-                        </div>
-                    </div>
-                </Link>
-
+          <div className="container my-3">
+            <div className="heading h5">
+              <span style={{ color: "#00a4b4" }}>
+                Show all Short Term Stalls
+              </span>
+              <img src={arrow} alt="" />
+            </div>
+          </div>
+        </Link>
         <div className="row pt-4">
           <div className="col-md-12">
             <h4>Guest Accommodation</h4>
             <p>Traveling with your horse? Find overnight accommodations for yourself</p>
           </div>
-
           {Array.isArray(dataList.guestAcc) && dataList.guestAcc.length ? dataList.guestAcc.map((res2: any, index: any) => <Card
             description={res2?.attributes?.description}
             title={res2?.attributes?.title}
@@ -149,25 +148,20 @@ const ExploreHorsebnb = (props: props) => {
             uid={res2?.id?.uuid}
           />)
             : <div className="d-flex justify-content-center">
-              < img className='p-2' alt="" src={'https://horsebnb.com:8081/assets/img/create-stalls/empty.png'} width="253" height="168" />
+              < img className='p-2' alt="" src={emptyImg} width="253" height="168" />
             </div>}
-
         </div>
         <Link to="/search/type=2" className="text-decoration-none">
-                    <div className="container my-3">
-                        <div className="heading h5">
-                            <span style={{ color: "#00a4b4" }}>
-                            Guest Accommodation
-                            </span>
-                            <img src="https://horsebnb.com:8081/assets/img/blue-arw.svg" alt="" />
-                        </div>
-                    </div>
-                </Link>
-
-
+          <div className="container my-3">
+            <div className="heading h5">
+              <span style={{ color: "#00a4b4" }}>
+                Guest Accommodation
+              </span>
+              <img src={arrow} alt="" />
+            </div>
+          </div>
+        </Link>
         <div className="container">
-
-
           <div className="pt-3">
             <div className="container position-relative-">
               <h3>Monthly stabling for your horse</h3>
@@ -189,21 +183,21 @@ const ExploreHorsebnb = (props: props) => {
                 uid={res3?.id?.uuid}
               />)
                 : <div className="d-flex justify-content-center">
-                  < img className='p-2' alt="" src={'https://horsebnb.com:8081/assets/img/create-stalls/empty.png'} width="253" height="168" />
+                  < img className='p-2' alt="" src={emptyImg} width="253" height="168" />
                 </div>}
             </div>
           </div>
         </div>
         <Link to="/search/type=3" className="text-decoration-none">
-                    <div className="container my-3">
-                        <div className="heading h5">
-                            <span style={{ color: "#00a4b4" }}>
-                            Monthly stabling for your horse
-                            </span>
-                            <img src="https://horsebnb.com:8081/assets/img/blue-arw.svg" alt="" />
-                        </div>
-                    </div>
-                </Link>
+          <div className="container my-3">
+            <div className="heading h5">
+              <span style={{ color: "#00a4b4" }}>
+                Monthly stabling for your horse
+              </span>
+              <img src={arrow} alt="" />
+            </div>
+          </div>
+        </Link>
 
 
         <div className="container pt-4">
@@ -219,27 +213,23 @@ const ExploreHorsebnb = (props: props) => {
               title={res4?.attributes?.title}
               listing_price={res4?.attributes?.publicData?.listing_price}
               image={res4?.attributes?.publicData?.cover_photo?.url}
-              uid={res4?.id?.uuid}/>)
+              uid={res4?.id?.uuid} />)
               : <div className="d-flex justify-content-center">
-                < img className='p-2' alt="" src={'https://horsebnb.com:8081/assets/img/create-stalls/empty.png'} width="253" height="168" />
+                < img className='p-2' alt="" src={emptyImg} width="253" height="168" />
               </div>}
           </div>
         </div>
         <Link to="/search/type=4" className="text-decoration-none">
-                    <div className="container my-3">
-                        <div className="heading h5">
-                            <span style={{ color: "#00a4b4" }}>
-                            Horse Adventures
-                            </span>
-                            <img src="https://horsebnb.com:8081/assets/img/blue-arw.svg" alt="" />
-                        </div>
-                    </div>
-                </Link>
-
-
+          <div className="container my-3">
+            <div className="heading h5">
+              <span style={{ color: "#00a4b4" }}>
+                Horse Adventures
+              </span>
+              <img src={arrow} alt="" />
+            </div>
+          </div>
+        </Link>
       </div>
-
-
     </>
   )
 }

@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { Link, useMatch, useNavigate, useSearchParams } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi";
+import backArrow from "../Images/chevron-left-primary.svg"
+import experienceImg from "../Images/experience.png"
+
+
+
 type props = {
     adSteps: Array<number>
     setAdSteps: (value : Array<number>) => void;
@@ -18,7 +23,6 @@ const AdStep2 = (props: props) => {
             setAdSteps(res?.data?.attributes?.publicData?.stepsCompleted)
         }
         catch (error) {
-
         }
     }
     useState(() => {
@@ -63,7 +67,7 @@ const AdStep2 = (props: props) => {
                                 <div className="d-flex justify-content-between mt-5 mb-0 border-top">
                                     <Link to="">
                                         <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
-                                            <img src="https://horsebnb.com/assets/img/chevron-left-primary.svg" className="pr-1" alt="" /> Back
+                                            <img src={backArrow} className="pr-1" alt="" /> Back
                                         </button>
                                     </Link>
 
@@ -78,7 +82,7 @@ const AdStep2 = (props: props) => {
                     </div>
                     <div className="col-lg-6 text-center px-0">
                         <div className="h-100 d-flex py-5 align-items-center border-start justify-content-center">
-                            <img src="https://horsebnb.com/assets/img/experience.png" alt="" width="250px" />
+                            <img src={experienceImg} alt="" width="250px" />
                         </div>
                     </div>
                 </div>

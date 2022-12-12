@@ -2,10 +2,11 @@ import { useEffect } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
 import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
+import backArrow from "../Images/chevron-left-primary.svg"
+import lightBulb from "../Images/lightBulb.svg"
 
 type props = {
     getStartedShow: ()=>void,
-    
     steps: Array<number> ,
     setSteps: (value : Array<number>) => void,
     spinner: boolean,
@@ -43,7 +44,6 @@ const Calender = (props: props) => {
         }
         try {
             setSpinner(true)
-
            await HenceForthApi.Auth.Updatedlisting(list) 
            setSpinner(false)
 
@@ -51,7 +51,6 @@ const Calender = (props: props) => {
             
         }
         navigate(`/create-stall/Pricing/${match?.params.id}`)
-
     }
 
 
@@ -66,7 +65,7 @@ const Calender = (props: props) => {
                 <div className="col-md-6">
                     <div className="d-flex justify-content-between border-top mt-5">
                        <Link to={'/create-stall/Availability'}><button type="button" className="btn btn-transparent font-regular my-3 px-0" tabIndex={0}>
-                            <img src="" className="pr-1" alt="" /> Back </button> </Link> 
+                            <img src={backArrow} className="pr-1" alt="" /> Back </button> </Link> 
                       <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={setCalender}> {!spinner ?   " Next" : <Spinner/>}
                         </button>
                     </div>
@@ -74,7 +73,7 @@ const Calender = (props: props) => {
                 <div className="col-md-6 px-md-0 d-none d-md-block">
                     <div className="py-5 h-100 d-flex align-items-start px-md-5 bg-light justify-content-start">
                         <div className="border col-md-8 px-4 py-4 mb-4 bg-white">
-                            <img src="https://horsebnb.com/assets/img/lightbulb.svg" alt="" height="32px" className="mb-4" />
+                            <img src={lightBulb} alt="" height="32px" className="mb-4" />
                             <p className="font-small">Important! Your calendar default set up is to show as available for the next 90 days. If you are unable to host any of those days please make sure to block off those days on your calendar so you don't get any unwanted bookings.</p>
                         </div>
                     </div>

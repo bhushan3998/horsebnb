@@ -2,6 +2,18 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import HenceForthApi from '../Utiles/HenceForthApi';
 import './BookingDetails.css'
+import starImg from "../Images/star-red.svg"
+import shareImg from "../Images/share.svg"
+import shortLong from "../Images/short_long.png"
+import spray from "../Images/spray.png"
+import home from "../Images/home.png"
+import tag from "../Images/tag.png"
+import horseOne from "../Images/horse_one.png"
+import security from "../Images/security.svg"
+import grade from "../Images/grade.png"
+
+
+
 const BookingDetails = () => {
     const { id } = useParams() as any
     const [state, setState] = useState<any>([])
@@ -29,13 +41,13 @@ const BookingDetails = () => {
                 <div className="d-flex justify-content-between mb-4">
                     <div className="d-flex">
                         <span className="text-black d-flex align-items-start">
-                            <img alt="star" src="https://horsebnb.com:8081/assets/img/star-red.svg" className="pr-1" /> 4 <span className="text-lite"> &nbsp;(1 Reviews)</span>
+                            <img alt="star" src={starImg} className="pr-1" /> 4 <span className="text-lite"> &nbsp;(1 Reviews)</span>
                         </span>
                         <span className="text-underline ml-2"> mohali,  Punjab </span>
                     </div>
                     <div >
                         <a className="pointer text-underline wsp-nowrap">
-                            <img src="https://horsebnb.com:8081/assets/img/share.svg" alt='share' className="pe-2" />Share </a>
+                            <img src={shareImg} alt='share' className="pe-2" />Share </a>
                     </div>
                 </div>
 
@@ -69,7 +81,7 @@ const BookingDetails = () => {
                         <div className="border-bottom py-3">
                             <div className="d-flex align-items-center">
                                 <span >
-                                    <img src="https://horsebnb.com:8081/assets/img/short_long.png" className="pr-3 w-100 ng-star-inserted" />
+                                    <img src={shortLong} className="pr-3 w-100 ng-star-inserted" />
                                 </span>
                                 <span >
                                     <h5 className="m-0 font-medium-bold text-black ng-star-inserted">{(state?.attributes?.publicData?.type) === 1 ? "Short Term Stalls" : (state?.attributes?.publicData?.type) === 2 ? " Monthly Accomendition" : (state?.attributes?.publicData?.type) === 3 ? "Guest Accomendition" : " Horse Accomendition "}</h5>
@@ -80,7 +92,7 @@ const BookingDetails = () => {
                         <div className="border-bottom py-3">
                             <div className="d-flex align-items-center">
                                 <span >
-                                    <img src="	https://horsebnb.com:8081/assets/img/spray.png" className="pr-3" />
+                                    <img src={spray} className="pr-3" />
                                 </span>
                                 <span >
                                     <h5 className="m-0 font-medium-bold text-black">Friendly and responsive host</h5>
@@ -91,7 +103,7 @@ const BookingDetails = () => {
                         <div className="border-bottom py-3">
                             <div className="d-flex align-items-center">
                                 <span >
-                                    <img src="https://horsebnb.com:8081/assets/img/home.png" className="pr-3" />
+                                    <img src={home} className="pr-3" />
                                 </span>
                                 <span >
                                     <h5 className="m-0 font-medium-bold text-black">Great check-in experience</h5>
@@ -102,7 +114,7 @@ const BookingDetails = () => {
                         <div className="border-bottom py-3">
                             <div className="d-flex align-items-start">
                                 <span >
-                                    <img src="https://horsebnb.com:8081/assets/img/tag.png" className="pr-3" />
+                                    <img src={tag} className="pr-3" />
                                 </span>
                                 <span >
                                     <h5 className="m-0 font-medium-bold text-black">Cancellation policy</h5>
@@ -128,7 +140,7 @@ const BookingDetails = () => {
                     </div>
                     <div className="col-md-6 col-lg-4">
                         <div id="booking-data" className="booking-data p-3">
-                            <form className="ng-untouched ng-pristine ng-invalid">
+                          
                                 <div className="border br-6 row mx-0">
                                     <div className="d-flex w-100 ng-star-inserted">
                                         <div className="border-right col-6 p-2 px-3">
@@ -146,7 +158,7 @@ const BookingDetails = () => {
                                         <span className="d-flex justify-content-center p-2 font-small fw-700 ng-star-inserted"> ADD STALLS </span>
                                     </div>
                                 </div>
-                            </form>
+                         
                             <table className="table borderless details-table mb-0">
                                 <tbody className="ng-star-inserted">
                                     <tr >
@@ -185,7 +197,7 @@ const BookingDetails = () => {
                         {(state?.attributes?.publicData?.amenities)?.map((e: any, index: any) =>
                             <div className="col-md-4 ng-star-inserted">
                                 <div className="d-flex align-items-center mb-3 pe-3 fw-600" key={index}>
-                                    <img src="https://horsebnb.com:8081/assets/img/horse_one.png" className="pr-2 pe-1" />{e}
+                                    <img src={horseOne} className="pr-2 pe-1" />{e}
                                 </div>
                             </div>
                         )}
@@ -196,7 +208,7 @@ const BookingDetails = () => {
                 <div className="">
                     <div className="mt-5">
                         <h3 className="font-22-ebold mb-4 text-black d-flex">
-                            <img src="	https://horsebnb.com:8081/assets/img/starr.svg" className="pr-2" /> 4 (1 Reviews) </h3>
+                            <img src={starImg} className="pr-2" /> 4 (1 Reviews) </h3>
                     </div>
                     <div className="justify-content-between">
                         <div className="row ng-star-inserted">
@@ -235,7 +247,7 @@ const BookingDetails = () => {
                     </div>
                     <div className="col-md-6 px-4 my-4">
                         <div className="d-flex align-items-start">
-                            <img src="https://horsebnb.com:8081/assets/img/security.svg" className="seurity-img pr-3" />
+                            <img src={security} className="seurity-img pr-3" />
                             <div className="d-flex flex-column align-items-start">
                                 <p className="text-black fw-300 mt-0">To protect your payment, never transfer money or communicate outside of the HorseBnB website or app.</p>
                                 <button type="button" className="btn btn-outline-danger ng-star-inserted">Contact host </button>
@@ -274,7 +286,7 @@ const BookingDetails = () => {
                                                             </div>
 
                                                             <div className="starimg">
-                                                                <img src="https://horsebnb.com:8081/assets/img/profile/grade-24px.png" alt="" />
+                                                                <img src={grade} alt="" />
                                                                 <span >4</span>
                                                             </div>
                                                         </div>

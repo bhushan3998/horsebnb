@@ -3,6 +3,9 @@ import { Link, useMatch } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HenceForthApi from "../Utiles/HenceForthApi";
+import backArrow from "../Images/chevron-left-primary.svg"
+import experienceImg from "../Images/experience.png"
+
 type props = {
     adSteps: Array<number>
     setAdSteps: (value : Array<number>) => void;
@@ -31,7 +34,6 @@ const AdStep6 = (props: props) => {
             }
             catch (error) {
                 console.log(error);
-
             }
         } else {
             toast('🦄 Please select group size', {
@@ -45,7 +47,6 @@ const AdStep6 = (props: props) => {
                 theme: "light",
             });
         }
-
     }
     const list = async () => {
         try {
@@ -53,7 +54,8 @@ const AdStep6 = (props: props) => {
             setAdSteps(res.data.attributes.publicData.stepsCompleted)
         }
         catch (error) {
-
+            console.log(error);
+            
         }
     }
 
@@ -64,7 +66,6 @@ const AdStep6 = (props: props) => {
         <>
             <div className="row mx-0">
                 <ToastContainer />
-
                 <div className="col-md-6 py-5 steps-frame-height overflow-y-auto">
                     <div className="col-md-11 col-lg-8 px-0 mx-auto flex-column d-flex h-100">
                         <h4 className="heading-big text-black">Enter maximum group size </h4>
@@ -75,7 +76,7 @@ const AdStep6 = (props: props) => {
                         <div className="d-flex justify-content-between border-top mt-auto">
                             <Link to="">
                                 <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
-                                    <img src="https://horsebnb.com/assets/img/chevron-left-primary.svg" alt="" className="pr-1" /> Back </button>
+                                    <img src={backArrow} alt="" className="pr-1" /> Back </button>
                             </Link>
                             <Link to={`/add-experience/step8/${match?.params.id}`}>
                                 <button type="button"
@@ -87,7 +88,7 @@ const AdStep6 = (props: props) => {
                 </div>
                 <div className="col-md-6 text-center px-md-0 d-none d-md-block">
                     <div className="py-5 h-100 d-flex align-items-center bg-light justify-content-center">
-                        <img src="https://horsebnb.com/assets/img/experience.png" alt="" width="350px" />
+                        <img src={experienceImg} alt="" width="350px" />
                     </div>
                 </div>
             </div>

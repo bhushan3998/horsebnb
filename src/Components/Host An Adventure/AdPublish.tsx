@@ -3,6 +3,8 @@ import { Link, useMatch, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HenceForthApi from "../Utiles/HenceForthApi";
+import checkCircle from "../Images/check-circle-primary.svg"
+import stripeConnectImg from "../Images/connect_stripe_buttin.png"
 
 
 const AdPublish = () => {
@@ -77,7 +79,7 @@ const AdPublish = () => {
                             <p >You are almost finished! If you are happy with your listing you can publish it now. If you want to edit any information you can also do that now.</p>
                             <div >
                                 <div className="d-flex border-bottom py-3">
-                                    <img src="https://horsebnb.com/assets/img/check-circle-primary.svg" className="pr-3 align-self-start" alt="" />
+                                    <img src={checkCircle} className="pr-3 align-self-start" alt="" />
                                     <div >
                                         <span className="font-medium-bold text-black d-block">Edit your listing?</span>
                                     </div>
@@ -86,7 +88,7 @@ const AdPublish = () => {
                                 <div className="border-bottom py-3">
                                     <div className="ng-star-inserted">
                                         <div className="my-3 px-0 position-relative d-flex align-items-center justify-content-center">
-                                            <img src="https://horsebnb.com/assets/img/connect_stripe_buttin.png" alt="" />
+                                            <img src={stripeConnectImg} alt="" />
                                         </div>
                                     </div>
                                     <div className="mt-5">

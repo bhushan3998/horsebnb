@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi";
+import nearMe from "../Images/nearMe.svg"
+import guestStepsImg from "../Images/guestSteps.png"
+import backArrow from "../Images/chevron-left-primary.svg"
 
 type props = {
     steps: Array<number>,
@@ -42,7 +45,7 @@ const Step5 = (props: props) => {
                         <div className="location-paragraph ng-star-inserted">
                             <p >Please input your exact address. Guests will not be able to see your exact address until they have made a booking.</p>
                             <button type="button" className="btn btn-primary lg my-3 mb-4 position-relative d-flex align-items-center justify-content-center">
-                                <img src="https://horsebnb.com/assets/img/near_me.svg" className="pr-2" />
+                                <img src={nearMe} className="pr-2" />
                                 Set Your Location
 
                             </button>
@@ -54,7 +57,7 @@ const Step5 = (props: props) => {
                             <form className="ng-untouched ng-pristine ng-invalid">
                                 <div className="d-flex justify-content-between border-top mt-5">
                                     <button type="button" className="btn btn-transparent font-regular my-3 px-0" tabIndex={0} >
-                                        <img src="https://horsebnb.com/assets/img/chevron-left-primary.svg" className="pr-1" /> Back
+                                        <img src={backArrow} className="pr-1" /> Back
                                     </button>
 
                             
@@ -70,7 +73,7 @@ const Step5 = (props: props) => {
                 </div>
                 <div className="col-md-6 text-center px-md-0 d-none d-md-block">
                     <div className="py-5 h-100 d-flex align-items-center bg-light justify-content-center">
-                        <img src="https://horsebnb.com/assets/img/guest_steps.png" width="350px" />
+                        <img src={guestStepsImg} width="350px" />
                     </div>
                 </div>
             </div>

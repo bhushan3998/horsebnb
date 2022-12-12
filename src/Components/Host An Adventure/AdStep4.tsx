@@ -3,9 +3,12 @@ import { Link, useMatch, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HenceForthApi from "../Utiles/HenceForthApi";
+import backArrow from "../Images/chevron-left-primary.svg"
+import experienceImg from "../Images/experience.png"
+
 type props = {
     adSteps: Array<number>
-    setAdSteps: (value : Array<number>) => void;
+    setAdSteps: (value: Array<number>) => void;
 }
 
 const AdStep4 = (props: props) => {
@@ -41,24 +44,23 @@ const AdStep4 = (props: props) => {
     })
     const postStep4Data = async () => {
         if (state.description && state.extra_detail) {
-        try {
-            (await HenceForthApi.Auth.Updatedlisting({
-                description: state.description,
-                id: match?.params.id,
-                publicData: {
-                    extra_detail: state.extra_detail,
-                    stepsCompleted: [
-                        ...adSteps,
-                        4
-                    ]
-                }
-            }))
-            navigate(`/add-experience/step5/${match?.params.id}`)
-        }
-        catch (error) {
-            console.log(error);
-
-        }
+            try {
+                (await HenceForthApi.Auth.Updatedlisting({
+                    description: state.description,
+                    id: match?.params.id,
+                    publicData: {
+                        extra_detail: state.extra_detail,
+                        stepsCompleted: [
+                            ...adSteps,
+                            4
+                        ]
+                    }
+                }))
+                navigate(`/add-experience/step5/${match?.params.id}`)
+            }
+            catch (error) {
+                console.log(error);
+            }
         } else {
             toast('🦄 Please Enter Details', {
                 position: "top-right",
@@ -102,7 +104,7 @@ const AdStep4 = (props: props) => {
                             <div className="d-flex justify-content-between border-top mt-5">
                                 <Link to="">
                                     <button type="button" className="btn btn-transparent font-regular my-3 px-0">
-                                        <img src="https://horsebnb.com/assets/img/chevron-left-primary.svg"
+                                        <img src={backArrow}
                                             alt="" className="pr-1" /> Back
                                     </button>
                                 </Link>
@@ -118,7 +120,7 @@ const AdStep4 = (props: props) => {
                 </div>
                 <div className="col-md-6 text-center px-md-0 d-none d-md-block">
                     <div className="py-5 h-100 d-flex align-items-center bg-light justify-content-center">
-                        <img src="https://horsebnb.com/assets/img/experience.png" width="250px" alt="" />
+                        <img src={experienceImg} width="250px" alt="" />
                     </div>
                 </div>
             </div>

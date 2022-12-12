@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
 import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
+import img from "../Images/image.png"
 
 type props = {
     steps: Array<number>,
@@ -81,7 +82,7 @@ const Step1 = (props: props) => {
                             </div>
                         </div>
                         <div className="col-md-6 col-lg-8 d-flex align-items-center justify-content-center">
-                            <img src="https://horsebnb.com/assets/img/create-stalls/image.png" width="500px" alt="" className="img-fluid" />
+                            <img src={img} width="500px" alt="" className="img-fluid" />
                         </div>
                     </div>
                 </div>

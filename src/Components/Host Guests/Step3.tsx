@@ -1,12 +1,16 @@
-import { count } from "console";
 import { useEffect, useState } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify";
 import HenceForthApi from "../Utiles/HenceForthApi";
+import subCount from "../Images/decCount.svg"
+import addCount from "../Images/addCount.svg"
+import guestStepsImg from "../Images/guestSteps.png"
+import backArrow from "../Images/chevron-left-primary.svg"
+
 
 type props = {
     steps: Array<number>,
-    setSteps: (value : Array<number> ) => void
+    setSteps: (value: Array<number>) => void
 }
 const Step3 = (props: props) => {
 
@@ -75,14 +79,14 @@ const Step3 = (props: props) => {
                             <div className="input-group d-flex justify-content-end">
                                 <div className="input-group-prepend">
                                     <button className="btn border-0" onChange={(e: any) => { setCount(e.target.value) }} onClick={() => { setCount(count - 1) }} disabled={count === 0}>
-                                        <img src="https://horsebnb.com/assets/img/remove_circle_outline.svg" alt="" width="18px" />
+                                        <img src={subCount} alt="" width="18px" />
                                     </button>
                                 </div>
                                 <input type="text" className=" form-control text-center" value={count} style={{ flex: "0.1 1 auto" }} />
                                 <div className="input-group-prepend">
                                     <button className="btn border-0" onClick={() => { setCount(count + 1) }} onChange={(e: any) => { setCount(e.target.value) }}>
 
-                                        <img src="https://horsebnb.com/assets/img/add_circle_outline.svg" alt="" width="18px" />
+                                        <img src={addCount} alt="" width="18px" />
                                     </button>
                                 </div>
                             </div>
@@ -91,7 +95,7 @@ const Step3 = (props: props) => {
                         <hr />
                         <div className="d-flex justify-content-between mt-auto border-top">
                             <button type="button" className="btn btn-transparent font-regular px-0 my-3" tabIndex={0}  >
-                                <img src="https://horsebnb.com/assets/img/chevron-left-primary.svg" className="pr-1" />
+                                <img src={backArrow} className="pr-1" />
                                 Back
                             </button>
 
@@ -104,7 +108,7 @@ const Step3 = (props: props) => {
                 </div>
                 <div className="col-md-6 text-center px-md-0 d-none d-md-block">
                     <div className="h-100 d-flex py-5 align-items-center bg-light justify-content-center">
-                        <img src="https://horsebnb.com/assets/img/guest_steps.png" width="350px" />
+                        <img src={guestStepsImg} width="350px" />
                     </div>
                 </div>
             </div>

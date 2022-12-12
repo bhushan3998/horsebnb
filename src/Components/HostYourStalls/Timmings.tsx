@@ -3,6 +3,8 @@ import { Link, useMatch, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
+import backArrow from "../Images/chevron-left-primary.svg"
+import horseImg from "../Images/horseImage.png"
 
 type props = {
     getStartedShow: () => void,
@@ -91,7 +93,7 @@ const Timmings = (props: props) => {
                         </div>
                         <div className="d-flex justify-content-between border-top btn-footer mt-auto">
                             <Link to={"create-stall/Description"}>    <button type="button" className="btn btn-transparent font-regular my-3" tabIndex={0} >
-                                <img src="" alt="" className="pr-1" />
+                                <img src={backArrow} alt="" className="pr-1" />
                                 Back
                             </button></Link>
                             <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={uploadTimings}>
@@ -102,7 +104,7 @@ const Timmings = (props: props) => {
                 </div>
                 <div className="col-lg-6 text-center px-0">
                     <div className="h-100 d-flex py-5 align-items-center border-start justify-content-center">
-                        <img src="https://horsebnb.com/assets/img/create-stalls/horse_image.png" alt="" width="250px" />
+                        <img src={horseImg} alt="" width="250px" />
                     </div>
                 </div>
             </div>

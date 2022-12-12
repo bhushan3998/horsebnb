@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
 import HenceForthApi from "../Utiles/HenceForthApi"
+import horseImg from "../Images/horseImage.png"
+import backArrow from "../Images/chevron-left-primary.svg"
 
 
 type props = {
@@ -92,7 +94,7 @@ const Step9 = (props: props) => {
                 </div>
                 <div className="col-lg-6 text-center px-0">
                     <div className="h-100 d-flex py-5 align-items-center border-start justify-content-center">
-                        <img src="https://horsebnb.com/assets/img/create-stalls/horse_image.png" alt="" width="250px" />
+                        <img src={horseImg} alt="" width="250px" />
                     </div>
                 </div>
             </div>

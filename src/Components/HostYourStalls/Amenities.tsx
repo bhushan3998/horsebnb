@@ -4,6 +4,9 @@ import { toast } from "react-toastify";
 import Spinner from "../Spinner/Spinner";
 import HenceForthApi from "../Utiles/HenceForthApi";
 
+import backArrow from "../Images/chevron-left-primary.svg"
+import horseImg from "../Images/horseImage.png"
+
 type props ={
     steps: Array<number> ,
     setSteps: (value : Array<number>) => void,
@@ -161,7 +164,7 @@ const uploadAmenities = async() => {
                     <div className="d-flex justify-content-between mt-5 mb-0 border-top">
                         <a href="/create-stall/step3/408">
                           <Link to={"/create-stall/YourLocation"}></Link>  <button className="btn border-0 font-regular px-0 my-3" style={{ color: "#00A4B4" }}>
-                                <img src="https://horsebnb.com/assets/img/chevron-left-primary.svg" alt="" className="ps-1" /> Back
+                                <img src={backArrow} alt="" className="ps-1" /> Back
                             </button>
                         </a>
                         <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={uploadAmenities}> {!spinner ?   " Next" : <Spinner/>}
@@ -170,7 +173,7 @@ const uploadAmenities = async() => {
                 </div>
                 <div className="col-lg-6 text-center px-0">
                     <div className="h-100 d-flex py-5 align-items-center border-start justify-content-center">
-                        <img src="https://horsebnb.com/assets/img/create-stalls/horse_image.png" alt="" width="250px" />
+                        <img src={horseImg} alt="" width="250px" />
                     </div>
                 </div>
             </div>

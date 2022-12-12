@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import {  useMatch, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify";
 import HenceForthApi from "../Utiles/HenceForthApi";
+import guestStepsImg from "../Images/guestSteps.png"
+import backArrow from "../Images/chevron-left-primary.svg"
 
 type props = {
     steps: Array<number>,
@@ -136,7 +138,7 @@ const Step6 = (props: props) => {
                 </div>
                 <div className="col-md-6 text-center px-md-0 d-none d-md-block">
                     <div className="py-5 h-100 d-flex align-items-center bg-light justify-content-center">
-                        <img alt="" src="https://horsebnb.com/assets/img/guest_steps.png" width="350px" />
+                        <img alt="" src={guestStepsImg} width="350px" />
                     </div>
                 </div>
             </div>

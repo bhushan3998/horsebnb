@@ -4,6 +4,12 @@ import { Link, useMatch, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HenceForthApi from "../Utiles/HenceForthApi";
+import publishImg from "../Images/publish.svg"
+import deleteImg from "../Images/delete.svg"
+import edit from "../Images/edit.png"
+import backArrow from "../Images/chevron-left-primary.svg"
+
+
 type props = {
     adSteps: Array<number>
     setAdSteps: (value : Array<number>) => void;
@@ -11,13 +17,9 @@ type props = {
 
 const AdStep5 = (props: props) => {
     const { adSteps, setAdSteps } = props
-
     const navigate = useNavigate()
-
     HenceForthApi.setToken(localStorage.getItem('token'));
-
     const match = useMatch('/add-experience/step5/:id');
-
     const [checkCoverImage, setcheckCoverImage] = useState<any>({})
     const [imgFile, setImgFile] = useState<any>([])
 
@@ -30,7 +32,6 @@ const AdStep5 = (props: props) => {
 
         }
         catch (error) {
-
         }
     }
 
@@ -51,9 +52,7 @@ const AdStep5 = (props: props) => {
         }
         catch (error) {
             console.log(error);
-
         }
-
     }
 
     const uploadImg = async (ar: any) => {
@@ -154,7 +153,7 @@ const AdStep5 = (props: props) => {
                         <p className="font-small-bold mb-4">Upload at least one photo to publish your listing. We strongly suggest adding multiple photos to attract attention to your listing. Do not include images of your barn name or contact information.</p>
                         <div className="upload-container mb-5  border border-5 border-dark p-5 text-center border-dotted">
                             <div className="">
-                                <img src="https://horsebnb.com/assets/img/publish.svg" alt="" className="mb-2" />
+                                <img src={publishImg} alt="" className="mb-2" />
                             </div>
                             <div className="">
                                 <label
@@ -174,10 +173,10 @@ const AdStep5 = (props: props) => {
                                         <div className="position-relative">
                                             <img src={`${HenceForthApi.API_FILE_ROOT_MEDIUM}${checkCoverImage?.url}`} alt="" className="rounded-1" style={{ width: "200px", height: "200px" }} />
                                             <span className="del-bg del-bg1 border">
-                                                <img src="https://horsebnb.com/assets/img/delete-24px.svg" alt="" height="18px" />
+                                                <img src={deleteImg} alt="" height="18px" />
                                             </span>
                                             <span className="del-bg del-bg2 border">
-                                                <img src="https://horsebnb.com/assets/img/create-stalls/edit.png" alt="" height="18px" />
+                                                <img src={edit} alt="" height="18px" />
                                                 <input type="file" className="d-none" />
                                             </span>
                                         </div>
@@ -189,10 +188,10 @@ const AdStep5 = (props: props) => {
                                             <div className="position-relative">
                                                 <img src={`${HenceForthApi.API_FILE_ROOT_MEDIUM}${l?.url}`} alt="" className="rounded-1" style={{ width: "200px", height: "200px" }} />
                                                 <span className="del-bg del-bg1 border">
-                                                    <img src="https://horsebnb.com/assets/img/delete-24px.svg" alt="" height="18px" />
+                                                    <img src={deleteImg} alt="" height="18px" />
                                                 </span>
                                                 <span className="del-bg del-bg2 border">
-                                                    <img src="https://horsebnb.com/assets/img/create-stalls/edit.png" height="18px" alt="" />
+                                                    <img src={edit} height="18px" alt="" />
                                                     <input type="file" className="d-none" />
                                                 </span>
                                             </div>
@@ -204,7 +203,7 @@ const AdStep5 = (props: props) => {
                         <div className="d-flex justify-content-between mt-5 border-top">
                             <Link to="">
                                 <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
-                                    <img src="https://horsebnb.com/assets/img/chevron-left-primary.svg"
+                                    <img src={backArrow}
                                         alt=""
                                         className="pr-1" /> Back
                                 </button>

@@ -49,13 +49,11 @@ import SearchComponent from './Components/SearchComponent/SearchComponent';
 import BookingDetails from './Components/BookingDetails/BookingDetails';
 
 function App() {
-
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
   const [steps, setSteps] = useState<Array<number>>([])
   const [stepsRun, setStepsRun] = useState<number>(0)
   const [spinner , setSpinner] =useState<boolean>(false)
   const [pageNumber , setPageNumber] =  useState<any>({})
-
   console.log(steps);
 
   const saveAndExit = (x: any) => {
@@ -89,14 +87,7 @@ function App() {
             <Route path='create-stall/Pricing/:id' element={<Pricing getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/StripeConnect/:id' element={<StripeConnect setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/LastStep/:id' element={<LastStep setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
-
-            {/* <Route path='create-stall/Publish/:id' element={<Publish />} /> */}
-
             
-
-
-            
-
             <Route path='host-guests/' element={<HostGuests getStartedShow={getStartedShow} />} />
             <Route path='create-guest/step1' element={<GuestStep1 steps={steps} />} />
             <Route path='create-guest/step3/:id' element={<Step3 setSteps={setSteps} steps={steps} />} />
@@ -110,10 +101,7 @@ function App() {
             <Route path='create-guest/step12/:id' element={<Step12 setSteps={setSteps} steps={steps} />} />
             <Route path='create-guest/step13/:id' element={<Step13 setSteps={setSteps} steps={steps} />} />
             <Route path='create-guest/GuestsLastStep/:id' element={<GuestsLastStep setSteps={setSteps} steps={steps} />} />
-            {/* <Route path='create-guest/HostGuestPublish/:id' element={<HostGuestPublish  />} /> */}
-
-
-
+        
             <Route path="host-an-experience" element={<AdventureStalls />} />
             <Route path="add-experience/step1/" element={<AdStep1 adSteps={steps} />} />
             <Route path="add-experience/step2/:id" element={<AdStep2 adSteps={steps} setAdSteps={setSteps} />} />
@@ -123,21 +111,10 @@ function App() {
             <Route path="add-experience/step8/:id" element={<AdStep8 adSteps={steps} setAdSteps={setSteps} />} />
             <Route path="add-experience/step9/:id" element={<AdStep9 adSteps={steps} setAdSteps={setSteps} />} />
             <Route path="add-experience/last-step/:id" element={<AdLastStep adSteps={steps} setAdSteps={setSteps} />} />
-
-
-
             <Route path="manage-listing/publish-listing/:id" element={<AdPublish />} />
             <Route path='ManageListing' element={<ManageListing />} />
             <Route path="search/type=:type" element={<SearchComponent setPageNumber={setPageNumber} pageNumber={pageNumber} />} />
             <Route path="bookingdetails/:id" element={<BookingDetails/>} />
-
-
-
-
-          
-
-
-
           </Route>
         </Routes>
       </BrowserRouter>
