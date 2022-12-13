@@ -8,6 +8,7 @@ type props = {
   token: string | null,
   setToken : (token : string | null) => void,
   saveAndExit: (value: any) => void,
+  profileData:any,
   
 }
 
@@ -15,9 +16,10 @@ const Navbar = (props: props) => {
   const [modal, setModal] = useState<boolean>(false)
   const [userLoginEmail, setUserLoginEmail] = useState<string>("")
   const [userPassword, setUserPassword] = useState<string>("")
+
   // const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
 
-const {getStartedShow , token , setToken , saveAndExit} = props
+const {getStartedShow , token , setToken , saveAndExit , profileData} = props
 
 
   const handleToken = (token: string) => {
@@ -36,6 +38,9 @@ const {getStartedShow , token , setToken , saveAndExit} = props
       console.log(res.data.token);
       localStorage.setItem("token", res.data.token)
       handleToken(res.data.token)
+
+      
+      
     } catch (error) {
       console.log(error);
     }
@@ -77,10 +82,7 @@ const {getStartedShow , token , setToken , saveAndExit} = props
               </ul>
             </div>
           </div>
-
-
-
-          {token !== null ? <HiddenNavbar setToken={setToken} getStartedShow={getStartedShow} saveAndExit={saveAndExit} /> : (<div className="d-flex">
+          {token !== null ? <HiddenNavbar setToken={setToken} getStartedShow={getStartedShow}  saveAndExit={saveAndExit} profileData={profileData} /> : (<div className="d-flex">
             <button className="btn  border-0" data-bs-toggle="modal" data-bs-target="#loginModal" onClick={() => { setModal(true) }}>Log In</button>
             <button
               className="btn text-white ms-2"

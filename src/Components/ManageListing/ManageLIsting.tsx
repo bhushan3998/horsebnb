@@ -12,7 +12,6 @@ const ManageListing = () => {
     useEffect(() => {
         ManageListing()
     }, [])
-
     return (
         <>
             <div className="min-frame-height py-5">

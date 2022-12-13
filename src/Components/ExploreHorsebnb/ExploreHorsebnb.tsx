@@ -80,7 +80,7 @@ const ExploreHorsebnb = (props: props) => {
         <div className="row d-flex">
           {explore.map((e: any, index) =>
             <div className="col-3" key={index}>
-              <Link to={`/search/type=${e.id}`}  >
+              <Link to={`/search/type=${e.id}`}  className="text-decoration-none text-black"  >
                 <div className="card  shadow" style={{ width: "18rem" }} />
                 <img src={e.img} style={{ height: "222px" }} className="card-img-top" alt="..." />
                 <div className="card-body d-flex justify-content-between pt-3">

@@ -52,6 +52,10 @@ function App() {
   const [stepsRun, setStepsRun] = useState<number>(0)
   const [spinner , setSpinner] =useState<boolean>(false)
   const [pageNumber , setPageNumber] =  useState<any>({})
+  const [profileData , setProfileData] = useState({
+    displayName :"" as string,
+    profileImage:"" as string
+  })
   console.log(steps);
 
   const saveAndExit = (x: any) => {
@@ -62,6 +66,13 @@ function App() {
   const getStartedShow = async () => {
     try {
       let res = (await HenceForthApi.Auth.getdata()).data
+
+      setProfileData(
+        {
+        displayName : res?.attributes?.profile?.displayName,
+        profileImage: res?.attributes?.profile?.publicData?.profile_image
+        }
+      )
     } catch (error) {
       console.log(error);
     }
@@ -70,7 +81,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='*' element={<Components getStartedShow={getStartedShow} token={token} saveAndExit={saveAndExit} setToken={setToken} />}>
+          <Route path='*' element={<Components getStartedShow={getStartedShow} token={token} saveAndExit={saveAndExit} setToken={setToken} profileData={profileData} />}>
             <Route index element={<ExploreHorsebnb setPageNumber={setPageNumber} pageNumber={pageNumber} />} />
             <Route path='hostStalls' element={<HostStalls getStartedShow={getStartedShow} />} />
             <Route path='create-stall/step1' element={<Step1  setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />

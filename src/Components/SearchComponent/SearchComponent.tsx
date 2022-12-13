@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import "./SearchComponent.css"
 import mapImg from "../Images/map.svg"
+import GoogleMaps from "../GoogleMap/GoogleMaps"
 type props = {
 
     pageNumber: any,
@@ -13,7 +14,7 @@ type props = {
 const SearchComponent = (props: props) => {
     const { pageNumber, setPageNumber } = props
     const [check, setCheck] = useState<boolean>(true)
-    const { type } = useParams()  as any
+    const { type } = useParams() as any
 
     const [types, setTypes] = useState<number>(type)
     const [loading, setLoading] = useState<boolean>(false)
@@ -39,7 +40,7 @@ const SearchComponent = (props: props) => {
     useEffect(() => {
         getCardData()
         // eslint-disable-next-line
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }, [types])
     return (
         <>
@@ -104,14 +105,16 @@ const SearchComponent = (props: props) => {
                                     </div>
                                 </div>
                                 <div className="font-medium flex-grow-1 d-flex align-items-end justify-content-end">
-                                  <Link to={`/bookingdetails/${e    ?.id?.uuid}`}>  <button className="btn btn-primary mt-3">View Details</button> </Link>
+                                    <Link to={`/bookingdetails/${e?.id?.uuid}`}>  <button className="btn btn-primary mt-3">View Details</button> </Link>
                                 </div>
                             </div>
                         )}
                     </div>
-                    <div className={!check ? 'col-lg-6' : "d-none"}>Map</div>
+                    <div className={check ? 'col-lg-6' : "d-none"}>
+                        <GoogleMaps />
+                    </div>
                 </div>
-            </div>  
+            </div>
         </>
     )
 }
