@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 const ManageListing = () => {
-
     const [allData, setAllData] = useState([])
     const ManageListing = async () => {
         let allres = await HenceForthApi.Auth.listedalltype()
