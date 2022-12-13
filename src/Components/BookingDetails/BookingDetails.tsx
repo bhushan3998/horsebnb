@@ -16,6 +16,10 @@ import AddStallsModal from './AddStallsModal';
 
 
 
+
+
+
+
 const BookingDetails = () => {
     const { id } = useParams() as any
     const [state, setState] = useState<any>([])
@@ -40,6 +44,20 @@ const BookingDetails = () => {
     let hostImg: string = state?.attributes?.publicData?.host_image
     let hostName: string = state?.attributes?.publicData?.hosted_by
     // let bookingType = state?.attributes?.publicData?.type
+
+console.log(rating);
+
+
+    let c = (parseInt(rating))
+    console.log(c);
+    let ratingArray : any = []
+    for(let i=0 ; i<= parseInt(rating); i++) {
+        console.log(i);
+         ratingArray.push(i)
+        // console.log(c);
+    }
+    console.log(ratingArray);
+
 
     useEffect(() => {
         getUserData()

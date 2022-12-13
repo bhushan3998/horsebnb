@@ -4,9 +4,12 @@ import HenceForthApi from "../Utiles/HenceForthApi"
 
 const ManageListing = () => {
     const [allData, setAllData] = useState([])
+    const [totalCount , setTotalCount] = useState<number>(0)
     const ManageListing = async () => {
         let allres = await HenceForthApi.Auth.listedalltype()
         setAllData(allres.data)
+        setTotalCount(allres.meta.totalItems)
+        
     }
     console.log(allData);
     useEffect(() => {
@@ -18,7 +21,7 @@ const ManageListing = () => {
                 <div className="px-2 px-md-5">
                     <div className="row align-items-center mb-5 mx-0">
                         <div className="mr-4">
-                            <span className="heading-big">{allData.length} Listings</span>
+                            <span className="heading-big">{totalCount} Listings</span>
                         </div>
                     </div>
                     <div className="bookings-table">
@@ -53,7 +56,7 @@ const ManageListing = () => {
                                                     </div>
                                                 </td>
                                                 <td >
-                                                    <Link to={""}> <button className="btn btn-outline-dark px-3" tabIndex={0}>
+                                                    <Link to={`/manage-listing/publish-listing/${e.id.uuid}`}> <button className="btn btn-outline-dark px-3" tabIndex={0}>
                                                         {e.attributes.state}</button>
 
                                                     </Link>
