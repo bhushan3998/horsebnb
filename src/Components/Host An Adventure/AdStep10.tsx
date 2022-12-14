@@ -1,6 +1,16 @@
-import { Link } from "react-router-dom"
+import { Link, useMatch } from "react-router-dom"
 
-const AdStep10 = () => {
+type props ={
+    adSteps: Array<number>
+    setAdSteps: (value : Array<number>) => void;
+}
+const AdStep10 = (props:props) => {
+
+    const {adSteps,setAdSteps} = props
+
+
+    const match = useMatch('add-experience/step10/:id')
+
     return (
         <>
             <div className="selectCol">
@@ -11,7 +21,7 @@ const AdStep10 = () => {
                     <div className="container">
                         <div className="row">
                             <div className="col col-sm-6">
-                                <Link to="">
+                                <Link to={`/add-experience/step7/${match?.params.id}`}>
                                     <div className="selectCard ">
                                         <div className="">
                                             <i className="bi bi-calendar-check h1"></i>

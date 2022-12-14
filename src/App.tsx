@@ -45,6 +45,8 @@ import AdStep9 from './Components/Host An Adventure/AdStep9';
 import "./Components/Host An Adventure/HostAd.css"
 import SearchComponent from './Components/SearchComponent/SearchComponent';
 import BookingDetails from './Components/BookingDetails/BookingDetails';
+import AdStep10 from './Components/Host An Adventure/AdStep10';
+import AdStep7 from './Components/Host An Adventure/AdStep7';
 
 function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
@@ -117,6 +119,10 @@ function App() {
             <Route path="add-experience/step4/:id" element={<AdStep4 adSteps={steps} setAdSteps={setSteps} />} />
             <Route path="add-experience/step5/:id" element={<AdStep5 adSteps={steps} setAdSteps={setSteps} />} />
             <Route path="add-experience/step6/:id" element={<AdStep6 adSteps={steps} setAdSteps={setSteps} />} />
+            <Route path="add-experience/step7/:id" element={<AdStep7 adSteps={steps} setAdSteps={setSteps} />} />
+            <Route path="add-experience/step10/:id" element={<AdStep10 adSteps={steps} setAdSteps={setSteps} />} />
+
+
             <Route path="add-experience/step8/:id" element={<AdStep8 adSteps={steps} setAdSteps={setSteps} />} />
             <Route path="add-experience/step9/:id" element={<AdStep9 adSteps={steps} setAdSteps={setSteps} />} />
             <Route path="add-experience/last-step/:id" element={<AdLastStep adSteps={steps} setAdSteps={setSteps} />} />

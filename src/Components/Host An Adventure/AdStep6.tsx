@@ -78,7 +78,7 @@ const AdStep6 = (props: props) => {
                                 <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
                                     <img src={backArrow} alt="" className="pr-1" /> Back </button>
                             </Link>
-                            <Link to={`/add-experience/step8/${match?.params.id}`}>
+                            <Link to={`/add-experience/step10/${match?.params.id}`}>
                                 <button type="button"
                                     onClick={postStep6Data}
                                     className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center"> Next </button>
