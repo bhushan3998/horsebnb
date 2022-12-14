@@ -14,12 +14,6 @@ import grade from "../Images/grade.png"
 import ContactHost from '../ContactHost/ContactHost';
 import AddStallsModal from './AddStallsModal';
 
-
-
-
-
-
-
 const BookingDetails = () => {
     const { id } = useParams() as any
     const [state, setState] = useState<any>([])
@@ -36,6 +30,7 @@ const BookingDetails = () => {
         setState(res)
         setHostData(hostRes)
     }
+
     let title: string = state?.attributes?.title
     let amenities: Array<number> = state?.attributes?.publicData?.amenities
     let description: string = state?.attributes?.description
@@ -47,16 +42,15 @@ const BookingDetails = () => {
 
 console.log(rating);
 
-
-    let c = (parseInt(rating))
-    console.log(c);
-    let ratingArray : any = []
-    for(let i=0 ; i<= parseInt(rating); i++) {
-        console.log(i);
-         ratingArray.push(i)
-        // console.log(c);
-    }
-    console.log(ratingArray);
+    // let c = (parseInt(rating))
+    // console.log(c);
+    // let ratingArray : any = []
+    // for(let i=0 ; i<= parseInt(rating); i++) {
+    //     console.log(i);
+    //      ratingArray.push(i)
+    //     // console.log(c);
+    // }
+    // console.log(ratingArray);
 
 
     useEffect(() => {

@@ -52,7 +52,6 @@ const SearchComponent = (props: props) => {
                                 <div className="col-md-12 d-flex mt-2 mb-3 mt-md-0 align-items-center justify-content-md-end">
                                     <span className="pr-2 wsp-nowrap mx-2">
                                         <img src={mapImg} className="pr-2" alt='' />Show map </span>
-
                                     <div className="form-check form-switch">
                                         <input className='form-check-input' type="checkbox" checked={check} onChange={(e: any) => { handleRow(e) }} />
                                     </div>

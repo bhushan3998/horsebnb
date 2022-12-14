@@ -37,7 +37,6 @@ const Step6 = (props: props) => {
 
 
     console.log(checked);
-    
     const handleOffers = (e: any) => {
         const prev = checked
         const val = e.target.value

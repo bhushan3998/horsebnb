@@ -4,43 +4,76 @@ import backArrow from "../Images/chevron-left-primary.svg"
 import lightBulb from "../Images/lightBulb.svg"
 import DateModal from "./DateModal/DateModal";
 
-type props ={
+type props = {
     adSteps: Array<number>
-    setAdSteps: (value : Array<number>) => void;
+    setAdSteps: (value: Array<number>) => void;
 }
 
 
-const AdStep7 = (props:props) => {
-    const {adSteps, setAdSteps} = props
-    
+const AdStep7 = (props: props) => {
+    const { adSteps, setAdSteps } = props
+
     const match = useMatch('add-experience/step7/:id')
-    
-    const [days , setDays]= useState<Array<string>>([])
+    const [days, setDays] = useState<Array<string>>([])
+
+
+    const [state, setState] = useState<any>({
+        startTime: "" as any,
+        daysChecked: false as boolean
+    })
 
 
     const handleDays = (e: any) => {
-        let prev = days
-        let value = e.target.value
-        let lastIndex = prev.indexOf(value)
-        if(lastIndex !== -1) {
-            prev.splice(lastIndex , 1)
-        } else {
-            prev.push(value)
-        }
-        setDays([...prev])
+        setState({
+            daysChecked: e.target.checked
+        })
+        console.log(state.startTime);
+        //     let prev = days
+        //     let value = e.target.value
+        //     let lastIndex = prev.indexOf(value)
+        //     if(lastIndex !== -1) {
+        //         prev.splice(lastIndex , 1)
+        //     } else {
+        //         prev.push(value)
+        //     }
+        //     setDays([...prev])
     }
-    console.log(days);
-    
+    // console.log(days);
+
+    // var hours = dt.getHours()
+    // let minute = dt.getMinutes();
+    // hours = (hours % 12) || 12;
+    // console.log("Time is - " + hours + ":" + minute;
+
+    // function myFunction() {
+    //     var date = new Date();
+    //     var hours = date.getHours();
+    //     var minutes = date.getMinutes();
+        
+    //     // Check whether AM or PM
+    //     var newformat = hours >= 12 ? 'PM' : 'AM'; 
+        
+    //     // Find current hour in AM-PM Format
+    //     hours = hours % 12; 
+        
+    //     // To display "0" as "12"
+    //     lehours = hours ? hours : 12; 
+    //     minutes = minutes < 10 ? '0' + minutes : minutes;
+        
+    //     let t : any = document.getElementById("change").innerHTML = 
+    //       hours + ':' + minutes + ' ' + newformat as any
+    // }
 
 
-    const availabilityDays =[ 
-        {day : "Sunday"},
-        {day : "Monday"},
-        {day : "Tuesday"},
-        {day : "Wednesday"},
-        {day : "Thursday"},
-        {day : "Friday"},
-        {day : "Saturday"},
+
+    const availabilityDays = [
+        { day: "Sunday" },
+        { day: "Monday" },
+        { day: "Tuesday" },
+        { day: "Wednesday" },
+        { day: "Thursday" },
+        { day: "Friday" },
+        { day: "Saturday" },
     ]
 
 
@@ -68,32 +101,32 @@ const AdStep7 = (props:props) => {
                             <label htmlFor="" className="font-small mt-3 mb-0 fw-600">Set Schedule</label>
                             <div className="border col-auto p-2 mt-1 mb-4">
 
-                            {availabilityDays.map((e: any , index: number)=> {
-                                return(
-                                    <>
-                                <div className="p-2">
-                                    <div className="d-flex flex-wrap" >
-                                        <div className="col-md-4 p-0 d-flex justify-content-start align-items-center">
-                                            <label className="tickbox d-flex m-0 font-14" key={index} >
-                                                <input type="checkbox" className="ng-untouched ng-pristine ng-valid" data-bs-toggle="modal" data-bs-target="#exampleModal"  value={e.day} onChange={handleDays} />
-                                                <span className="checkmark">
-                                                <span >{e.day}</span>
-                                                </span>
-                                            </label>
-                                            <DateModal/>
-                                        </div>
-                                        <div className="col-md-8 mt-2 mt-md-0 p-0">
-                                            <div className="d-flex align-items-center flex-wrap">
-                                                <span className="fs-14 text-primary fw-600 cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i aria-hidden="true" className="fas fa-plus-circle pr-1">
-                                                    </i> Add Time Slots </span>
+                                {availabilityDays.map((e: any, index: number) => {
+                                    return (
+                                        <>
+                                            <div className="p-2">
+                                                <div className="d-flex flex-wrap" >
+                                                    <div className="col-md-4 p-0 d-flex justify-content-start align-items-center">
+                                                        <label className="tickbox d-flex m-0 font-14" key={index} >
+                                                            <input type="checkbox" className="ng-untouched ng-pristine ng-valid" data-bs-toggle="modal" data-bs-target="#exampleModal" value={e.day} onChange={handleDays} />
+                                                            <span className="checkmark">
+                                                                <span >{e.day}</span>
+                                                            </span>
+                                                        </label>
+                                                        <DateModal state={state} setState={setState} />
+                                                    </div>
+                                                    <div className="col-md-8 mt-2 mt-md-0 p-0">
+                                                        <div className="d-flex align-items-center flex-wrap">
+                                                            <span className="fs-14 text-primary fw-600 cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                <i aria-hidden="true" className="fas fa-plus-circle pr-1">
+                                                                </i> Add Time Slots </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>                                                                           
-                                    </>
-                                )
-                            })}
+                                        </>
+                                    )
+                                })}
 
                             </div>
                             <div className="d-flex justify-content-between border-top mt-5">
@@ -103,10 +136,10 @@ const AdStep7 = (props:props) => {
                                 </button>
                                 <Link to={`/add-experience/step7/${match?.params.id}`}>
 
-                                
-                                <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center">
-                                    Next
-                                </button>
+
+                                    <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center">
+                                        Next
+                                    </button>
                                 </Link>
                             </div>
                         </div>
