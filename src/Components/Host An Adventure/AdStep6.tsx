@@ -13,7 +13,6 @@ type props = {
 
 const AdStep6 = (props: props) => {
     const { adSteps, setAdSteps } = props
-
     const match = useMatch('add-experience/step6/:id')
     HenceForthApi.setToken(localStorage.getItem('token'))
     const [grpSize, setGrpSize] = useState<any>()

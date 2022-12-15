@@ -40,12 +40,9 @@ const AdStep5 = (props: props) => {
     }, [])
 
     const fileSelectedHandler = async (e: any) => {
-
         let files = e.target.files[0];
-
         try {
             let res = await HenceForthApi.Auth.Uploadimage('file', files)
-
             await uploadImg([...imgFile, { url: res.filename, id: res.id }])
             list()
             console.log(res);
@@ -103,12 +100,8 @@ const AdStep5 = (props: props) => {
         }
         catch (error) {
             console.log(error);
-
         }
-
     }
-
-
     const nextPage = async (ar: any) => {
         let list = {
             id: match?.params?.id,
@@ -136,8 +129,7 @@ const AdStep5 = (props: props) => {
         } catch (error) {
             console.log(error);
         }
-
-    }
+        }
 
     return (
         <>

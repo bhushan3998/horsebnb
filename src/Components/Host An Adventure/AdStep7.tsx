@@ -15,56 +15,17 @@ const AdStep7 = (props: props) => {
 
     const match = useMatch('add-experience/step7/:id')
     const [days, setDays] = useState<Array<string>>([])
+    const [daysChecked, setDaysChecked] = useState()
+    const [startTimeState, setStartTimeState] = useState<any>()
+    const [endTime , setEndTime]= useState<any>()
 
-
-    const [state, setState] = useState<any>({
-        startTime: "" as any,
-        daysChecked: false as boolean
-    })
+    const [saveTimming , setSaveTimming] = useState<any>()
 
 
     const handleDays = (e: any) => {
-        setState({
-            daysChecked: e.target.checked
-        })
-        console.log(state.startTime);
-        //     let prev = days
-        //     let value = e.target.value
-        //     let lastIndex = prev.indexOf(value)
-        //     if(lastIndex !== -1) {
-        //         prev.splice(lastIndex , 1)
-        //     } else {
-        //         prev.push(value)
-        //     }
-        //     setDays([...prev])
+        setDaysChecked(e.target.checked)
+        console.log(daysChecked);   
     }
-    // console.log(days);
-
-    // var hours = dt.getHours()
-    // let minute = dt.getMinutes();
-    // hours = (hours % 12) || 12;
-    // console.log("Time is - " + hours + ":" + minute;
-
-    // function myFunction() {
-    //     var date = new Date();
-    //     var hours = date.getHours();
-    //     var minutes = date.getMinutes();
-        
-    //     // Check whether AM or PM
-    //     var newformat = hours >= 12 ? 'PM' : 'AM'; 
-        
-    //     // Find current hour in AM-PM Format
-    //     hours = hours % 12; 
-        
-    //     // To display "0" as "12"
-    //     lehours = hours ? hours : 12; 
-    //     minutes = minutes < 10 ? '0' + minutes : minutes;
-        
-    //     let t : any = document.getElementById("change").innerHTML = 
-    //       hours + ':' + minutes + ' ' + newformat as any
-    // }
-
-
 
     const availabilityDays = [
         { day: "Sunday" },
@@ -113,7 +74,7 @@ const AdStep7 = (props: props) => {
                                                                 <span >{e.day}</span>
                                                             </span>
                                                         </label>
-                                                        <DateModal state={state} setState={setState} />
+                                                        <DateModal startTimeState={startTimeState} setStartTimeState={setStartTimeState} setEndTime={setEndTime} endTime={endTime} setSaveTimming={setSaveTimming} saveTimming={saveTimming} />
                                                     </div>
                                                     <div className="col-md-8 mt-2 mt-md-0 p-0">
                                                         <div className="d-flex align-items-center flex-wrap">
