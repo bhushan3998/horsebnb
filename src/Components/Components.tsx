@@ -1,4 +1,6 @@
 import { Outlet } from 'react-router-dom'
+import Booking from './Bookings/Bookings'
+import DashBoardHome from './DashBoard/DashBoardHome'
 import Footer from './Footer/Footer'
 import Navbar from './Navbar/Navbar'
 
@@ -17,6 +19,8 @@ export const Components = (props: props) => {
     <>
       <Navbar getStartedShow={getStartedShow} token={token} setToken={setToken} saveAndExit={saveAndExit} profileData={profileData} />
       <Outlet />
+      {/* <DashBoardHome/> */}
+      {/* <Booking/> */}
       <Footer />
     </>
   )

@@ -8,14 +8,14 @@ import lightBulb from "../Images/lightBulb.svg"
 
 type props = {
     getStartedShow: () => void,
-    steps: Array<number> ,
-    setSteps: (value : Array<number>) => void,
+    steps: Array<number>,
+    setSteps: (value: Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
     // stepAdd: (value: any) => void
 }
 const Pricing = (props: props) => {
-    const {steps , setSteps , getStartedShow , spinner , setSpinner }=props
+    const { steps, setSteps, getStartedShow, spinner, setSpinner } = props
 
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/Pricing/:id`)
@@ -23,7 +23,7 @@ const Pricing = (props: props) => {
         listing_price: 0 as number,
         bookingAcceptType: 0 as number,
     })
-    const handleState = (e:any) => {
+    const handleState = (e: any) => {
         setstate({
             ...state,
             [e.target.name]: e.target.value
@@ -33,6 +33,10 @@ const Pricing = (props: props) => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+            setstate({
+                listing_price: res?.data?.attributes?.publicData?.listing_price,
+                bookingAcceptType:res?.data?.attributes?.publicData?.bookingAcceptType,
+            })
 
         } catch (error) {
             console.log(error);
@@ -51,7 +55,7 @@ const Pricing = (props: props) => {
             {
                 listing_price: state.listing_price,
                 bookingAcceptType: state.bookingAcceptType,
-                stepsCompleted: [...steps , 11],
+                stepsCompleted: [...steps, 11],
             }
         }
         try {
@@ -106,7 +110,7 @@ const Pricing = (props: props) => {
                                     </button>
                                 </Link>
 
-                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " style={{ background: "rgb(0, 164, 180)" }} disabled={spinner} onClick={setPricing}> {!spinner ?   " Next" : <Spinner/>}
+                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " style={{ background: "rgb(0, 164, 180)" }} disabled={spinner} onClick={setPricing}> {!spinner ? " Next" : <Spinner />}
                                 </button>
                             </div>
                         </div>

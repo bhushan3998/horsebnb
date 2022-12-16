@@ -28,17 +28,14 @@ const AdStep4 = (props: props) => {
             [e.target.name]: e.target.value
         })
     }
-
     const list = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
             setAdSteps(res?.data?.attributes?.publicData?.stepsCompleted)
         }
         catch (error) {
-
         }
     }
-
     useState(() => {
         list()
     })

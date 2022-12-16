@@ -1,0 +1,36 @@
+i{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.section{
+    min-height: calc(100vh - 271px);
+    
+    background-color: #eee;
+  
+}
+.ul{
+    width: 100%;
+}
+.ul :hover{
+    background-color: aqua;
+}
+.thead th{
+    font-size: 14px;
+    font-weight: 400;
+}
+.tbody td{
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    align-items: center;
+}
+.transactions-thead{
+    font-size: 14px;
+    font-weight: 300;
+}
+.transactions-tbody{
+    font-size: 16px;
+    font-weight: 300;
+}

@@ -16,7 +16,7 @@ type props ={
     stepsRun:number
     spinner: boolean,
     setSpinner: (value: boolean) => void
-    // stepAdd: (val: number) => void
+    
 }
 const NumberOfStalls = (props: props) => {
     const {steps , setSteps,stepsRun , spinner , setSpinner } = props
@@ -29,6 +29,7 @@ const NumberOfStalls = (props: props) => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+            setCount(res?.data?.attributes?.publicData?.stalls)
         } catch (error) {
             console.log(error);
         }

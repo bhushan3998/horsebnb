@@ -12,19 +12,18 @@ type props ={
     setSteps: (value : Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
-    // stepAdd: (val: number) => void
+    
 }
 
 const Amenities = (props:props) => {
 
     const {steps , setSteps , spinner , setSpinner } = props 
-
     const navigate = useNavigate()
-    const [checked, setChecked] = useState<Array<string>>([]);
+    const [check, setChecked] = useState<Array<string>>([]);
 
     
     const handleChecked = (e: any) => {
-    let prev = checked;
+    let prev = check;
     let value = e.target.value
     let itemIndex = prev.indexOf(value);
     if (itemIndex !== -1) {
@@ -40,10 +39,13 @@ const Amenities = (props:props) => {
       try {
           let res = await HenceForthApi.Auth.Listid(match?.params.id)
           setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
-      } catch (error) {
-          console.log(error);
-      }
-  }
+          setChecked(res?.data?.attributes?.publicData?.amenities)
+          
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    console.log(check[0]);
   useEffect(() => {
       listId()
       // Title()
@@ -55,21 +57,18 @@ const uploadAmenities = async() => {
     const list = {
         id: match?.params.id,
         publicData: {
-            amenities:checked,
+            amenities:check,
             stepsCompleted: [...steps , 6],
         }
     }
 
     try {
-        if (checked) {
+        if (check) {
             setSpinner(true)
 
             await HenceForthApi.Auth.Updatedlisting(list)
             navigate(`/create-stall/AddPhotos/${match?.params.id}`)
             setSpinner(false)
-
-            // stepAdd(6)
-            
             
         }else{
             toast('select Options', {
@@ -83,10 +82,11 @@ const uploadAmenities = async() => {
                 theme: "light",
             })
         }
-    } catch (error) {
+    }catch (error) {
         
     }
 }
+
 
 
           
@@ -121,13 +121,7 @@ const uploadAmenities = async() => {
         { option: "Turn Out", id: 27 },
         { option: "Mare Motel", id: 28 },
         { option: "Accepts Stallions", id: 29 },
-    ]
-
-
-  
-     
-    
-       
+    ]  
 
     return (
         <>
@@ -149,24 +143,23 @@ const uploadAmenities = async() => {
                                 <div className="row ps-3 ">
 
                                     <label className="tickbox tickbox-sm mt-0 mb-4 text-default" key={index}>
-                                        <input type="checkbox" value={e.option} name="selectOptions" multiple={true} onChange={(e: any) => handleChecked(e)}      className="me-1" />
+                                        <input type="checkbox"  checked={check.includes(e.option) } value={e.option} name="selectOptions" multiple={true} onChange={(e: any) => handleChecked(e)}      className="me-1" />
                                         {e.option}
                                         <span className="checkmark">
                                         </span>
                                     </label>
                                 </div>
-
                             </>
                         )
                     })}
 
                         <hr />
                     <div className="d-flex justify-content-between mt-5 mb-0 border-top">
-                        <a href="/create-stall/step3/408">
-                          <Link to={"/create-stall/YourLocation"}></Link>  <button className="btn border-0 font-regular px-0 my-3" style={{ color: "#00A4B4" }}>
+                   
+                            <button className="btn border-0 font-regular px-0 my-3" style={{ color: "#00A4B4" }}>
                                 <img src={backArrow} alt="" className="ps-1" /> Back
                             </button>
-                        </a>
+                       
                         <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={uploadAmenities}> {!spinner ?   " Next" : <Spinner/>}
                         </button>
                     </div>

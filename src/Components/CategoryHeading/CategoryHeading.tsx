@@ -1,8 +1,4 @@
-import React from 'react';
-
 import "./CategoryHeading.css"
-
-
 export const CategoryHeading = () => {
 
     const openCity: any = (evt: any, cityName: any) => {

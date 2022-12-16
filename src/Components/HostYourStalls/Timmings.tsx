@@ -26,6 +26,8 @@ const Timmings = (props: props) => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+            // setArrive(res?.data?.attributes?.publicData?.arrive_after)
+            // setLeave(res?.data?.attributes?.publicData?.leave_before)
         } catch (error) {
             console.log(error);
         }
