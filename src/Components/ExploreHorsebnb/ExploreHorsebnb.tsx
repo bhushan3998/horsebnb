@@ -13,8 +13,8 @@ import arrow from "../Images/blue-arw.svg"
 
 
 type props = {
-  pageNumber: any,
-  setPageNumber: any
+  pageNumber: number,
+  setPageNumber: (value: number) => void
 }
 
 const ExploreHorsebnb = (props: props) => {

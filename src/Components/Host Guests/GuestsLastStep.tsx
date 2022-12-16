@@ -6,18 +6,15 @@ import finishListing from "../Images/finish_your_listing.svg"
 import backArrow from "../Images/chevron-left-primary.svg"
 
 type props ={
-    setSteps:any 
-    steps: any
+    setSteps:(value: Array<number>) => void
+    steps: Array<number>
 }
 
 const GuestsLastStep = (props: props) => {
 const {steps , setSteps}=props
     let [ coverPhoto , setCoverPhoto ] = useState<string>("")
     const navigate = useNavigate()
-    
     const match = useMatch(`create-guest/GuestsLastStep/:id`)
-
-
 
     const listId = async () => {
         try {
@@ -25,7 +22,6 @@ const {steps , setSteps}=props
             console.log();
             setCoverPhoto(res?.data?.attributes?.publicData?.cover_photo.url);
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
-
         } catch (error) {
             console.log(error);
         }
@@ -35,8 +31,6 @@ const {steps , setSteps}=props
         // eslint-disable-next-line 
     }, [])
 
-   
-    
     const allSteps = [
         {
             id: 1,
@@ -116,11 +110,9 @@ const {steps , setSteps}=props
         },
     ]
 
-
     const lastStep= () => {
             navigate(`/manage-listing/publish-listing/${match?.params.id}`)
     }
-
 
     return (
         <>

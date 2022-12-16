@@ -9,18 +9,14 @@ type props = {
     setAdSteps: (value: Array<number>) => void;
 }
 
-
 const AdStep7 = (props: props) => {
     const { adSteps, setAdSteps } = props
-
     const match = useMatch('add-experience/step7/:id')
     const [days, setDays] = useState<Array<string>>([])
     const [daysChecked, setDaysChecked] = useState()
-    const [startTimeState, setStartTimeState] = useState<any>()
-    const [endTime , setEndTime]= useState<any>()
-
+    const [startTimeState, setStartTimeState] = useState<string | number>()
+    const [endTime , setEndTime]= useState<string | number>()
     const [saveTimming , setSaveTimming] = useState<any>()
-
 
     const handleDays = (e: any) => {
         setDaysChecked(e.target.checked)
@@ -36,8 +32,6 @@ const AdStep7 = (props: props) => {
         { day: "Friday" },
         { day: "Saturday" },
     ]
-
-
 
     return (
         <>

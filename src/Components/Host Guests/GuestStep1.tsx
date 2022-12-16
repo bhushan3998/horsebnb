@@ -6,32 +6,22 @@ import mainGuest from "../Images/guestMain.png"
 
 type props = {
     steps: Array<number>,
-    // allData: any ,
-    // listId : (value: any) => void
-
 }
 const GuestStep1 = (props: props) => {
     const { steps } = props
     const [title, setTitle] = useState<string>("")
     const navigate = useNavigate()
-
     const { id } = useParams() as any
-
 
     const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(id)
             setTitle(res?.data?.attributes?.title)
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
-
         } catch (error) {
             console.log(error);
         }
-
     }
-
-
-
 
     let step1 = async () => {
         if (id) {
@@ -44,7 +34,6 @@ const GuestStep1 = (props: props) => {
                 }
             })
             navigate(`/create-guest/step3/${res.data.id.uuid}`)
-
         } else if (title) {
             try {
                 let res = await HenceForthApi.Auth.createdraftlisting({
@@ -55,7 +44,6 @@ const GuestStep1 = (props: props) => {
                     }
                 })
                 navigate(`/create-guest/step3/${res.data.id.uuid}`)
-
             } catch (error) {
                 console.log(error);
             }
@@ -73,14 +61,11 @@ const GuestStep1 = (props: props) => {
         }
     }
 
-
-
     useEffect(() => {
         if (id) {
             listId()
         }
     }, [id])
-
 
     return (
         <>

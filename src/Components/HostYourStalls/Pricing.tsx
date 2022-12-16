@@ -3,7 +3,6 @@ import { Link, useMatch, useNavigate } from "react-router-dom"
 import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import backArrow from "../Images/chevron-left-primary.svg"
-import horseImg from "../Images/horseImage.png"
 import lightBulb from "../Images/lightBulb.svg"
 
 type props = {
@@ -12,7 +11,6 @@ type props = {
     setSteps: (value: Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
-    // stepAdd: (value: any) => void
 }
 const Pricing = (props: props) => {
     const { steps, setSteps, getStartedShow, spinner, setSpinner } = props
@@ -59,17 +57,14 @@ const Pricing = (props: props) => {
             }
         }
         try {
-            // stepAdd(11)
             setSpinner(true)
             await HenceForthApi.Auth.Updatedlisting(list)
             setSpinner(false)
-
             navigate(`/create-stall/StripeConnect/${match?.params.id}`)
         } catch (error) {
             console.log(error);
         }
     }
-
     return (
         <>
             <div className="progress" style={{ height: "8px" }}>
@@ -93,11 +88,11 @@ const Pricing = (props: props) => {
                                     <h5 className="pb-2">Do you want to allow guests to make instant bookings?</h5>
                                 </div>
                                 <div className="form-check row "  >
-                                    <input className="form-check-input col-md-1" type="radio" id="flexRadioDefault1" value={1} name="bookingAcceptType" onChange={handleState} />
+                                    <input className="form-check-input col-md-1" type="radio" id="flexRadioDefault1" value={1} checked={state.bookingAcceptType == 1 } name="bookingAcceptType" onChange={handleState} />
                                     <label className="form-check-label col-md-2" htmlFor="flexRadioDefault1">
                                         Yes
                                     </label>
-                                    <input className="form-check-input col-md-1" type="radio" name="bookingAcceptType" id="flexRadioDefault2" value={2} onChange={handleState} />
+                                    <input className="form-check-input col-md-1" type="radio" name="bookingAcceptType" id="flexRadioDefault2" value={2} checked={(state.bookingAcceptType) == 2} onChange={handleState} />
                                     <label className="form-check-label col-md-2" htmlFor="flexRadioDefault2">
                                         No
                                     </label>

@@ -13,12 +13,10 @@ type props = {
     setSteps: (value : Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
-    // stepAdd:(val: number) => void
 }
 
 const StripeConnect = (props: props) => {
     const { steps, setSteps , spinner , setSpinner } = props
-
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/StripeConnect/:id`)
     const listId = async () => {
@@ -31,7 +29,6 @@ const StripeConnect = (props: props) => {
         }
     }
     useEffect(() => {
-        // getStartedShow()
         listId()
         // eslint-disable-next-line 
     }, [])
@@ -49,7 +46,6 @@ const StripeConnect = (props: props) => {
             navigate(`/create-stall/LastStep/${match?.params.id}`)
         } catch (error) {
         }
-        // stepAdd(12)
     }
 
     return (

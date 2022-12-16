@@ -8,7 +8,6 @@ type props = {
 const Facebook = (props: props) => {
 
   const {handleToken}=props
-
   const [login , setLogin] = useState<boolean>(true)
 
 

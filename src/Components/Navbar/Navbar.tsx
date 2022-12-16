@@ -13,14 +13,10 @@ type props = {
 }
 
 const Navbar = (props: props) => {
+  const { getStartedShow, token, setToken, saveAndExit, profileData } = props
   const [modal, setModal] = useState<boolean>(false)
   const [userLoginEmail, setUserLoginEmail] = useState<string>("")
   const [userPassword, setUserPassword] = useState<string>("")
-
-  // const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
-
-  const { getStartedShow, token, setToken, saveAndExit, profileData } = props
-
 
   const handleToken = (token: string) => {
     setToken(token)

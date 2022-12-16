@@ -14,30 +14,21 @@ const AdStep1 = ({ adSteps }: props) => {
     HenceForthApi.setToken(localStorage.getItem("token"))
     const navigate = useNavigate()
     const [title, setTitle] = useState<string>("")
-
-
     const {id} =useParams() as any
-
 
     const listId = async () => {
         try {
           let res = await HenceForthApi.Auth.Listid(id)
           setTitle(res?.data?.attributes?.title)
-        //   setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
-
         } catch (error) {
           console.log(error);
         }
-
       }
-
       useEffect(() => {
         if (id) {
             listId()
         }
       },[id])
-
-
 
     const postStep1Data = async () => {
         try {

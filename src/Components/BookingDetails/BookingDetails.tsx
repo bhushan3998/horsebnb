@@ -17,10 +17,10 @@ import AddStallsModal from './AddStallsModal';
 const BookingDetails = () => {
     const { id } = useParams() as any
     const [state, setState] = useState<any>([])
-    const [hostData, setHostData] = useState<any>([])
+    const [hostData, setHostData] = useState<Array<any>>([])
     const [showContactHost, setShowContactHost] = useState<boolean>(false)
     const [count, setCount] = useState<number>(0)
-    const [review, setReview] = useState<any>()
+    const [review, setReview] = useState<string>()
 
     const getUserData = async () => {
         let res = (await HenceForthApi.Auth.bookingListid(id)).data
