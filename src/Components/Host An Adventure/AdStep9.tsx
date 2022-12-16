@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useMatch } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,7 +16,7 @@ const AdStep9 = (props: props) => {
     const { adSteps, setAdSteps } = props
 
     const match = useMatch('/add-experience/step9/:id')
-    const list = async () => {
+    const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
             setAdSteps(res.data.attributes.publicData.stepsCompleted)
@@ -25,8 +25,8 @@ const AdStep9 = (props: props) => {
         }
     }
 
-    useState(() => {
-        list()
+    useEffect(() => {
+        listId()
     })
 
     const handlePayment = () => {

@@ -25,6 +25,7 @@ const Step3 = (props: props) => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+            setCount(res?.data?.attributes?.publicData?.rooms)
         } catch (error) {
             console.log(error);
         }

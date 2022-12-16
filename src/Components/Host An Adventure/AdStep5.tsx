@@ -202,7 +202,7 @@ const AdStep5 = (props: props) => {
                             </Link>
                             <Link to={`/add-experience/step6/${match?.params.id}`}>
                                 <button className="btn my-3 px-3 text-white"
-                                    // onClick={nextPage} 
+                                    onClick={nextPage} 
                                     style={{ background: "rgb(0, 164, 180)" }}> Next
                                 </button>
                             </Link>

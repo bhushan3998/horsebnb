@@ -40,13 +40,13 @@ const LastStep = (props: props) => {
         {
             id: 1,
             step: "Title",
-            url: "create-stall/step1",
+            url: `create-stall/step1/${match?.params.id}`,
             stepNumber: 1
         },
         {
             id: 2,
             step: "Stalls",
-            url: `create-stallNumberOfStalls/${match?.params.id}`,
+            url: `create-stall/NumberOfStalls/${match?.params.id}`,
             stepNumber: 3
 
         },

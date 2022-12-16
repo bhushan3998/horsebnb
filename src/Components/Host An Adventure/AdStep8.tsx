@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,13 +13,27 @@ type props = {
 
 const AdStep8 = (props: props) => {
     const { adSteps, setAdSteps } = props
-
+    
     HenceForthApi.setToken(localStorage.getItem("token"))
     const match = useMatch('/add-experience/step8/:id')
     const navigate = useNavigate()
     const [price, setPrice] = useState<number>()
     const [check, setCheck] = useState<number>()
-
+    
+    const listId = async () => {
+        try {
+            let res = await HenceForthApi.Auth.Listid(match?.params.id)
+            setAdSteps(res.data.attributes.publicData.stepsCompleted)
+            setPrice(res.data.attributes.publicData.listing_price)
+            setCheck(res.data.attributes.publicData.bookingAcceptType)
+        }
+        catch (error) {
+        }
+    }
+    useEffect(() => {
+        listId()
+    } ,[])
+    
     const poststep8Data = async () => {
         if (price) {
             try {
@@ -58,17 +72,6 @@ const AdStep8 = (props: props) => {
         }
     }
 
-    const list = async () => {
-        try {
-            let res = await HenceForthApi.Auth.Listid(match?.params.id)
-            setAdSteps(res.data.attributes.publicData.stepsCompleted)
-        }
-        catch (error) {
-        }
-    }
-    useState(() => {
-        list()
-    })
 
     return (
         <>

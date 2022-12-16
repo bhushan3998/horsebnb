@@ -14,7 +14,7 @@ type props = {
 
 const Step10 = (props: props) => {
     const { steps, setSteps } = props
-    const [check, setCheck] = useState<any>()
+    const [check, setCheck] = useState<boolean>()
 
 
     const navigate = useNavigate()
@@ -24,6 +24,8 @@ const Step10 = (props: props) => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+            setCheck(res?.data?.attributes?.publicData?.gotIt)
+
         } catch (error) {
             console.log(error);
         }
@@ -79,7 +81,7 @@ const Step10 = (props: props) => {
                         <h3 className="heading-big mb-4">Successful hosting starts with an accurate calendar</h3>
                         <p className="font-small-bold my-3">Guests will be able to book your listing instantly. By keeping your calendar up to date you will only get bookings when you are able to host. If you make multiple cancellations it could affect your listings ranking and create negative reviews as it causes problems for travellers.</p>
                         <form className="ng-valid ng-dirty ng-touched">
-                            <input type="checkbox" id="calendar_up_to_date" value={check} onChange={(e: any) => setCheck(e.target.checked)} name="got_it" className="ng-valid ng-dirty ng-touched" required />
+                            <input type="checkbox" id="calendar_up_to_date" checked={check} onChange={(e: any) => setCheck(e.target.checked)} name="got_it" className="ng-valid ng-dirty ng-touched" required />
                             <label htmlFor="calendar_up_to_date" className="tickbox tickbox-sm mt-0 mb-4 text-default"> Got it! I'll keep my calendar up to date.
 
                                 <span className="checkmark skyblue"></span>

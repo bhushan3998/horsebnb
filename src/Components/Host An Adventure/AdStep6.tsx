@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useMatch } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,6 +16,24 @@ const AdStep6 = (props: props) => {
     const match = useMatch('add-experience/step6/:id')
     HenceForthApi.setToken(localStorage.getItem('token'))
     const [grpSize, setGrpSize] = useState<any>()
+
+    const listId = async () => {
+        try {
+            let res = await HenceForthApi.Auth.Listid(match?.params.id)
+            setAdSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+            setGrpSize(res?.data?.attributes?.publicData?.group_size)
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        listId()
+        // eslint-disable-next-line 
+    }, [])
+
+
+
     const postStep6Data = async () => {
         if (grpSize) {
             try {
@@ -47,20 +65,7 @@ const AdStep6 = (props: props) => {
             });
         }
     }
-    const list = async () => {
-        try {
-            let res = await HenceForthApi.Auth.Listid(match?.params.id)
-            setAdSteps(res.data.attributes.publicData.stepsCompleted)
-        }
-        catch (error) {
-            console.log(error);
-            
-        }
-    }
-
-    useState(() => {
-        list()
-    })
+   
     return (
         <>
             <div className="row mx-0">

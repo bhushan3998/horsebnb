@@ -14,7 +14,7 @@ type props = {
 const Step6 = (props: props) => {
 
     const {steps , setSteps} = props
-    const [checked, setChecked] = useState<Array<string>>([])
+    const [check, setChecked] = useState<Array<string>>([])
     const navigate = useNavigate();
     const match = useMatch(`/create-guest/Step6/:id`)
 
@@ -23,6 +23,7 @@ const Step6 = (props: props) => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+            setChecked(res?.data?.attributes?.publicData?.amenities)
 
 
 
@@ -36,9 +37,9 @@ const Step6 = (props: props) => {
     }, [])
 
 
-    console.log(checked);
+    console.log(check);
     const handleOffers = (e: any) => {
-        const prev = checked
+        const prev = check
         const val = e.target.value
         const lastIndex = prev.indexOf(val)
             if (lastIndex !== -1) {
@@ -53,12 +54,12 @@ const Step6 = (props: props) => {
         let list = {
             id : match?.params.id,
             publicData:{
-                amenities:checked,
+                amenities:check,
                 stepsCompleted:[...steps , 6]
             }
         }
 
-        if (checked.length !==0 ) {
+        if (check.length !==0 ) {
             
             try {
                 await HenceForthApi.Auth.Updatedlisting(list)
@@ -116,7 +117,7 @@ const Step6 = (props: props) => {
                             {guestAmenities.map((e: any, index: number) =>
                                 <div className="checkbox-outerDiv">
                                     <label className="tickbox tickbox-sm mt-0 mb-4 text-default ng-star-inserted">
-                                        <input type="checkbox" value={e.amenities} className="ng-valid ng-dirty ng-touched" onChange={(e: any) => handleOffers(e)} />
+                                        <input type="checkbox" value={e.amenities} checked={check.includes(e.amenities)} className="ng-valid ng-dirty ng-touched" onChange={(e: any) => handleOffers(e)} />
                                         <span className="ps-1">{e.amenities}</span>
                                     </label>
                                 </div>

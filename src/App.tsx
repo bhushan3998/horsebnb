@@ -17,7 +17,7 @@ import Pricing from './Components/HostYourStalls/Pricing';
 import StripeConnect from './Components/HostYourStalls/StripeConnect';
 import LastStep from './Components/HostYourStalls/LastStep';
 import HenceForthApi from './Components/Utiles/HenceForthApi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HostGuests from './Components/Host Guests/HostGuests';
 import GuestStep1 from './Components/Host Guests/GuestStep1';
 import Step3 from './Components/Host Guests/Step3';
@@ -52,11 +52,13 @@ function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
   const [steps, setSteps] = useState<Array<number>>([])
   const [stepsRun, setStepsRun] = useState<number>(0)
-  const [spinner , setSpinner] =useState<boolean>(false)
-  const [pageNumber , setPageNumber] =  useState<any>({})
-  const [profileData , setProfileData] = useState({
-    displayName :"" as string,
-    profileImage:"" as string
+  const [spinner, setSpinner] = useState<boolean>(false)
+  const [pageNumber, setPageNumber] = useState<any>({})
+  const [allData, setAllData] = useState<any>([])
+
+  const [profileData, setProfileData] = useState({
+    displayName: "" as string,
+    profileImage: "" as string
   })
   console.log(steps);
 
@@ -71,16 +73,46 @@ function App() {
 
       setProfileData(
         {
-        displayName : res?.attributes?.profile?.displayName,
-        profileImage: res?.attributes?.profile?.publicData?.profile_image
+          displayName: res?.attributes?.profile?.displayName,
+          profileImage: res?.attributes?.profile?.publicData?.profile_image
         }
       )
+      let id = res?.id?.uuid
+
+      console.log(id);
+
     } catch (error) {
       console.log(error);
     }
   }
 
-  
+
+  const listId = async (id: any) => {
+    // if (id) {
+
+    try {
+      let res = await HenceForthApi.Auth.Listid(id)
+      setAllData(res)
+      setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+      // setTitle(res?.data?.attributes?.title)
+      // setStallType(res?.data?.attributes?.publicData?.type)
+      // setCheck(res?.data?.attributes?.publicData?.gotIt)
+    } catch (error) {
+      console.log(error);
+    }
+    // }
+  }
+
+  // useEffect(() => {
+  //     // getStartedShow()
+  //     if (id) {
+
+  //         listId()
+  //     }
+  //     // eslint-disable-next-line 
+  // }, [id])
+
+
   return (
     <>
       <BrowserRouter>
@@ -88,7 +120,9 @@ function App() {
           <Route path='*' element={<Components getStartedShow={getStartedShow} token={token} saveAndExit={saveAndExit} setToken={setToken} profileData={profileData} />}>
             <Route index element={<ExploreHorsebnb setPageNumber={setPageNumber} pageNumber={pageNumber} />} />
             <Route path='hostStalls' element={<HostStalls getStartedShow={getStartedShow} />} />
-            <Route path='create-stall/step1' element={<Step1  setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/step1' element={<Step1 setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} >
+              <Route path=':listingId' element={<Step1 setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            </Route>
             <Route path='create-stall/NumberOfStalls/:id' element={<NumberOfStalls setSteps={setSteps} stepsRun={stepsRun} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/YourLocation/:id' element={<YourLocation setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/Amenities/:id' element={<Amenities setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
@@ -100,9 +134,11 @@ function App() {
             <Route path='create-stall/Pricing/:id' element={<Pricing getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/StripeConnect/:id' element={<StripeConnect setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/LastStep/:id' element={<LastStep setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
-            
+
             <Route path='host-guests/' element={<HostGuests getStartedShow={getStartedShow} />} />
-            <Route path='create-guest/step1' element={<GuestStep1 steps={steps} />} />
+            <Route path='create-guest/step1' element={<GuestStep1 steps={steps}  />} >
+              <Route path=':id' element={<GuestStep1 steps={steps}  />} />
+            </Route>
             <Route path='create-guest/step3/:id' element={<Step3 setSteps={setSteps} steps={steps} />} />
             <Route path='create-guest/step5/:id' element={<Step5 setSteps={setSteps} steps={steps} />} />
             <Route path='create-guest/step6/:id' element={<Step6 setSteps={setSteps} steps={steps} />} />
@@ -114,9 +150,11 @@ function App() {
             <Route path='create-guest/step12/:id' element={<Step12 setSteps={setSteps} steps={steps} />} />
             <Route path='create-guest/step13/:id' element={<Step13 setSteps={setSteps} steps={steps} />} />
             <Route path='create-guest/GuestsLastStep/:id' element={<GuestsLastStep setSteps={setSteps} steps={steps} />} />
-        
+
             <Route path="host-an-experience" element={<AdventureStalls />} />
-            <Route path="add-experience/step1/" element={<AdStep1 adSteps={steps} />} />
+            <Route path="add-experience/step1/" element={<AdStep1 adSteps={steps} />} >
+            <Route path=":id" element={<AdStep1 adSteps={steps} />} />
+              </Route>
             <Route path="add-experience/step2/:id" element={<AdStep2 adSteps={steps} setAdSteps={setSteps} />} />
             <Route path="add-experience/step4/:id" element={<AdStep4 adSteps={steps} setAdSteps={setSteps} />} />
             <Route path="add-experience/step5/:id" element={<AdStep5 adSteps={steps} setAdSteps={setSteps} />} />
@@ -131,7 +169,7 @@ function App() {
             <Route path="manage-listing/publish-listing/:id" element={<AdPublish />} />
             <Route path='ManageListing' element={<ManageListing />} />
             <Route path="search/type=:type" element={<SearchComponent setPageNumber={setPageNumber} pageNumber={pageNumber} />} />
-            <Route path="bookingdetails/:id" element={<BookingDetails/>} />
+            <Route path="bookingdetails/:id" element={<BookingDetails />} />
           </Route>
         </Routes>
       </BrowserRouter>

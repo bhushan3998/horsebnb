@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HenceForthApi from "../Utiles/HenceForthApi";
@@ -14,9 +14,47 @@ const AdStep1 = ({ adSteps }: props) => {
     HenceForthApi.setToken(localStorage.getItem("token"))
     const navigate = useNavigate()
     const [title, setTitle] = useState<string>("")
+
+
+    const {id} =useParams() as any
+
+
+    const listId = async () => {
+        try {
+          let res = await HenceForthApi.Auth.Listid(id)
+          setTitle(res?.data?.attributes?.title)
+        //   setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+
+        } catch (error) {
+          console.log(error);
+        }
+
+      }
+
+      useEffect(() => {
+        if (id) {
+            listId()
+        }
+      },[id])
+
+
+
     const postStep1Data = async () => {
         try {
-            if (title) {
+        if (id) {
+            let res = await HenceForthApi.Auth.Updatedlisting({
+                id: id,
+                title: title,
+                publicData: {
+                    type: 3,
+                    stepsCompleted: [
+                        ...adSteps,
+                        1
+                    ]
+                }
+            })
+            navigate(`/add-experience/step2/${res.data.id.uuid}`);
+        } else if (title) {
             let res = await HenceForthApi.Auth.createdraftlisting({
                 title: title,
                 publicData: {

@@ -31,6 +31,10 @@ const Step12 = (props: props) => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+            setstate({
+                listing_price: res?.data?.attributes?.publicData?.listing_price ,
+                bookingAcceptType:res?.data?.attributes?.publicData?.bookingAcceptType
+            })
 
         } catch (error) {
             console.log(error);

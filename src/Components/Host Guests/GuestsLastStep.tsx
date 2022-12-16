@@ -13,10 +13,6 @@ type props ={
 const GuestsLastStep = (props: props) => {
 const {steps , setSteps}=props
     let [ coverPhoto , setCoverPhoto ] = useState<string>("")
-
-
-
-
     const navigate = useNavigate()
     
     const match = useMatch(`create-guest/GuestsLastStep/:id`)
@@ -45,7 +41,7 @@ const {steps , setSteps}=props
         {
             id: 1,
             step: "Title",
-            url: "create-guest/step1" ,
+            url: `create-guest/step1/${match?.params.id}` ,
             stepNumber:1
         },
         {
@@ -117,7 +113,6 @@ const {steps , setSteps}=props
             step: "Stripe Connect",
             url: `create-guest/step3/${match?.params.id}`,
             stepNumber:12
-            // checked: {}
         },
     ]
 
