@@ -14,11 +14,11 @@ type props = {
     setSteps: (value: Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
-    // stepAdd: (val: number) => void
+    saveExitbtn: number
 
 }
 const Availability = (props: props) => {
-    const { steps, setSteps, getStartedShow, spinner, setSpinner } = props
+    const { steps, setSteps, getStartedShow, spinner, setSpinner, saveExitbtn } = props
 
     const [check, setCheck] = useState()
 
@@ -40,7 +40,7 @@ const Availability = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
-    const setAvailability = async () => {
+    const setAvailability = async (navigation: string) => {
 
         const list = {
             id: match?.params.id,
@@ -52,7 +52,14 @@ const Availability = (props: props) => {
         try {
             setSpinner(true)
             await HenceForthApi.Auth.Updatedlisting(list)
-            navigate(`/create-stall/Calender/${match?.params.id}`)
+
+            if (navigation === "next") {
+
+                navigate(`/create-stall/Calender/${match?.params.id}`)
+            } else {
+                navigate(`/create-stall/LastStep/${match?.params.id}`)
+
+            }
             setSpinner(false)
 
         } catch (error) {
@@ -60,6 +67,13 @@ const Availability = (props: props) => {
 
         }
     }
+
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            setAvailability("last")
+        }
+    })
     return (
         <>
             <div className="progress" style={{ height: "8px" }}>
@@ -82,7 +96,7 @@ const Availability = (props: props) => {
                         <div className="d-flex justify-content-between border-top mt-auto">
                             <Link to={"/create-stall/Timmings"}>   <button type="button" className="btn btn-transparent font-regular my-3 px-0">
                                 <img src={backArrow} className="pr-1" alt="" /> Back </button></Link>
-                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={setAvailability}> {!spinner ? " Next" : <Spinner />} </button>
+                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={() => setAvailability("next")}> {!spinner ? " Next" : <Spinner />} </button>
                         </div>
                     </div>
                 </div>

@@ -11,9 +11,10 @@ type props = {
     setSteps: (value: Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
+    saveExitbtn : number
 }
 const Pricing = (props: props) => {
-    const { steps, setSteps, getStartedShow, spinner, setSpinner } = props
+    const { steps, setSteps, getStartedShow, spinner, setSpinner , saveExitbtn } = props
 
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/Pricing/:id`)
@@ -46,7 +47,7 @@ const Pricing = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
-    const setPricing = async () => {
+    const setPricing = async (navigation: string) => {
         let list = {
             id: match?.params.id,
             publicData:
@@ -60,11 +61,24 @@ const Pricing = (props: props) => {
             setSpinner(true)
             await HenceForthApi.Auth.Updatedlisting(list)
             setSpinner(false)
-            navigate(`/create-stall/StripeConnect/${match?.params.id}`)
+
+            if (navigation === "next") {
+                
+                navigate(`/create-stall/StripeConnect/${match?.params.id}`)
+            } else {
+                navigate(`/create-stall/LastStep/${match?.params.id}`)
+                
+            }
         } catch (error) {
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            setPricing("last")
+        }
+    })
     return (
         <>
             <div className="progress" style={{ height: "8px" }}>
@@ -105,7 +119,7 @@ const Pricing = (props: props) => {
                                     </button>
                                 </Link>
 
-                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " style={{ background: "rgb(0, 164, 180)" }} disabled={spinner} onClick={setPricing}> {!spinner ? " Next" : <Spinner />}
+                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " style={{ background: "rgb(0, 164, 180)" }} disabled={spinner} onClick={() => setPricing("next")}> {!spinner ? " Next" : <Spinner />}
                                 </button>
                             </div>
                         </div>

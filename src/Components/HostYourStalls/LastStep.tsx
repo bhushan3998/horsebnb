@@ -11,9 +11,13 @@ type props = {
     steps: Array<number>,
     spinner: boolean,
     setSpinner: (value: boolean) => void
+    setSaveExitbtn: (value:number) => void
+    saveExitbtn: number
 }
 const LastStep = (props: props) => {
-    const { steps, setSteps, spinner, setSpinner } = props
+    const { steps, setSteps, spinner, setSpinner , setSaveExitbtn  , saveExitbtn } = props
+
+    const [allStep , setAllSteps] =useState<any>([])
     let [coverPhoto, setCoverPhoto] = useState<string>("")
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/LastStep/:id`)
@@ -21,19 +25,28 @@ const LastStep = (props: props) => {
     const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
-            console.log();
+            console.log(res?.data?.attributes?.publicData?.stepsCompleted);
             setCoverPhoto(res?.data?.attributes?.publicData?.cover_photo.url);
-            setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
-
+            setSteps(res.data.attributes.publicData.stepsCompleted);
+            
+            console.log(allStep);
+            
         } catch (error) {
             console.log(error);
         }
     }
     useEffect(() => {
-        listId()
-        // eslint-disable-next-line 
-    }, [])
+        
+        
 
+
+        listId()
+        // setSaveExitbtn(0)
+        // eslint-disable-next-line 
+    }, [saveExitbtn])
+
+    console.log(steps);
+    
 
 
     const allSteps = [

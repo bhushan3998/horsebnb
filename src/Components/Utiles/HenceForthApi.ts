@@ -104,7 +104,13 @@ const Auth = {
     requests.post("/current_user/update_profile", info),
 
     hostProfile:(hostId: any , perPage: any , page: any) => 
-    requests.get(`/host/listing?host_id=${hostId}&perPage=${perPage}&page=${page}`)
+    requests.get(`/host/listing?host_id=${hostId}&perPage=${perPage}&page=${page}`),
+
+    updateUserProfile: (info: any) =>
+    requests.post("/current_user/update_profile", info),
+  // hostProfile: (host_id: any) =>
+  //   requests.get(`/host/profile?host_id=${host_id}`),
+
 };
 
 

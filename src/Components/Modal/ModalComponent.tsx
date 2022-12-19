@@ -126,11 +126,11 @@ const handleChange = (e: any) => {
                             </form>) : (<form onSubmit={registerNewUser}>
                                 <div className="mb-3">
 
-                                    <input type="text" className="form-control" id="exampleInputEmail1" name="firstName" placeholder="First Name" aria-describedby="emailHelp" value={signUpUser.firstName} onChange={handleChange} />
+                                    <input type="text" className="form-control" id="exampleInputFirstName" name="firstName" placeholder="First Name" aria-describedby="emailHelp" value={signUpUser.firstName} onChange={handleChange} />
                                 </div>
                                 <div className="mb-3">
 
-                                    <input type="text" className="form-control" id="exampleInputEmail1" name="lastName" placeholder="Last Name" aria-describedby="emailHelp" value={signUpUser.lastName} onChange={handleChange} />
+                                    <input type="text" className="form-control" id="exampleInputLastName" name="lastName" placeholder="Last Name" aria-describedby="emailHelp" value={signUpUser.lastName} onChange={handleChange} />
                                 </div>
                                 <div className="mb-3">
                                     <PhoneInput
@@ -150,7 +150,7 @@ const handleChange = (e: any) => {
                                     <input type="password" className="form-control" placeholder="Password" name="password" id="exampleInputPassword1"onChange={handleChange} value={signUpUser.password}  />
                                 </div>
                                 <div className="mb-3">
-                                    <input type="password" className="form-control" placeholder="Confirm Password" id="exampleInputPassword1"  />
+                                    <input type="password" className="form-control" placeholder="Confirm Password" id="exampleInputPassword2"  />
                                 </div>
                                 <div className="mb-3 form-check">
                                     <input type="checkbox" className="form-check-input" id="exampleCheck1" />

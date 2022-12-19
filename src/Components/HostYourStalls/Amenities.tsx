@@ -12,12 +12,14 @@ type props ={
     setSteps: (value : Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
+    saveExitbtn: number
+    
     
 }
 
 const Amenities = (props:props) => {
 
-    const {steps , setSteps , spinner , setSpinner } = props 
+    const {steps , setSteps , spinner , setSpinner , saveExitbtn } = props 
     const navigate = useNavigate()
     const [check, setChecked] = useState<Array<string>>([]);
 
@@ -53,7 +55,7 @@ const Amenities = (props:props) => {
   }, [])
  
   
-const uploadAmenities = async() => {
+const uploadAmenities = async(navigation: string) => {
     const list = {
         id: match?.params.id,
         publicData: {
@@ -67,7 +69,13 @@ const uploadAmenities = async() => {
             setSpinner(true)
 
             await HenceForthApi.Auth.Updatedlisting(list)
-            navigate(`/create-stall/AddPhotos/${match?.params.id}`)
+            if (navigation === "next") {
+                navigate(`/create-stall/AddPhotos/${match?.params.id}`)
+
+            }else {
+            navigate(`/create-stall/LastStep/${match?.params.id}`)
+
+            }
             setSpinner(false)
             
         }else{
@@ -86,6 +94,12 @@ const uploadAmenities = async() => {
         
     }
 }
+
+useEffect(() => {
+    if(saveExitbtn){
+        uploadAmenities("last")
+    }
+})
 
 
 
@@ -160,7 +174,7 @@ const uploadAmenities = async() => {
                                 <img src={backArrow} alt="" className="ps-1" /> Back
                             </button>
                        
-                        <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={uploadAmenities}> {!spinner ?   " Next" : <Spinner/>}
+                        <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={() => uploadAmenities("next")}> {!spinner ?   " Next" : <Spinner/>}
                         </button>
                     </div>
                 </div>

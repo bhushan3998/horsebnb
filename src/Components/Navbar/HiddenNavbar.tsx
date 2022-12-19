@@ -8,12 +8,13 @@ import { useEffect } from 'react';
 type props = {
   setToken: (token: string | null) => void,
   getStartedShow: () => void,
-  saveAndExit: (value: any) => void,
+  
   profileData: any,
+  saveAndExit:(value:number)=> void
   // setDisplayName:(value:string) => void
 }
 const HiddenNavbar = (props: props) => {
-  const { setToken, getStartedShow, saveAndExit, profileData } = props
+  const { setToken, getStartedShow, profileData , saveAndExit } = props
 
   const navigate = useNavigate()
 
@@ -79,7 +80,7 @@ const HiddenNavbar = (props: props) => {
             <Link to='/ManageListing' className='text-decoration-none'>
               <button type="button" className="dropdown-item" tabIndex={0} >Manage Listings </button>
             </Link>
-            <Link to='/bookings' className='text-decoration-none'>
+            <Link to='/account' className='text-decoration-none'>
               <button type="button" className="dropdown-item" tabIndex={0}>Account</button>
             </Link>
             <div className="dropdown-divider" />
@@ -88,7 +89,7 @@ const HiddenNavbar = (props: props) => {
         </div>
       </ul>) :
         location.pathname.startsWith('/create-stall/step1') ? ""
-          : (location.pathname.startsWith('/c') ? <SaveAndExit /> : (<div className="getStarted">
+          : (location.pathname.startsWith('/c') ? <SaveAndExit saveAndExit={saveAndExit} /> : (<div className="getStarted">
             <Link to={"/create-stall/step1 "}> <button className='btn btn-outline' style={{ background: "#00A4B4" }}>
               Get Started
             </button></Link>

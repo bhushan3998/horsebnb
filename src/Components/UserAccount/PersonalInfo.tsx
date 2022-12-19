@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import userImgIcon from '../Images/business-card.svg'
-import HenceForthApi from '../Utils/HenceForthApi'
+import HenceForthApi from '../Utiles/HenceForthApi'
 
 const PersonalInfo = () => {
     HenceForthApi.setToken(localStorage.getItem('token'))

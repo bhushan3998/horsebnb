@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react"
-import { Link, useMatch , useNavigate } from "react-router-dom"
+import { Link, useMatch, useNavigate } from "react-router-dom"
 import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
 import backArrow from "../Images/chevron-left-primary.svg"
 import horseImg from "../Images/horseImage.png"
 
-type props ={
+type props = {
     steps: Array<number>,
-    setSteps: (value : Array<number>) => void,
+    setSteps: (value: Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
-    // stepAdd: (val : number) => void
+    saveExitbtn: number
+   
 }
 
-const YourLocation = (props : props) => {
-    const {steps , setSteps , spinner , setSpinner }=props
-    const [location , setLocation] = useState<string>("")
-        
+const YourLocation = (props: props) => {
+    const { steps, setSteps, spinner, setSpinner, saveExitbtn } = props
+    const [location, setLocation] = useState<string>("")
+
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/YourLocation/:id`)
 
@@ -34,12 +35,12 @@ const YourLocation = (props : props) => {
         // eslint-disable-next-line 
     }, [])
 
-    const addLocation = async () => {
+    const addLocation = async (navigation: string) => {
 
         let list = {
             id: match?.params.id,
-            publicData:{
-                stepsCompleted: [...steps , 5],
+            publicData: {
+                stepsCompleted: [...steps, 5],
 
             }
         }
@@ -47,13 +48,24 @@ const YourLocation = (props : props) => {
             setSpinner(true)
             await HenceForthApi.Auth.Updatedlisting(list)
             setSpinner(false)
+            if(navigation=== 'last'){
+
+                navigate(`/create-stall/LastStep/${match?.params.id}`)
+            }else {
+                navigate(`/create-stall/Amenities/${match?.params.id}`)
+            }
 
         } catch (error) {
             console.log(error);
-            
+
         }
-        navigate(`/create-stall/Amenities/${match?.params.id}`)  
     }
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            addLocation("last")
+        }
+    },[saveExitbtn])
     return (
         <>
             <div id="root">
@@ -73,10 +85,10 @@ const YourLocation = (props : props) => {
                                             <button className="btn btn-sky-outline-lg my-3 mb-4 position-relative d-flex align-items-center justify-content-center" style={{ border: "1px solid rgb(0, 164, 180)" }}>
                                                 <img src="../../Horsebnb Assets/near_me.svg" alt="" className="img-fluid" />Use current location </button>
                                             {/* <form className="form-group"> */}
-                                               
-                                                <input className="form-control  mt-4" placeholder="Enter a location"   value={location} onChange={(e: any) => {setLocation(e.target.value)}} />
-                                                {/* </form> */}
-                                                {/* <form className="form-group">
+
+                                            <input className="form-control  mt-4" placeholder="Enter a location" value={location} onChange={(e: any) => { setLocation(e.target.value) }} />
+                                            {/* </form> */}
+                                            {/* <form className="form-group">
                                                     <div>
                                                         <div className="form-group my-3">
                                                             <label className="mb-3" htmlFor="">Country/Region</label>
@@ -103,7 +115,7 @@ const YourLocation = (props : props) => {
                                                 </button>
                                                 </Link>
                                             </a>
-                                            <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={addLocation}> {!spinner ?   " Next" : <Spinner/>}
+                                            <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={() => addLocation("next")}> {!spinner ? " Next" : <Spinner />}
                                             </button>
                                         </div>
                                     </div>

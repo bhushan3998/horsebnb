@@ -7,8 +7,9 @@ type props = {
   getStartedShow: () => void,
   token: string | null,
   setToken: (token: string | null) => void,
-  saveAndExit: (value: any) => void,
+  // saveAndExit: (value: any) => void,
   profileData: any,
+  saveAndExit:(value:number)=>void
 
 }
 
@@ -70,7 +71,7 @@ const Navbar = (props: props) => {
               </ul>
             </div>
           </div>
-          {token !== null ? <HiddenNavbar setToken={setToken} getStartedShow={getStartedShow} saveAndExit={saveAndExit} profileData={profileData} /> : (<div className="d-flex">
+          {token !== null ? <HiddenNavbar setToken={setToken} getStartedShow={getStartedShow}  profileData={profileData} saveAndExit={saveAndExit} /> : (<div className="d-flex">
             <button className="btn  border-0" data-bs-toggle="modal" data-bs-target="#loginModal" onClick={() => { setModal(true) }}>Log In</button>
             <button
               className="btn text-white ms-2"

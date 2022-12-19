@@ -2,8 +2,16 @@ import { Link } from "react-router-dom"
 import checkImg from "../Images/check-circle-primary.svg"
 import errorImg from "../Images/error.png"
 
+type props = {
+    stepName : string , 
+    url: string ,
+    stepsArray: Array<number> ,
+    stepNumber: number
 
-const CompletedSteps = (props: any) => {
+}
+
+
+const CompletedSteps = (props: props) => {
     const { stepName, url, stepsArray, stepNumber } = props
 
     return (

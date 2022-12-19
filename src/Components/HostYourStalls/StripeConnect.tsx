@@ -13,10 +13,11 @@ type props = {
     setSteps: (value : Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
+    saveExitbtn: number 
 }
 
 const StripeConnect = (props: props) => {
-    const { steps, setSteps , spinner , setSpinner } = props
+    const { steps, setSteps , spinner , saveExitbtn } = props
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/StripeConnect/:id`)
     const listId = async () => {
@@ -33,7 +34,7 @@ const StripeConnect = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
-    const StripeConnect = async () => {
+    const StripeConnect = async (navigation : string) => {
 
         let list = {
             id: match?.params.id,
@@ -43,10 +44,21 @@ const StripeConnect = (props: props) => {
         }
         try {
             await HenceForthApi.Auth.Updatedlisting(list)
-            navigate(`/create-stall/LastStep/${match?.params.id}`)
+            if (navigation=== "next") {
+                navigate(`/create-stall/LastStep/${match?.params.id}`)
+            } else {
+                navigate(`/create-stall/LastStep/${match?.params.id}`)
+
+            }
         } catch (error) {
         }
     }
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            StripeConnect("last")
+        }
+    })
 
     return (
         <>
@@ -72,10 +84,10 @@ const StripeConnect = (props: props) => {
                                     <img alt="" src={backArrow} className="pr-1" /> Back
                                 </button>
                             </Link>
-                            <Link to="/create-stall/L">
-                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " disabled={spinner} style={{ background: "rgb(0, 164, 180)" }}> {!spinner ?   " Next" : <Spinner/>}
+                            
+                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={() => StripeConnect("next")}> {!spinner ?   " Next" : <Spinner/>}
                                 </button>
-                            </Link>
+                           
                         </div>
                     </div>
                 </div>

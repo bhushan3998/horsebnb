@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
 import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 
@@ -10,17 +10,19 @@ import backArrow from "../Images/chevron-left-primary.svg"
 import horseImg from "../Images/horseImage.png"
 
 
-type props ={
+type props = {
     steps: Array<number>,
-    setSteps: (value: Array<number>)=> void,
-    stepsRun:number
+    setSteps: (value: Array<number>) => void,
+
     spinner: boolean,
-    setSpinner: (value: boolean) => void
-    
+    setSpinner: (value: boolean) => void,
+    saveExitbtn: number
+
+
 }
 const NumberOfStalls = (props: props) => {
-    const {steps , setSteps,stepsRun , spinner , setSpinner } = props
-    let [count, setCount] = useState<number>(1)
+    const { steps, setSteps, saveExitbtn, spinner, setSpinner } = props
+    let [count, setCount] = useState<number>(0)
     // console.log(count);  
 
     const navigate = useNavigate();
@@ -38,45 +40,41 @@ const NumberOfStalls = (props: props) => {
         listId()
         // eslint-disable-next-line 
     }, [])
-    
-    const setStallsCount = async () => {
+    const stallUpdate = async (navigation: string) => {
         const list = {
             id: match?.params.id,
             publicData: {
                 stalls: count,
-                stepsCompleted: [...steps  , 3]
+                stepsCompleted: [...steps, 3]
             }
         }
-        try {
-            if(count){
+        // if (count) {
+            try {
                 setSpinner(true)
                 await HenceForthApi.Auth.Updatedlisting(list)
-                navigate(`/create-stall/YourLocation/${match?.params.id}`)
                 setSpinner(false)
+            } catch (error) {
+                toast.warn("Please add Stalls Count")
+                console.log(error);
+            }
+            if (navigation === "last") {
+                navigate(`/create-stall/LastStep/${match?.params.id}`)
+            } else {
+                navigate(`/create-stall/YourLocation/${match?.params.id}`)
+            }
 
-            }else{
-                toast('Please fill  count', {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
-        }
-        } catch (error) {
-            console.log(error);
-        }
+    //     } else {
+          
+    //     }
     }
 
-    // useEffect(() => {
-        
-    //     setStallsCount()
-    //     // eslint-disable-next-line 
-    // }, [stepsRun])
+    useEffect(() => {
+        if (saveExitbtn) {
+            stallUpdate('last')
+        }
+    } , [saveExitbtn])
     
+
     return (
         <>
 
@@ -114,8 +112,8 @@ const NumberOfStalls = (props: props) => {
                                         <Link to={"/create-stall/step1"}><button className="btn border-0 font-regular px-0 my-3" style={{ color: "rgb(0, 164, 180)" }}>
                                             <img src={backArrow} alt="" className="ps-1" /> Back</button></Link>
                                     </a>
-                                   <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={setStallsCount} > {!spinner ?   " Next" : <Spinner/>}
-                                   </button>
+                                    <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={() => stallUpdate("next")} > {!spinner ? " Next" : <Spinner />}
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -127,6 +125,7 @@ const NumberOfStalls = (props: props) => {
                     </div>
                 </section>
             </div>
+            <ToastContainer autoClose={1000} />
         </>
     )
 }

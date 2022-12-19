@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import passImg from '../Images/Key.svg'
 import HenceForthApi from '../Utiles/HenceForthApi'
-// import HenceForthApi from '../Utils/HenceForthApi'
-// import { strongPassword } from '../Utils/Validation'
+// import {strongPassword} from "../Utiles/Validation"
 
 
 
@@ -36,7 +35,7 @@ const UpdatePassword = () => {
 
 
     const changePass = async () => {
-        if (strongPassword(pass.newPass)) {
+        if ((pass.newPass)) {
             try {
 
                 let res = (await HenceForthApi.Auth.changespassword({
@@ -124,16 +123,15 @@ const UpdatePassword = () => {
                         <div className="border px-4 py-4 mb-4">
                             <img src={passImg} height="32px" className="mb-4" />
                             <h6 className="font-medium-bold text-black">Keeping your account secure</h6>
-                            <p >We regularly review accounts to make sure they’re as secure as possible. We’ll also let you know if there’s more we can do to increase the security of your account.</p>
+                            <p >We regularly review accounts to make sure they're as secure as possible. We'll also let you know if there’s more we can do to increase the security of your account.</p>
                         </div>
                     </div>
                 </div>
             </div>
+
         </>
     )
 }
 export default UpdatePassword
 
-function strongPassword(newPass: any) {
-    throw new Error('Function not implemented.')
-}
+

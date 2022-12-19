@@ -13,10 +13,11 @@ type props = {
         setSteps: (value : Array<number>) => void,
         spinner: boolean,
         setSpinner: (value: boolean) => void
+        saveExitbtn : number
       
 }
 const Description = (props: props) => {
-    const {steps , setSteps , getStartedShow  , spinner , setSpinner}=props
+    const {steps , setSteps , getStartedShow  , spinner , setSpinner , saveExitbtn}=props
 
     const [state, setstate] = useState({
         description: "" as string,
@@ -50,7 +51,7 @@ const Description = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
-    const postDescription = async () => {
+    const postDescription = async (navigation: string) => {
         if (state.description && state.extra_detail) {
             try {
                 setSpinner(true);
@@ -65,24 +66,26 @@ const Description = (props: props) => {
                 }))
                 setSpinner(false)
                 
-                navigate(`/create-stall/Timmings/${match?.params.id}`)
+                if(navigation === "next") {
+                    navigate(`/create-stall/Timmings/${match?.params.id}`)
+                } else {
+                    navigate(`/create-stall/LastStep/${match?.params.id}`)
+
+                }
             }
             catch (error) {
                 console.log(error);
             }
         } else {
-            toast('Please Enter Details', {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
+            toast.warn('Please Enter Details')
         }
     }
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            postDescription("last")
+        }
+    })
 
     return (
         <>
@@ -121,7 +124,7 @@ const Description = (props: props) => {
                                     <img src={backArrow} className="pr-1" alt="" /> Back
                                 </button>
 
-                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={postDescription}> {!spinner ?   " Next" : <Spinner/>}
+                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={() => postDescription("next")}> {!spinner ?   " Next" : <Spinner/>}
                                 </button>
 
                             </div>

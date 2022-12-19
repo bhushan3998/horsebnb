@@ -19,11 +19,11 @@ type props = {
     setSteps: (value : Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
-    // stepAdd: (val: number) => void
+    saveExitbtn: number
 }
 
 const AddPhotos = (props: props) => {
-    const { getStartedShow , steps, setSteps , spinner , setSpinner } = props
+    const { getStartedShow , steps, setSteps , spinner , setSpinner , saveExitbtn } = props
     const [checkCoverImg, setCheckCoverImg] = useState({
         caption: null as string | null,
         id: '' as string ,
@@ -144,7 +144,7 @@ const AddPhotos = (props: props) => {
         }
     }
 
-    const nextPage = async (ar: any) => {
+    const nextPage = async (ar: any , navigation: string) => {
         let list = {
             id: match?.params?.id,
             publicData: {
@@ -157,16 +157,26 @@ const AddPhotos = (props: props) => {
             try {
                 setSpinner(true)
                 await HenceForthApi?.Auth?.Updatedlisting(list)
-                navigate(`/create-stall/Description/${match?.params.id}`)
+                if (navigation === 'next') {
+                    navigate(`/create-stall/Description/${match?.params.id}`)
+                } else {
+                    navigate(`/create-stall/LastStep/${match?.params.id}`)
+                }
                 setSpinner(false)
                 
             } catch (error) {
                 console.log(error);
             }
         } else {
-            toast("select an image")
+            toast("upload cover images ")
         }
     }
+
+    useEffect(() => {
+        if(saveExitbtn) {
+            nextPage([...imgfile] ,  'last')
+        }
+    })
 
     return (
         <>
@@ -234,7 +244,7 @@ const AddPhotos = (props: props) => {
                                         className="pr-1" /> Back
                                 </button>
                             </Link>
-                            <button className="btn my-3 px-3 text-white" onClick={nextPage} disabled={spinner} style={{ background: "rgb(0, 164, 180)" }}> {!spinner ?   " Next" : <Spinner/>}
+                            <button className="btn my-3 px-3 text-white" onClick={() => nextPage([...imgfile] , 'next')} disabled={spinner} style={{ background: "rgb(0, 164, 180)" }}> {!spinner ?   " Next" : <Spinner/>}
                             </button>
                         </div>
                     </div>

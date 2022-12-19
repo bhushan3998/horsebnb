@@ -8,8 +8,9 @@ type props = {
   getStartedShow: () => void
   token: string | null,
   setToken: (token : string | null) => void ,
-  saveAndExit : (value: any) => void
-  profileData: any
+
+  profileData: any,
+  saveAndExit:(value:number)=>void
 }
 export const Components = (props: props) => {
 
@@ -17,7 +18,7 @@ export const Components = (props: props) => {
 
   return (
     <>
-      <Navbar getStartedShow={getStartedShow} token={token} setToken={setToken} saveAndExit={saveAndExit} profileData={profileData} />
+      <Navbar saveAndExit={saveAndExit} getStartedShow={getStartedShow} token={token} setToken={setToken} profileData={profileData} />
       <Outlet />
       {/* <DashBoardHome/> */}
       {/* <Booking/> */}

@@ -8,15 +8,15 @@ import horseImg from "../Images/horseImage.png"
 
 type props = {
     getStartedShow: () => void,
-    steps: Array<number> ,
-    setSteps: (value : Array<number>) => void,
+    steps: Array<number>,
+    setSteps: (value: Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
-    // stepAdd: (val: number) => void
+    saveExitbtn: number
 }
 
 const Timmings = (props: props) => {
-    const {steps , setSteps , getStartedShow , spinner , setSpinner  }=props
+    const { steps, setSteps, getStartedShow, spinner, setSpinner, saveExitbtn } = props
 
     const [arrive, setArrive] = useState<string>("")
     const [leave, setLeave] = useState<string>("")
@@ -38,39 +38,38 @@ const Timmings = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
-    const uploadTimings = async () => {
+    const uploadTimings = async (navigation: string) => {
         const list = {
             id: match?.params.id,
             publicData: {
                 arrive_after: arrive,
                 leave_before: leave,
-                stepsCompleted: [...steps , 9],
+                stepsCompleted: [...steps, 9],
             }
         }
         try {
             if (arrive && leave) {
                 setSpinner(true)
-                
+
                 await HenceForthApi.Auth.Updatedlisting(list)
                 setSpinner(false)
 
-                navigate(`/create-stall/Availability/${match?.params.id}`)
+                if (navigation === 'next') {
+                    navigate(`/create-stall/Availability/${match?.params.id}`)
+                } else {
+                    navigate(`/create-stall/LastStep/${match?.params.id}`)
+                }
             } else {
-                toast('select Options', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
+                toast.warn('select arrive and leave time')
             }
         } catch (error) {
         }
     }
-
+    useEffect(() => {
+        if (saveExitbtn) {
+            uploadTimings("last")
+        }
+    })
     return (
         <>
             <div className="progress" style={{ height: "8px" }}>
@@ -98,8 +97,8 @@ const Timmings = (props: props) => {
                                 <img src={backArrow} alt="" className="pr-1" />
                                 Back
                             </button></Link>
-                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={uploadTimings}>
-                            {!spinner ?   " Next" : <Spinner/>}
+                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={() => uploadTimings("next")}>
+                                {!spinner ? " Next" : <Spinner />}
                             </button>
                         </div>
                     </div>

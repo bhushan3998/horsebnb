@@ -10,11 +10,11 @@ type props = {
     steps: Array<number> ,
     setSteps: (value : Array<number>) => void,
     spinner: boolean,
-    setSpinner: (value: boolean) => void
-    // stepAdd: (val:number)=> void
+    setSpinner: (value: boolean) => void,
+    saveExitbtn:number,
 }
 const Calender = (props: props) => {
-    const {steps , setSteps , getStartedShow , spinner , setSpinner }=props
+    const {steps , setSteps , getStartedShow , spinner , setSpinner, saveExitbtn }=props
 
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/Calender/:id`)
@@ -33,7 +33,7 @@ const Calender = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
-    const setCalender = async () => {
+    const setCalender = async (navigation: string) => {
         let list = {
             id: match?.params.id,
             publicData:{
@@ -46,12 +46,24 @@ const Calender = (props: props) => {
            await HenceForthApi.Auth.Updatedlisting(list) 
            setSpinner(false)
 
+           if (navigation === "next") {
+               navigate(`/create-stall/Pricing/${match?.params.id}`)
+            
+           } else {
+            navigate(`/create-stall/LastStep/${match?.params.id}`)
+            
+           }
+
         } catch (error) {
             
         }
-        navigate(`/create-stall/Pricing/${match?.params.id}`)
     }
 
+    useEffect(() => {
+        if (saveExitbtn) {
+            setCalender("last")
+        }
+    })
 
 
     return (
@@ -65,7 +77,7 @@ const Calender = (props: props) => {
                     <div className="d-flex justify-content-between border-top mt-5">
                        <Link to={'/create-stall/Availability'}><button type="button" className="btn btn-transparent font-regular my-3 px-0" tabIndex={0}>
                             <img src={backArrow} className="pr-1" alt="" /> Back </button> </Link> 
-                      <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={setCalender}> {!spinner ?   " Next" : <Spinner/>}
+                      <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={() => setCalender("next")}> {!spinner ?   " Next" : <Spinner/>}
                         </button>
                     </div>
                 </div>
