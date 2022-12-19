@@ -23,7 +23,6 @@ const Calender = (props: props) => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
-
         } catch (error) {
             console.log(error);
         }
