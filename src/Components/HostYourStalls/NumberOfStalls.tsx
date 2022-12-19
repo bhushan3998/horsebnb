@@ -13,18 +13,13 @@ import horseImg from "../Images/horseImage.png"
 type props = {
     steps: Array<number>,
     setSteps: (value: Array<number>) => void,
-
     spinner: boolean,
     setSpinner: (value: boolean) => void,
     saveExitbtn: number
-
-
 }
 const NumberOfStalls = (props: props) => {
     const { steps, setSteps, saveExitbtn, spinner, setSpinner } = props
     let [count, setCount] = useState<number>(0)
-    // console.log(count);  
-
     const navigate = useNavigate();
     const match = useMatch(`/create-stall/NumberOfStalls/:id`)
     const listId = async () => {
@@ -62,7 +57,6 @@ const NumberOfStalls = (props: props) => {
             } else {
                 navigate(`/create-stall/YourLocation/${match?.params.id}`)
             }
-
     //     } else {
           
     //     }
@@ -73,7 +67,6 @@ const NumberOfStalls = (props: props) => {
             stallUpdate('last')
         }
     } , [saveExitbtn])
-    
 
     return (
         <>

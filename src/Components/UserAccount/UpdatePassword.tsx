@@ -12,7 +12,6 @@ const UpdatePassword = () => {
 
     const handleToggle = () => {
         setToggle(!toggle)
-
     }
 
     const [pass, setPass] = useState({
@@ -32,8 +31,6 @@ const UpdatePassword = () => {
     console.log(pass.currentPass);
     console.log(pass.newPass);
     console.log(pass.confirmPass);
-
-
     const changePass = async () => {
         if ((pass.newPass)) {
             try {

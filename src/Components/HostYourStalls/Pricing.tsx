@@ -61,9 +61,7 @@ const Pricing = (props: props) => {
             setSpinner(true)
             await HenceForthApi.Auth.Updatedlisting(list)
             setSpinner(false)
-
             if (navigation === "next") {
-                
                 navigate(`/create-stall/StripeConnect/${match?.params.id}`)
             } else {
                 navigate(`/create-stall/LastStep/${match?.params.id}`)

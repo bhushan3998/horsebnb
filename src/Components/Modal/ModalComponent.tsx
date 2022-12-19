@@ -137,9 +137,7 @@ const handleChange = (e: any) => {
                                         // country={'us'}
                                         value={signUpUser.phoneNumber}
                                         onChange={(value :any, data: any) => {(value.slice(data.dialCode.length));}}
-                                        // handleOnChange(value, data, event, formattedValue) {
-//   this.setState({ rawPhone: value.slice(data.dialCode.length) })
-// }
+      
                                     />
                                 </div>
                                 <div className="mb-3">

@@ -41,7 +41,7 @@ const LastStep = (props: props) => {
 
 
         listId()
-        // setSaveExitbtn(0)
+        setSaveExitbtn(0)
         // eslint-disable-next-line 
     }, [saveExitbtn])
 

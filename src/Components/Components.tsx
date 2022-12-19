@@ -20,8 +20,6 @@ export const Components = (props: props) => {
     <>
       <Navbar saveAndExit={saveAndExit} getStartedShow={getStartedShow} token={token} setToken={setToken} profileData={profileData} />
       <Outlet />
-      {/* <DashBoardHome/> */}
-      {/* <Booking/> */}
       <Footer />
     </>
   )
