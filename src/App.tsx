@@ -52,13 +52,13 @@ import PersonalInfo from './Components/UserAccount/PersonalInfo';
 import Payments from './Components/UserAccount/Payments';
 import UpdatePassword from './Components/UserAccount/UpdatePassword';
 import UserAccount from './Components/UserAccount/UserAccount';
+import HostProfile from './Components/BookingDetails/HostProfile';
 
 function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
   const [steps, setSteps] = useState<Array<number>>([])
   const [spinner, setSpinner] = useState<boolean>(false)
   const [pageNumber, setPageNumber] = useState<any>({})
-  // const [allData, setAllData] = useState<any>([])
   const[saveExitbtn , setSaveExitbtn]=useState<number>(0)
   const [profileData, setProfileData] = useState({
     displayName: "" as string,
@@ -92,10 +92,11 @@ function App() {
 
 
   
-
-const saveAndExit=(value:number)=>{
-  setSaveExitbtn(value)
-}
+  
+  const saveAndExit=(value:number)=>{
+    setSaveExitbtn(value)
+  }
+  console.log(saveExitbtn);
 
   return (
     <>
@@ -148,10 +149,13 @@ const saveAndExit=(value:number)=>{
             <Route path="add-experience/step8/:id" element={<AdStep8 adSteps={steps} setAdSteps={setSteps} />} />
             <Route path="add-experience/step9/:id" element={<AdStep9 adSteps={steps} setAdSteps={setSteps} />} />
             <Route path="add-experience/last-step/:id" element={<AdLastStep adSteps={steps} setAdSteps={setSteps} />} />
+           
             <Route path="manage-listing/publish-listing/:id" element={<AdPublish />} />
             <Route path='ManageListing' element={<ManageListing />} />
             <Route path="search/type=:type" element={<SearchComponent setPageNumber={setPageNumber} pageNumber={pageNumber} />} />
             <Route path="bookingdetails/:id" element={<BookingDetails />} />
+            <Route path="profile/:id" element={<HostProfile />} />
+
             <Route path="account" element={<UserAccount />} >
               <Route index element={<Account />} />
               <Route path="personal-info" element={<PersonalInfo />} />

@@ -7,8 +7,6 @@ type props ={
 const AdStep10 = (props:props) => {
 
     const {adSteps,setAdSteps} = props
-
-
     const match = useMatch('add-experience/step10/:id')
 
     return (

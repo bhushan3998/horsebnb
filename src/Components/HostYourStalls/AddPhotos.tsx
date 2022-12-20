@@ -54,9 +54,6 @@ const AddPhotos = (props: props) => {
     }, [])
 
 
-    // console.log(showState);
-
-
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         let files = e.target.files[0];
@@ -70,10 +67,6 @@ const AddPhotos = (props: props) => {
             console.log(error);
         }
     };
-
-
-
-
     const uploadImg = async (ar: any) => {
         let length = ar?.length - 1
         let last = ar[length]
@@ -106,35 +99,6 @@ const AddPhotos = (props: props) => {
                 }
             })
         }
-
-        // if (checkCoverImg?.url) {
-        //     list = {
-        //         id: match?.params?.id,
-        //         publicData: {
-        //             cover_photo: checkCoverImg,
-        //             images: [...imgfile,
-        //             {
-        //                 url: last?.url,
-        //                 id: last?.id,
-        //                 priority: ar?.length + 2,
-        //                 caption: ""
-        //             }
-        //             ]
-        //         }
-        //     }
-        // } else if (!checkCoverImg?.url) {
-        //     list = {
-        //         id: match?.params?.id,
-        //         publicData: {
-        //             cover_photo: {
-        //                 url: last?.url,
-        //                 id: last?.id,
-        //                 priority: ar?.length,
-        //                 caption: ""
-        //             }
-        //         }
-        //     }
-        // }
         try {
             await HenceForthApi?.Auth?.Updatedlisting(list)
             await listId()
@@ -154,6 +118,7 @@ const AddPhotos = (props: props) => {
             }
         }
         if (checkCoverImg) {
+            
             try {
                 setSpinner(true)
                 await HenceForthApi?.Auth?.Updatedlisting(list)

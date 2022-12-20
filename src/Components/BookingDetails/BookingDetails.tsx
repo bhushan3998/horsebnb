@@ -38,20 +38,13 @@ const BookingDetails = () => {
     let rating: string = state?.attributes?.publicData?.rating
     let hostImg: string = state?.attributes?.publicData?.host_image
     let hostName: string = state?.attributes?.publicData?.hosted_by
-    // let bookingType = state?.attributes?.publicData?.type
+    let hostId: string = state?.id?.hostId
+    
+
 
 console.log(rating);
 
-    // let c = (parseInt(rating))
-    // console.log(c);
-    // let ratingArray : any = []
-    // for(let i=0 ; i<= parseInt(rating); i++) {
-    //     console.log(i);
-    //      ratingArray.push(i)
-    //     // console.log(c);
-    // }
-    // console.log(ratingArray);
-
+    
 
     useEffect(() => {
         getUserData()
@@ -108,9 +101,13 @@ console.log(rating);
                             <div >
                                 <h2 className="font-22-bold text-black my-0 line-height-space" >Hosted By {state?.attributes?.publicData?.hosted_by}</h2>
                             </div>
+                            <Link to={`/profile/${hostId}`}>
+
                             <div className="round-img ml-3">
-                                <img className="obj-cover  ng-star-inserted ng-lazyloaded" src={`${(state?.attributes?.publicData?.host_image) ? (state?.attributes?.publicData?.host_image) : "https://horsebnb.com/assets/img/horse_one.png"}`} />
+                                <img className="obj-cover  ng-star-inserted ng-lazyloaded"src={
+                                                isImage(hostImg) ?`${HenceForthApi.API_FILE_ROOT_SMALL}${hostImg}`:hostImg } />
                             </div>
+                            </Link>
                         </div>
                         <div className="border-bottom py-3">
                             <div className="d-flex align-items-center">

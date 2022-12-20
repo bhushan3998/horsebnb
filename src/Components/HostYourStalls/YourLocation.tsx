@@ -65,7 +65,7 @@ const YourLocation = (props: props) => {
         if (saveExitbtn) {
             addLocation("last")
         }
-    },[saveExitbtn])
+    })
     return (
         <>
             <div id="root">

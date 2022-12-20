@@ -108,8 +108,9 @@ const Auth = {
 
     updateUserProfile: (info: any) =>
     requests.post("/current_user/update_profile", info),
-  // hostProfile: (host_id: any) =>
-  //   requests.get(`/host/profile?host_id=${host_id}`),
+    
+    hostprofile: (host_id: any) =>
+    requests.get(`/host/profile?host_id=${host_id}`),
 
 };
 

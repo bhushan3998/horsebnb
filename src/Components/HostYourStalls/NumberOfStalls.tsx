@@ -44,29 +44,30 @@ const NumberOfStalls = (props: props) => {
             }
         }
         // if (count) {
-            try {
-                setSpinner(true)
-                await HenceForthApi.Auth.Updatedlisting(list)
-                setSpinner(false)
-            } catch (error) {
-                toast.warn("Please add Stalls Count")
-                console.log(error);
-            }
+        try {
+            setSpinner(true)
+            await HenceForthApi.Auth.Updatedlisting(list)
+            setSpinner(false)
+            
             if (navigation === "last") {
                 navigate(`/create-stall/LastStep/${match?.params.id}`)
             } else {
                 navigate(`/create-stall/YourLocation/${match?.params.id}`)
             }
-    //     } else {
-          
-    //     }
+        } catch (error) {
+            toast.warn("Please add Stalls Count")
+            console.log(error);
+        }
+        //     } else {
+
+        //     }
     }
 
     useEffect(() => {
         if (saveExitbtn) {
             stallUpdate('last')
         }
-    } , [saveExitbtn])
+    })
 
     return (
         <>
