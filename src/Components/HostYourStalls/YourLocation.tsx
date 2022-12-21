@@ -16,6 +16,7 @@ type props = {
 const YourLocation = (props: props) => {
     const { steps, setSteps, spinner, setSpinner, saveExitbtn } = props
     const [location, setLocation] = useState<string>("")
+ 
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/YourLocation/:id`)
 

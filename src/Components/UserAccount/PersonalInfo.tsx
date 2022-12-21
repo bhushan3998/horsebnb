@@ -260,7 +260,7 @@ const PersonalInfo = () => {
                             {nameToggle && <p>{state.userName}</p>}
                         </div>
 
-                        {/* <.............Gender...................> */}
+               
                         <div className="border px-4 py-3 mb-4">
                             <div className="d-flex justify-content-between mb-3">
                                 <div >
@@ -287,7 +287,7 @@ const PersonalInfo = () => {
                             {genderToggle && <p>{state.gender}</p>}
                         </div>
 
-                        {/* <.............Date of birth...................> */}
+          
                         <div className="border px-4 py-3 mb-4">
                             <div className="d-flex justify-content-between mb-3">
                                 <div >
@@ -314,7 +314,7 @@ const PersonalInfo = () => {
                         </div>
 
 
-                        {/* <.............Email.............> */}
+
                         <div className="border px-4 py-3 mb-4">
                             <div className="d-flex justify-content-between mb-3">
                                 <div >
@@ -427,9 +427,9 @@ const PersonalInfo = () => {
                                     <button type="button" className="btn btn-primary px-3 py-2 mt-4 position-relative d-flex align-items-center justify-content-center"> Save </button>
                                 </div>
                             </div>}
-                            {/* {locToggle && <p>{state.address}</p>} */}
+               
                         </div>
-                        {/* <.............Language.............> */}
+
                         <div className="border px-4 py-3 mb-4">
                             <div className="d-flex justify-content-between mb-3">
                                 <div >

@@ -15,34 +15,35 @@ import lightBulb from "../Images/lightBulb.svg"
 
 type props = {
     getStartedShow: () => void,
-    steps: Array<number> ,
-    setSteps: (value : Array<number>) => void,
+    steps: Array<number>,
+    setSteps: (value: Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
     saveExitbtn: number
 }
 
 const AddPhotos = (props: props) => {
-    const { getStartedShow , steps, setSteps , spinner , setSpinner , saveExitbtn } = props
+    const { getStartedShow, steps, setSteps, spinner, setSpinner, saveExitbtn } = props
     const [checkCoverImg, setCheckCoverImg] = useState({
         caption: null as string | null,
-        id: '' as string ,
+        id: '' as string,
         priority: 0 as number,
         url: "" as string
     })
 
     const [imgfile, setImgFile] = useState<Array<object>>([])
+    const [userImg, setUserImg] = useState<string>("")
     console.log(imgfile);
 
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/AddPhotos/:id`)
-
     const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params?.id)
             setCheckCoverImg(res?.data?.attributes?.publicData?.cover_photo);
             setImgFile(res?.data?.attributes?.publicData?.images)
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+            setUserImg(res?.data?.attributes?.publicData?.host_image)
         } catch (error) {
             console.log(error);
         }
@@ -53,13 +54,12 @@ const AddPhotos = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
-
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         let files = e.target.files[0];
         try {
-           
-            
+
+
             let imgApi = (await HenceForthApi.Auth.Uploadimage("file", files))
             await uploadImg([...imgfile, { url: imgApi.filename, id: imgApi.id }])
             listId()
@@ -84,7 +84,7 @@ const AddPhotos = (props: props) => {
                         caption: ""
                     }
                     ],
-                   
+
                 }
             }) : (list = {
                 id: match?.params?.id,
@@ -95,7 +95,7 @@ const AddPhotos = (props: props) => {
                         priority: ar?.length,
                         caption: ""
                     },
-                   
+
                 }
             })
         }
@@ -108,27 +108,38 @@ const AddPhotos = (props: props) => {
         }
     }
 
-    const nextPage = async (ar: any , navigation: string) => {
+    const nextPage = async (ar: any, navigation: string) => {
         let list = {
             id: match?.params?.id,
             publicData: {
                 cover_photo: checkCoverImg,
                 images: [...imgfile],
-                stepsCompleted: [...steps , 7],
+                stepsCompleted: [...steps, 7],
             }
         }
         if (checkCoverImg) {
-            
+
             try {
                 setSpinner(true)
                 await HenceForthApi?.Auth?.Updatedlisting(list)
-                if (navigation === 'next') {
+
+
+
+                if (navigation === 'next' && userImg) {
                     navigate(`/create-stall/Description/${match?.params.id}`)
-                } else {
+
+
+                } else if (navigation === 'next' && !userImg) {
+                    navigate(`/create-stall/profile-photo/${match?.params.id}`)
+                }
+                else {
                     navigate(`/create-stall/LastStep/${match?.params.id}`)
                 }
+
+
+
                 setSpinner(false)
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -138,10 +149,10 @@ const AddPhotos = (props: props) => {
     }
 
     useEffect(() => {
-        if(saveExitbtn) {
-            nextPage([...imgfile] ,  'last')
+        if (saveExitbtn) {
+            nextPage([...imgfile], 'last')
         }
-    },[saveExitbtn])
+    }, [saveExitbtn])
 
     return (
         <>
@@ -181,10 +192,10 @@ const AddPhotos = (props: props) => {
                                             <img src={edit} height="18px" />
                                             <input type="file" className="d-none" />
                                         </span>
-                                    </div>): ""}
+                                    </div>) : ""}
                                 </div>
                             </div>
-                            {Array.isArray(imgfile)  && imgfile.map((l: any, index: any) =>
+                            {Array.isArray(imgfile) && imgfile.map((l: any, index: any) =>
                                 <div className="col-md-6 images-gallery mb-4" key={index}>
                                     <div className="cover-img ">
                                         <div className="position-relative">
@@ -209,7 +220,7 @@ const AddPhotos = (props: props) => {
                                         className="pr-1" /> Back
                                 </button>
                             </Link>
-                            <button className="btn my-3 px-3 text-white" onClick={() => nextPage([...imgfile] , 'next')} disabled={spinner} style={{ background: "rgb(0, 164, 180)" }}> {!spinner ?   " Next" : <Spinner/>}
+                            <button className="btn my-3 px-3 text-white" onClick={() => nextPage([...imgfile], 'next')} disabled={spinner} style={{ background: "rgb(0, 164, 180)" }}> {!spinner ? " Next" : <Spinner />}
                             </button>
                         </div>
                     </div>

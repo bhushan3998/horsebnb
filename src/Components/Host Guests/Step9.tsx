@@ -26,7 +26,6 @@ const Step9 = (props: props) => {
         }
     }
     useEffect(() => {
-        // getStartedShow()
         listId()
         // eslint-disable-next-line 
     }, [])

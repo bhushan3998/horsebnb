@@ -52,6 +52,7 @@ import Payments from './Components/UserAccount/Payments';
 import UpdatePassword from './Components/UserAccount/UpdatePassword';
 import UserAccount from './Components/UserAccount/UserAccount';
 import HostProfile from './Components/BookingDetails/HostProfile';
+import { ProfilePhoto } from './Components/HostYourStalls/ProfilePhoto';
 
 function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
@@ -67,7 +68,7 @@ function App() {
   console.log(steps);
 
   HenceForthApi.setToken(localStorage.getItem("token"))
-  const getStartedShow = async () => {
+  const getStartedShow = async () =>  {
     try {
       let res = (await HenceForthApi.Auth.getdata()).data
       setProfileData(
@@ -77,8 +78,9 @@ function App() {
           firstName:res?.attributes?.profile?.firstName
         }
       )
-      let id = res?.id?.uuid
-      console.log(id);
+
+      return res
+ 
     } catch (error) {
       console.log(error);
     }
@@ -102,7 +104,9 @@ function App() {
             <Route path='create-stall/YourLocation/:id'  element={<YourLocation saveExitbtn={saveExitbtn}  setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/Amenities/:id' element={<Amenities saveExitbtn={saveExitbtn}  setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/AddPhotos/:id' element={<AddPhotos saveExitbtn={saveExitbtn}  getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/profile-photo/:id' element={<ProfilePhoto saveExitbtn={saveExitbtn} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner}/>} />
             <Route path='create-stall/Description/:id' element={<Description saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+           
             <Route path='create-stall/Timmings/:id' element={<Timmings saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/Availability/:id' element={<Availability saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/Calender/:id' element={<Calender saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
