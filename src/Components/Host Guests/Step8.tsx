@@ -7,11 +7,12 @@ import backArrow from "../Images/chevron-left-primary.svg"
 
 type props = {
     steps: Array<number>,
-    setSteps: (value : Array<number> ) => void
+    setSteps: (value : Array<number> ) => void ,
+    saveExitbtn: number
 }
 
 const Step8 = (props: props) => {
-    const { steps, setSteps } = props
+    const { steps, setSteps, saveExitbtn } = props
     const [state, setState] = useState({
         description: "" as string,
         extra_detail: "" as string
@@ -45,7 +46,7 @@ const Step8 = (props: props) => {
     }, [])
 
 
-    const handleStep8 = async () => {
+    const handleStep8 = async (navigation : string) => {
 
         const list = {
             id: match?.params.id,
@@ -60,7 +61,11 @@ const Step8 = (props: props) => {
             
             try {
                 await HenceForthApi.Auth.Updatedlisting(list)
-                navigate(`/create-guest/Step9/${match?.params.id}`)
+                if (navigation === 'next') {
+                    navigate(`/create-guest/Step9/${match?.params.id}`)
+                } else {
+                    navigate(`/create-guest/GuestLastStep/${match?.params.id}`)
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -79,7 +84,11 @@ const Step8 = (props: props) => {
     }
 
 
-
+useEffect(() => {
+    if (saveExitbtn) {
+        handleStep8('last')
+    }
+} , [saveExitbtn])
 
 
 
@@ -111,7 +120,7 @@ const Step8 = (props: props) => {
                                         Back
                                     </button>
 
-                                    <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={handleStep8} > Next </button>
+                                    <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={()=>handleStep8('next')} > Next </button>
 
                                 </div>
                             </form>

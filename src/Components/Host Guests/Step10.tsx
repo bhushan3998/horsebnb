@@ -9,11 +9,12 @@ import horseImg from "../Images/horseImage.png"
 type props = {
     steps: Array<number>,
     setSteps: (value: Array<number>) => void
+    saveExitbtn : number
 }
 
 
 const Step10 = (props: props) => {
-    const { steps, setSteps } = props
+    const { steps, setSteps  , saveExitbtn } = props
     const [check, setCheck] = useState<boolean>()
 
 
@@ -35,7 +36,7 @@ const Step10 = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
-    const setAvailability = async () => {
+    const setAvailability = async (navigation: string) => {
 
         const list = {
             id: match?.params.id,
@@ -48,7 +49,13 @@ const Step10 = (props: props) => {
 
             try {
                 await HenceForthApi.Auth.Updatedlisting(list)
-                navigate(`/create-guest/Step11/${match?.params.id}`)
+                if (navigation === 'next') {
+                    
+                    navigate(`/create-guest/Step11/${match?.params.id}`)
+                } else {
+                    navigate(`/create-guest/GuestLastStep/${match?.params.id}`)
+                    
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -67,6 +74,11 @@ const Step10 = (props: props) => {
         }
     }
 
+    useEffect(() => {
+        if (saveExitbtn) {
+            setAvailability('last')
+        }
+    } , [saveExitbtn])
 
     return (
         <>
@@ -93,7 +105,7 @@ const Step10 = (props: props) => {
                                     <img src={backArrow} className="pr-1" alt="" /> Back
                                 </button>
                             </Link>
-                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={setAvailability} >
+                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={() => setAvailability("next")} >
                                 Next
                             </button>
                         </div>

@@ -9,9 +9,10 @@ import backArrow from "../Images/chevron-left-primary.svg"
 type props = {
     steps: Array<number>,
     setSteps: (value : Array<number> ) => void 
+    saveExitbtn : number
 }
 const Step9 = (props: props) => {
-    const {steps , setSteps   }=props
+    const {steps , setSteps , saveExitbtn   }=props
     const [arrive, setArrive] = useState<string>("")
     const [leave, setLeave] = useState<string>("")
     const navigate = useNavigate()
@@ -30,7 +31,7 @@ const Step9 = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
-    const uploadTimings = async () => {
+    const uploadTimings = async (navigation: string) => {
         const list = {
             id: match?.params.id,
             publicData: {
@@ -42,7 +43,13 @@ const Step9 = (props: props) => {
         try {
             if (arrive && leave) {
                 await HenceForthApi.Auth.Updatedlisting(list)
-                navigate(`/create-guest/Step10/${match?.params.id}`)
+                if (navigation === 'next') {
+                    navigate(`/create-guest/Step10/${match?.params.id}`)
+                    
+                } else {
+                    navigate(`/create-guest/GuestLastStep/${match?.params.id}`)
+                    
+                }
             } else {
                 toast('Select Timmings', {
                     position: "top-right",
@@ -58,6 +65,13 @@ const Step9 = (props: props) => {
         } catch (error) {
         }
     }
+
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            uploadTimings('last')
+        }
+    } , [saveExitbtn])
     return (
         <>
             <div className="progress" style={{ height: "8px" }}>
@@ -86,7 +100,7 @@ const Step9 = (props: props) => {
                                 Back
                             </button>
                             </Link>
-                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={uploadTimings} >
+                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={() => uploadTimings('next')} >
                                 Next
                             </button>
                         </div>

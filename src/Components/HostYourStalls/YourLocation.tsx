@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
 import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
-
 import backArrow from "../Images/chevron-left-primary.svg"
 import horseImg from "../Images/horseImage.png"
 
@@ -12,13 +11,11 @@ type props = {
     spinner: boolean,
     setSpinner: (value: boolean) => void
     saveExitbtn: number
-   
 }
 
 const YourLocation = (props: props) => {
     const { steps, setSteps, spinner, setSpinner, saveExitbtn } = props
     const [location, setLocation] = useState<string>("")
-
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/YourLocation/:id`)
 
@@ -54,10 +51,8 @@ const YourLocation = (props: props) => {
             }else {
                 navigate(`/create-stall/Amenities/${match?.params.id}`)
             }
-
         } catch (error) {
             console.log(error);
-
         }
     }
 
@@ -65,7 +60,7 @@ const YourLocation = (props: props) => {
         if (saveExitbtn) {
             addLocation("last")
         }
-    })
+    } , [saveExitbtn])
     return (
         <>
             <div id="root">
@@ -84,29 +79,8 @@ const YourLocation = (props: props) => {
                                             <p className="font-small-bold my-3">Please input your exact address. Guests will not be able to see your exact address until they have made a booking.</p>
                                             <button className="btn btn-sky-outline-lg my-3 mb-4 position-relative d-flex align-items-center justify-content-center" style={{ border: "1px solid rgb(0, 164, 180)" }}>
                                                 <img src="../../Horsebnb Assets/near_me.svg" alt="" className="img-fluid" />Use current location </button>
-                                            {/* <form className="form-group"> */}
-
+                                            
                                             <input className="form-control  mt-4" placeholder="Enter a location" value={location} onChange={(e: any) => { setLocation(e.target.value) }} />
-                                            {/* </form> */}
-                                            {/* <form className="form-group">
-                                                    <div>
-                                                        <div className="form-group my-3">
-                                                            <label className="mb-3" htmlFor="">Country/Region</label>
-                                                    <input placeholder="Enter country" name="country" className="form-control" value="IN" />
-                                                </div>
-                                                    <div className="form-group my-3">
-                                                        <label className="mb-3" htmlFor="">State</label>
-                                                        <input placeholder="Enter state" name="state" className="form-control ng-untouched ng-pristine ng-valid" value="PB" />
-                                                    </div>
-                                                    <div className="form-group my-3">
-                                                        <label className="mb-3" htmlFor="">City</label>
-                                                        <input placeholder="Enter city" name="city" className="form-control ng-untouched ng-pristine ng-valid" value="Sahibzada Ajit Singh Nagar" /></div>
-                                                    <div className="form-group my-3">
-                                                        <label className="mb-3" htmlFor="">Zip Code</label>
-                                                        <input placeholder="Enter zip code" name="postcode" className="form-control" value="160071" />
-                                                    </div>
-                                                </div>
-                                            </form> */}
                                         </div>
                                         <div className="d-flex justify-content-between mt-5 mb-0 border-top">
                                             <a href="/create-stall/step3/408">

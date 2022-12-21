@@ -10,12 +10,13 @@ type props = {
     setSteps: (value: Array<number>) => void,
     spinner: boolean,
     setSpinner: (value: boolean) => void
+    profileData: any
     // stepAdd: (val: number) => void
 }
 
 const Step1 = (props: props) => {
 
-    const { setSteps, steps, spinner, setSpinner } = props
+    const { setSteps, steps, spinner, setSpinner , profileData } = props
     const [stallType, setStallType] = useState<string>("")
     const [title, setTitle] = useState<string>("")
     const navigate = useNavigate()
@@ -73,6 +74,7 @@ const Step1 = (props: props) => {
         setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
         setTitle(res?.data?.attributes?.title)
         setStallType(res?.data?.attributes?.publicData?.type)
+
     }
 
     useEffect(() => {
@@ -93,7 +95,7 @@ const Step1 = (props: props) => {
                     <ToastContainer />
                     <div className="row py-5">
                         <div className="col-md-6 col-lg-4 text-start">
-                            <h2 className="heading-large mb-3">Hi henceforth, <br /> let's get started listing your space.</h2>
+                            <h2 className="heading-large mb-3">Hi {profileData.firstName}, <br /> let's get started listing your space.</h2>
                             <p className="fw-600 mb-1 text-dim">STEP 1</p>
                             <h3 className="heading-big mb-4">What kind of place do you have?</h3>
                             <div className="my-2">

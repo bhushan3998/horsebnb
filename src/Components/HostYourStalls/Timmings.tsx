@@ -69,7 +69,7 @@ const Timmings = (props: props) => {
         if (saveExitbtn) {
             uploadTimings("last")
         }
-    })
+    } , [saveExitbtn])
     return (
         <>
             <div className="progress" style={{ height: "8px" }}>

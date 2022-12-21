@@ -85,7 +85,7 @@ const Description = (props: props) => {
         if (saveExitbtn) {
             postDescription("last")
         }
-    })
+    } , [saveExitbtn])
 
     return (
         <>

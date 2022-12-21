@@ -13,6 +13,7 @@ type props = {
 
 const CompletedSteps = (props: props) => {
     const { stepName, url, stepsArray, stepNumber } = props
+console.log(props);
 
     return (
         <>

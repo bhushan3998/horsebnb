@@ -63,7 +63,7 @@ const Calender = (props: props) => {
         if (saveExitbtn) {
             setCalender("last")
         }
-    })
+    } , [saveExitbtn])
 
 
     return (

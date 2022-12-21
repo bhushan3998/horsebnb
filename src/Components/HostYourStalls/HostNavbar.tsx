@@ -30,7 +30,8 @@ const HostNavbar = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div id="navbarColor03" className="collapse navbar-collapse justify-content-end" >
-                    <ul className="navbar-nav ml-auto"><li className="nav-item">
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
                         <a href="!#" className="nav-link">
                             <button className="btn text-light fw-bold  px-3 py-2" style={{ backgroundColor: "#00A4B4" }}>Get started</button>
                         </a>

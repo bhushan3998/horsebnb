@@ -11,11 +11,12 @@ import backArrow from "../Images/chevron-left-primary.svg"
 type props = {
     steps: Array<number>,
     setSteps: (value: Array<number>) => void
+    saveExitbtn: number
 }
 const Step3 = (props: props) => {
 
 
-    const { steps, setSteps } = props
+    const { steps, setSteps , saveExitbtn } = props
     let [count, setCount] = useState<number>(0)
 
 
@@ -36,7 +37,7 @@ const Step3 = (props: props) => {
     }, [])
 
 
-    const setRoomCount = async () => {
+    const setRoomCount = async (navigation: string ) => {
         const list = {
             id: match?.params.id,
             publicData: {
@@ -47,7 +48,14 @@ const Step3 = (props: props) => {
         if (count && count !== 0) {
             try {
                 await HenceForthApi.Auth.Updatedlisting(list)
-                navigate(`/create-guest/step5/${match?.params.id}`)
+
+                if (navigation=== 'next') {
+                    navigate(`/create-guest/step5/${match?.params.id}`)
+                    
+                } else {
+                    navigate(`/create-guest/GuestsLastStep/${match?.params.id}`)
+                    
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -64,6 +72,12 @@ const Step3 = (props: props) => {
             })
         }
     }
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            setRoomCount('last')
+        }
+    } , [saveExitbtn])
 
 
 
@@ -101,7 +115,7 @@ const Step3 = (props: props) => {
                             </button>
 
                             <Link to={""}>
-                                <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={setRoomCount}> Next
+                                <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={()=>setRoomCount('next')}> Next
                                 </button>
                             </Link>
                         </div>

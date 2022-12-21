@@ -66,8 +66,10 @@ const NumberOfStalls = (props: props) => {
     useEffect(() => {
         if (saveExitbtn) {
             stallUpdate('last')
+            console.log('chla');
         }
-    })
+        
+    },[saveExitbtn])
 
     return (
         <>

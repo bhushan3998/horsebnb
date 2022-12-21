@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,10 +9,11 @@ import experienceImg from "../Images/experience.png"
 type props = {
     adSteps: Array<number>
     setAdSteps: (value: Array<number>) => void;
+    saveExitbtn:number
 }
 
 const AdStep4 = (props: props) => {
-    const { adSteps, setAdSteps } = props
+    const { adSteps, setAdSteps , saveExitbtn } = props
 
     HenceForthApi.setToken(localStorage.getItem('token'));
     const match = useMatch(`/add-experience/step4/:id`)
@@ -43,7 +44,7 @@ const AdStep4 = (props: props) => {
     useState(() => {
         list()
     })
-    const postStep4Data = async () => {
+    const postStep4Data = async (navigation: string) => {
         if (state.description && state.extra_detail) {
             try {
                 (await HenceForthApi.Auth.Updatedlisting({
@@ -76,6 +77,12 @@ const AdStep4 = (props: props) => {
         }
 
     }
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            postStep4Data('last')
+        }
+    })
 
 
     return (
@@ -111,7 +118,7 @@ const AdStep4 = (props: props) => {
                                 </Link>
                                 {/* <Link to="/add-experience/step5"> */}
                                 <button className="btn my-3 px-3 text-white"
-                                    onClick={postStep4Data}
+                                    onClick={() => postStep4Data('next')}
                                     style={{ background: "rgb(0, 164, 180)" }}> Next
                                 </button>
                                 {/* </Link> */}

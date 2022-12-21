@@ -8,13 +8,14 @@ import lightBulb from "../Images/lightBulb.svg"
 
 type props ={
     steps: Array<number>,
-    setSteps: (value : Array<number>) => void
+    setSteps: (value : Array<number>) => void,
+    saveExitbtn : number
 }
 
 
 const Step12 = (props: props) => {
 
-    const {steps , setSteps} = props 
+    const {steps , setSteps , saveExitbtn} = props 
     const navigate = useNavigate()
     const match = useMatch(`/create-guest/Step12/:id`)
     const [state, setstate] = useState({
@@ -46,7 +47,7 @@ const Step12 = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
-    const setPricing = async () => {
+    const setPricing = async (navigation: string) => {
         let list = {
             id: match?.params.id,
             publicData:
@@ -60,7 +61,13 @@ const Step12 = (props: props) => {
             
             try {
                 await HenceForthApi.Auth.Updatedlisting(list)
-                navigate(`/create-guest/Step13/${match?.params.id}`)
+                if (navigation === 'next') {
+                    navigate(`/create-guest/Step13/${match?.params.id}`)
+                    
+                } else {
+                    navigate(`/create-guest/GuestLastStep/${match?.params.id}`)
+                    
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -78,6 +85,11 @@ const Step12 = (props: props) => {
         }
     }
 
+    useEffect(() => {
+        if (saveExitbtn) {
+            setPricing('last')
+        }
+    } , [saveExitbtn])
 
 
 
@@ -122,7 +134,7 @@ const Step12 = (props: props) => {
                                     </button>
                                 </Link>
                           
-                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " style={{ background: "rgb(0, 164, 180)" }} onClick={setPricing} > Next
+                                <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " style={{ background: "rgb(0, 164, 180)" }} onClick={()=>setPricing('next')} > Next
                                 </button>
                               
                             </div>

@@ -12,11 +12,12 @@ import lightBulb from "../Images/lightBulb.svg"
 type props = {
     steps: Array<number>,
     setSteps: (value : Array<number> ) => void
+    saveExitbtn : number
 }
 
 const Step7 = (props: props) => {
 
-    const { steps, setSteps } = props
+    const { steps, setSteps , saveExitbtn } = props
 
 
     const [checkCoverImg, setCheckCoverImg] = useState({
@@ -111,7 +112,7 @@ const Step7 = (props: props) => {
         }
     }
 
-    const nextPage = async (ar: any) => {
+    const nextPage = async (ar: any , navigation: string) => {
         let list = {
             id: match?.params?.id,
             publicData: {
@@ -123,7 +124,13 @@ const Step7 = (props: props) => {
         if (checkCoverImg) {
             try {
                 await HenceForthApi?.Auth?.Updatedlisting(list)
-                navigate(`/create-guest/Step8/${match?.params.id}`)
+                if (navigation === 'next') {
+                    navigate(`/create-guest/Step8/${match?.params.id}`)
+                    
+                } else {
+                    navigate(`/create-guest/GuestLastStep/${match?.params.id}`)
+                    
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -140,6 +147,12 @@ const Step7 = (props: props) => {
             })
         }
     }
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            nextPage([...imgfile],"last")
+        }
+    } , [saveExitbtn])
 
     return (
 
@@ -209,7 +222,7 @@ const Step7 = (props: props) => {
                                 </button>
                             </Link>
 
-                            <button className="btn my-3 px-3 text-white" style={{ background: "rgb(0, 164, 180)" }} onClick={nextPage}> Next
+                            <button className="btn my-3 px-3 text-white" style={{ background: "rgb(0, 164, 180)" }} onClick={() => nextPage([...imgfile] , "next")}> Next
                             </button>
 
                         </div>

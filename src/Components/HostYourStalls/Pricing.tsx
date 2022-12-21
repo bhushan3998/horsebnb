@@ -76,7 +76,7 @@ const Pricing = (props: props) => {
         if (saveExitbtn) {
             setPricing("last")
         }
-    })
+    },[saveExitbtn])
     return (
         <>
             <div className="progress" style={{ height: "8px" }}>

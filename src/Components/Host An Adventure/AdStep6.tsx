@@ -9,10 +9,11 @@ import experienceImg from "../Images/experience.png"
 type props = {
     adSteps: Array<number>
     setAdSteps: (value : Array<number>) => void;
+    saveExitbtn: number
 }
 
 const AdStep6 = (props: props) => {
-    const { adSteps, setAdSteps } = props
+    const { adSteps, setAdSteps , saveExitbtn } = props
     const match = useMatch('add-experience/step6/:id')
     HenceForthApi.setToken(localStorage.getItem('token'))
     const [grpSize, setGrpSize] = useState<any>()
@@ -34,7 +35,7 @@ const AdStep6 = (props: props) => {
 
 
 
-    const postStep6Data = async () => {
+    const postStep6Data = async (navigation: string) => {
         if (grpSize) {
             try {
                 await HenceForthApi.Auth.Updatedlisting({
@@ -65,7 +66,11 @@ const AdStep6 = (props: props) => {
             });
         }
     }
-   
+   useEffect(() => {
+    if (saveExitbtn) {
+        postStep6Data('last')
+    }
+   },[])
     return (
         <>
             <div className="row mx-0">
@@ -84,7 +89,7 @@ const AdStep6 = (props: props) => {
                             </Link>
                             <Link to={`/add-experience/step10/${match?.params.id}`}>
                                 <button type="button"
-                                    onClick={postStep6Data}
+                                    onClick={() => postStep6Data('next')}
                                     className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center"> Next </button>
                             </Link>
                         </div>

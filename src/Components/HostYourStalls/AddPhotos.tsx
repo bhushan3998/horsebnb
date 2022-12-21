@@ -141,7 +141,7 @@ const AddPhotos = (props: props) => {
         if(saveExitbtn) {
             nextPage([...imgfile] ,  'last')
         }
-    })
+    },[saveExitbtn])
 
     return (
         <>

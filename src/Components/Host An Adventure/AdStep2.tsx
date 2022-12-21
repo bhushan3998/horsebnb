@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useMatch, useNavigate, useSearchParams } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi";
 import backArrow from "../Images/chevron-left-primary.svg"
@@ -9,10 +9,11 @@ import experienceImg from "../Images/experience.png"
 type props = {
     adSteps: Array<number>
     setAdSteps: (value : Array<number>) => void;
+    saveExitbtn : number
 }
 
 const AdStep2 = (props: props) => {
-    const { adSteps, setAdSteps } = props
+    const { adSteps, setAdSteps , saveExitbtn } = props
     HenceForthApi.setToken(localStorage.getItem('token'))
     const match = useMatch('/add-experience/step2/:id');
     const navigate = useNavigate()
@@ -29,7 +30,7 @@ const AdStep2 = (props: props) => {
         list()
     })
 
-    const postStep2Data = async () => {
+    const postStep2Data = async (navigation:string) => {
         try {
             let res = await HenceForthApi.Auth.Updatedlisting({
                 id: match?.params.id,
@@ -40,13 +41,24 @@ const AdStep2 = (props: props) => {
                 }
             })
             console.log(res);
-            navigate(`/add-experience/step4/${match?.params.id}`)
+            if (navigation === 'next') {
+                navigate(`/add-experience/step4/${match?.params.id}`)
+                
+            } else {
+                navigate(`/add-experience/last-step/${match?.params.id}`)
+                
+            }
 
         } catch (error) {
             console.log(error);
 
         }
     }
+    useEffect(() => {
+        if (saveExitbtn) {
+            postStep2Data('last')
+        }
+    })
     return (
         <>
             <section className="add_Location">
@@ -72,7 +84,7 @@ const AdStep2 = (props: props) => {
                                     </Link>
 
                                     <button className="btn my-3 px-3 text-white"
-                                        onClick={postStep2Data}
+                                        onClick={() => postStep2Data("next")}
                                         style={{ background: "rgb(0, 164, 180)" }}> Next
                                     </button>
 

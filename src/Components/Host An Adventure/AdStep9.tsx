@@ -11,6 +11,8 @@ import stripePayments from "../Images/stripe_payments.svg"
 type props = {
     adSteps: Array<number>
     setAdSteps: (value : Array<number>) => void;
+    saveExitbtn: number
+
 }
 const AdStep9 = (props: props) => {
     const { adSteps, setAdSteps } = props

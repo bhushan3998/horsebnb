@@ -9,11 +9,12 @@ import backArrow from "../Images/chevron-left-primary.svg"
 type props = {
     steps: Array<number>,
     setSteps: (value : Array<number> ) => void
+    saveExitbtn: number
 }
 
 const Step6 = (props: props) => {
 
-    const {steps , setSteps} = props
+    const {steps , setSteps , saveExitbtn} = props
     const [check, setChecked] = useState<Array<string>>([])
     const navigate = useNavigate();
     const match = useMatch(`/create-guest/Step6/:id`)
@@ -50,7 +51,7 @@ const Step6 = (props: props) => {
         setChecked([...prev])
     }
 
-    const handleStep6 = async() => {
+    const handleStep6 = async(navigation:string) => {
         let list = {
             id : match?.params.id,
             publicData:{
@@ -63,7 +64,13 @@ const Step6 = (props: props) => {
             
             try {
                 await HenceForthApi.Auth.Updatedlisting(list)
-                navigate(`/create-guest/Step7/${match?.params.id}`)
+                if (navigation === 'next') {
+                    navigate(`/create-guest/Step7/${match?.params.id}`)
+                    
+                } else {
+                    navigate(`/create-guest/GuestLastStep/${match?.params.id}`)
+                    
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -80,6 +87,12 @@ const Step6 = (props: props) => {
             })
         }
     }
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            handleStep6("last")
+        }
+    } , [saveExitbtn])
 
 
     const guestAmenities = [
@@ -128,7 +141,7 @@ const Step6 = (props: props) => {
                                     <img src="" className="pr-1" alt="" /> Back
                                 </button>
                         
-                                    <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={handleStep6}>
+                                    <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={() => handleStep6('next')}>
                                         Next
                                     </button>
                             

@@ -73,7 +73,7 @@ const Availability = (props: props) => {
         if (saveExitbtn) {
             setAvailability("last")
         }
-    })
+    }, [saveExitbtn])
     return (
         <>
             <div className="progress" style={{ height: "8px" }}>

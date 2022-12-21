@@ -58,7 +58,7 @@ const StripeConnect = (props: props) => {
         if (saveExitbtn) {
             StripeConnect("last")
         }
-    })
+    } , [saveExitbtn])
 
     return (
         <>

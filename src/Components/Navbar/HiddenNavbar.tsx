@@ -3,6 +3,7 @@ import image2 from "../Images/explore_one.png"
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SaveAndExit from '../SaveAndExit/SaveandExit';
 import { useEffect } from 'react';
+import GetStarted from './GetStarded';
 // import { match } from 'assert';
 
 type props = {
@@ -90,9 +91,10 @@ const HiddenNavbar = (props: props) => {
       </ul>) :
         location.pathname.startsWith('/create-stall/step1') ? ""
           : (location.pathname.startsWith('/c') ? <SaveAndExit saveAndExit={saveAndExit} /> : (<div className="getStarted">
-            <Link to={"/create-stall/step1 "}> <button className='btn btn-outline' style={{ background: "#00A4B4" }}>
-              Get Started
-            </button></Link>
+            
+            {/* <Link to={"/create-stall/step1 "}>  */}
+              <GetStarted/>         
+            {/* </Link> */}
           </div>))
       }
     </>

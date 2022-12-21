@@ -12,6 +12,7 @@ import backArrow from "../Images/chevron-left-primary.svg"
 type props = {
     adSteps: Array<number>
     setAdSteps: (value : Array<number>) => void;
+    saveExitbtn : number
 }
 
 const AdStep5 = (props: props) => {

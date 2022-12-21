@@ -8,11 +8,12 @@ import horseImg from "../Images/horseImage.png"
 type props = {
     steps: Array<number> ,
     setSteps: (value : Array<number>) => void
+    saveExitbtn : number
 }
 
 const Step11 = (props: props) => {
 
-    const {steps , setSteps} = props
+    const {steps , setSteps , saveExitbtn} = props
 
 
     const navigate = useNavigate()
@@ -33,15 +34,27 @@ const Step11 = (props: props) => {
     }, [])
 
 
-    const handleStep11 = async() => {
+    const handleStep11 = async(navigation : string) => {
         
 
         try {
-            navigate(`/create-guest/Step12/${match?.params.id}`)
+            if (navigation === 'next') {
+                navigate(`/create-guest/Step12/${match?.params.id}`)
+                
+            } else {
+                navigate(`/create-guest/GuestLastStep/${match?.params.id}`)
+                
+            }
         } catch (error) {
             
         }
     }
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            handleStep11('last')
+        }
+    }, [saveExitbtn])
 
     return (
 
@@ -54,7 +67,7 @@ const Step11 = (props: props) => {
                     <div className="d-flex justify-content-between border-top mt-auto">
                         <Link to={""}>   <button type="button" className="btn btn-transparent font-regular my-3 px-0">
                             <img src={backArrow} className="pr-1" alt="" /> Back </button></Link>
-                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={handleStep11} > Next </button>
+                            <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={() => handleStep11("next")} > Next </button>
                     </div>
                 </div>
             </div>

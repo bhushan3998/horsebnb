@@ -9,6 +9,8 @@ import experienceImg from "../Images/experience.png"
 type props = {
     adSteps: Array<number>
     setAdSteps: (value: Array<number>) => void;
+    saveExitbtn: number
+
 }
 
 const AdStep8 = (props: props) => {

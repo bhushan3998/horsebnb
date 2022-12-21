@@ -7,6 +7,7 @@ import DateModal from "./DateModal/DateModal";
 type props = {
     adSteps: Array<number>
     setAdSteps: (value: Array<number>) => void;
+    saveExitbtn: number
 }
 
 const AdStep7 = (props: props) => {

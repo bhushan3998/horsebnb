@@ -8,11 +8,12 @@ import backArrow from "../Images/chevron-left-primary.svg"
 type props = {
     steps: Array<number>,
     setSteps: (value : Array<number> ) => void
+    saveExitbtn:number
 }
 
 
 const Step5 = (props: props) => {
-    const {steps , setSteps} = props
+    const {steps , setSteps , saveExitbtn} = props
     const navigate = useNavigate();
     const match = useMatch(`/create-guest/Step5/:id`)
 
@@ -31,10 +32,21 @@ const Step5 = (props: props) => {
     }, [])
     
     
-    const handleStep = () => {
-        navigate(`/create-guest/step6/${match?.params.id}`)
+    const handleStep = (navigation: string) => {
+        if (navigation==='next') {
+            navigate(`/create-guest/step6/${match?.params.id}`)
+            
+        }else{
+            navigate(`/create-guest/step6/${match?.params.id}`)
+
+        }
     }
 
+    useEffect(() => {
+        if (saveExitbtn) {
+            handleStep('last')
+        }
+    } , [saveExitbtn])
     return (
 
         <>
@@ -61,7 +73,7 @@ const Step5 = (props: props) => {
                                     </button>
 
                             
-                                    <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={handleStep}>
+                                    <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={() => handleStep('next')}>
                                         Next
                                     </button>
                                  

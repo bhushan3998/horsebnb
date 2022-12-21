@@ -18,32 +18,30 @@ const LastStep = (props: props) => {
     const { steps, setSteps, spinner, setSpinner , setSaveExitbtn  , saveExitbtn } = props
 
     const [allStep , setAllSteps] =useState<any>([])
+    const [loading,setLoading]=useState(false)
     let [coverPhoto, setCoverPhoto] = useState<string>("")
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/LastStep/:id`)
 
     const listId = async () => {
+        setLoading(true)
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
-            console.log(res?.data?.attributes?.publicData?.stepsCompleted);
-            setCoverPhoto(res?.data?.attributes?.publicData?.cover_photo.url);
-            setSteps(res.data.attributes.publicData.stepsCompleted);
-            
-            console.log(allStep);
+            console.log('ids',res?.data?.attributes?.publicData?.stepsCompleted);
+            setSteps([...res?.data?.attributes?.publicData?.stepsCompleted]);
+            setCoverPhoto(res?.data?.attributes?.publicData?.cover_photo?.url);
             
         } catch (error) {
             console.log(error);
+        }finally{
+            setLoading(false)
         }
     }
     useEffect(() => {
-        
-        
-
-
         listId()
         setSaveExitbtn(0)
         // eslint-disable-next-line 
-    })
+    },[])
 
     console.log(steps);
     
@@ -145,13 +143,13 @@ const LastStep = (props: props) => {
             </div>
             <div className="container">
                 <div className="row mt-3 border-bottom pb-4">
-                    <div className="col-md-5">
+                   {loading?"": <div className="col-md-5">
                         <h3 className="heading-large text-black line-height-space mb-3">Finish your listing to start earning..</h3>
                         <h6 className="text-lite mb-3">You can always edit your listing after you publish it.</h6>
                         {allSteps.map((e: any, index: any) =>
                             <CompletedSteps stepsArray={steps} stepName={e.step} key={index} url={e.url} stepNumber={e.stepNumber} />
                         )}
-                    </div>
+                    </div>}
                     <div className="col-md-7 text-center d-flex flex-column">
                         <div className="d-flex align-items-center flex-column justify-content-center flex-grow-1">
                             <div className="d-flex flex-column w-md-100">

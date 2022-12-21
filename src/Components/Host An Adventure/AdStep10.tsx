@@ -3,6 +3,7 @@ import { Link, useMatch } from "react-router-dom"
 type props ={
     adSteps: Array<number>
     setAdSteps: (value : Array<number>) => void;
+    saveExitbtn: number
 }
 const AdStep10 = (props:props) => {
 

@@ -10,10 +10,11 @@ import stripePayments from "../Images/stripe_payments.svg"
 type props = {
     steps: Array<number>,
     setSteps: (value: Array<number>) => void,
+    saveExitbtn : number
 }
 
 const Step13 = (props: props) => {
-    const { steps, setSteps } = props
+    const { steps, setSteps , saveExitbtn } = props
 
     const navigate = useNavigate()
     const match = useMatch(`/create-guest/Step13/:id`)
@@ -37,6 +38,12 @@ const Step13 = (props: props) => {
         navigate(`/create-guest/GuestsLastStep/${match?.params.id}`)
 
     }
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            
+        }
+    } , [saveExitbtn])
 
     return (
         <>
