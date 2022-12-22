@@ -4,7 +4,6 @@ import { toast, ToastContainer } from "react-toastify"
 import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import "./AddPhotos.css"
-
 import publishImg from "../Images/publish.svg"
 import deleteImg from "../Images/delete.svg"
 import edit from "../Images/edit.png"
@@ -24,6 +23,11 @@ type props = {
 
 const AddPhotos = (props: props) => {
     const { getStartedShow, steps, setSteps, spinner, setSpinner, saveExitbtn } = props
+    const match = useMatch(`/create-stall/AddPhotos/:id`)
+    console.log(match);
+
+    HenceForthApi.setToken(localStorage.getItem('token'))
+
     const [checkCoverImg, setCheckCoverImg] = useState({
         caption: null as string | null,
         id: '' as string,
@@ -32,11 +36,9 @@ const AddPhotos = (props: props) => {
     })
 
     const [imgfile, setImgFile] = useState<Array<object>>([])
-    const [userImg, setUserImg] = useState<string>("")
+    const [userImg, setUserImg] = useState<string | null>("")
     console.log(imgfile);
-
     const navigate = useNavigate()
-    const match = useMatch(`/create-stall/AddPhotos/:id`)
     const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params?.id)
@@ -53,6 +55,8 @@ const AddPhotos = (props: props) => {
         listId()
         // eslint-disable-next-line 
     }, [])
+
+    
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -123,23 +127,15 @@ const AddPhotos = (props: props) => {
                 setSpinner(true)
                 await HenceForthApi?.Auth?.Updatedlisting(list)
 
-
-
                 if (navigation === 'next' && userImg) {
                     navigate(`/create-stall/Description/${match?.params.id}`)
-
-
                 } else if (navigation === 'next' && !userImg) {
                     navigate(`/create-stall/profile-photo/${match?.params.id}`)
                 }
                 else {
                     navigate(`/create-stall/LastStep/${match?.params.id}`)
                 }
-
-
-
                 setSpinner(false)
-
             } catch (error) {
                 console.log(error);
             }

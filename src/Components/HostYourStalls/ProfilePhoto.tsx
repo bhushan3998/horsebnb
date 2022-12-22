@@ -1,92 +1,108 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useMatch, useNavigate } from "react-router-dom";
+import { Link, useMatch, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import selfieImg from '../Images/taking_selfie.svg'
 import backArrow from '../Images/chevron-left-primary.svg'
 import defaultUserImg from '../Images/defaultUserImg.jpg'
-import HenceForthApi from "../Utiles/HenceForthApi";
 import Spinner from "../Spinner/Spinner";
+import HenceForthApi from "../Utiles/HenceForthApi";
+
 type props = {
     steps: Array<number>,
     setSteps: (value : Array<number>) => void,
     saveExitbtn: number,
-    setSpinner: (value: boolean) =>void,
+    setSpinner: (value:boolean) => void,
     spinner: boolean
-   
 }
-export  const ProfilePhoto =(props: props) => {
-    const { steps, setSteps , setSpinner , saveExitbtn , spinner } = props
+
+export default function Stalls9(props: props) {
+    const { steps, setSteps, saveExitbtn, spinner , setSpinner } = props
     const [userImg, setUserImg] = useState<string>('')
-    // const [loader, setLoader] = useState<boolean>(false)
+    const [loader, setLoader] = useState<boolean>(false)
+
     HenceForthApi.setToken(localStorage.getItem("token"))
-
-
-    const match = useMatch(`/create-stall/proflie-photo/:id`)
     const navigate = useNavigate()
-
-    const getStartedShow = async () =>  {
-        try {
-          let res = (await HenceForthApi.Auth.getdata()).data
-          setUserImg(res?.attributes?.profile.publicData?.profile_image)
-
-        } catch (error) {
-          console.log(error);
-        }
-      }  
-
-      console.log(match?.params.id);
-      
+    const match = useMatch('/create-stall/step9/:id')
+    
+    const {id} = useParams() as any
+    // const navigate = useNavigate()
 
     const list = async () => {
         try {
-            let res = (await HenceForthApi.Auth.Listid(match?.params.id)).data
+            let res = (await HenceForthApi.Auth.Listid(id)).data
             setSteps(res?.attributes?.publicData?.stepsCompleted)
-            // setUserImg(res?.attributes?.publicData?.host_image)
+            setUserImg(res?.attributes?.publicData?.host_image)
         } catch (error) {
             console.log(error);
         }
     }
-    useEffect(() => {
-        list()
-        getStartedShow()
-        // eslint-disable-next-line
-    }, [userImg])
+
     const handleSubmit = async (e: any) => {
         let file = e.target.files[0]
         try {
-            // setSpinner(true)
+            setLoader(true)
             let res = (await HenceForthApi.Auth.Uploadimage("file", file))
-            // await uploadImg(res.filename)
-            setUserImg(res.filename)
-            // await list()
-            // setSpinner(false)
+            await uploadImg(res.filename)
+            await list()
+            setLoader(false)
         } catch (error) {
             console.log(error);
+
         }
+
     }
+    console.log(id);
 
-
-
-
-    const uploadImg = async () => {
+    const uploadImg = async (url: string) => {
         const list = {
-            id: match?.params.id,
             publicData: {
-                image: userImg,
-                stepsCompleted: [...steps, 9,]
+                image: url,
+                // stepsCompleted: [...steps, 9,]
             }
         }
         try {
-            setSpinner(true);
-            (await HenceForthApi.Auth.updateUserProfile(list))
-            navigate(`/create-stall/Description/${match?.params.id}`)
+            setSpinner(true)
+            let res = (await HenceForthApi.Auth.updateUserProfile(list))
             setSpinner(false)
         } catch (error) {
             console.log(error);
+
         }
     }
+
+    const nextPage = async (navigation: string) => {
+        const list = {
+            id: id,
+            publicData: {
+                host_image: userImg,
+                stepsCompleted: [...steps, 9,]
+            }
+        }
+        let res = await HenceForthApi.Auth.Updatedlisting(list)
+        console.log(res);
+
+        {
+            navigation === 'Next' ?
+                navigate(`/create-stall/Description/${id}`)
+                :
+                navigate(`/create-stall/last-step/${id}`)
+        }
+
+    }
+
+    useEffect(() => {
+        list()
+        // eslint-disable-next-line 
+    }, [])
+
+    useEffect(() => {
+        if (saveExitbtn) {
+            nextPage('Last')
+        }
+    }, [saveExitbtn])
+
     return (
         <>
             <div >
@@ -99,8 +115,9 @@ export  const ProfilePhoto =(props: props) => {
                     <div className="col-md-6 py-5 px-md-0 frame-height overflow-y-auto">
                         <div className="col-lg-8 col-md-11 px-md-0 mx-auto">
                             <h3 className="heading-big pb-4">Profile picture</h3>
-                 
+                            {loader && <p>Feching Image....</p>}
                             <div >
+
                                 <div className="d-flex mb-3 align-items-start">
                                     <div className="h-101 mr-4 position-relative">
                                         <img className="rounded-circle img-fluid profile-img" alt=''
@@ -118,10 +135,11 @@ export  const ProfilePhoto =(props: props) => {
                                 <div className="d-flex justify-content-between border-top mt-5">
                                     <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
                                         <img src={backArrow} alt='' className="pr-1" /> Back </button>
-                                    {/* <Link to={`/create-stall/Description/${match?.params.id}`}> */}
-                                        <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={uploadImg}> {spinner ? <Spinner/> : "Next"} </button>
-                                    {/* </Link> */}
+                                    <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={() => nextPage('Next')}
+                                        disabled={loader}
+                                    > {spinner ? <Spinner /> :  "Next" } </button>
                                 </div>
+
                             </div>
                         </div>
                     </div>

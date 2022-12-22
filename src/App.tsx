@@ -52,7 +52,8 @@ import Payments from './Components/UserAccount/Payments';
 import UpdatePassword from './Components/UserAccount/UpdatePassword';
 import UserAccount from './Components/UserAccount/UserAccount';
 import HostProfile from './Components/BookingDetails/HostProfile';
-import { ProfilePhoto } from './Components/HostYourStalls/ProfilePhoto';
+import ProfilePhoto  from './Components/HostYourStalls/ProfilePhoto';
+
 
 function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
@@ -79,7 +80,7 @@ function App() {
         }
       )
 
-      return res
+     
  
     } catch (error) {
       console.log(error);
