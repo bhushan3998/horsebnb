@@ -4,6 +4,11 @@ import passImg from '../Images/Key.svg'
 import HenceForthApi from '../Utiles/HenceForthApi'
 // import {strongPassword} from "../Utiles/Validation"
 
+// interface typsdata {
+
+// }
+
+
 
 
 const UpdatePassword = () => {

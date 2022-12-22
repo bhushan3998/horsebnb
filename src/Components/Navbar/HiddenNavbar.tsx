@@ -89,7 +89,7 @@ const HiddenNavbar = (props: props) => {
           </div>
         </div>
       </ul>) :
-        location.pathname.startsWith('/create-stall/step1') ? ""
+        location.pathname.startsWith('/create-stall/step1') || location.pathname.match("/create-stall/LastStep/") ? ""
           : (location.pathname.startsWith('/c') ? <SaveAndExit saveAndExit={saveAndExit} /> : (<div className="getStarted">
             
             {/* <Link to={"/create-stall/step1 "}>  */}

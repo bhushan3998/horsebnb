@@ -87,6 +87,8 @@ const Amenities = (props: props) => {
             uploadAmenities("last")
         }
     } , [saveExitbtn])
+
+    
     const amenitiesOffers = [
         { option: "Climate Contolled Barn", id: 1 },
         { option: "Indoor Arena", id: 2 },

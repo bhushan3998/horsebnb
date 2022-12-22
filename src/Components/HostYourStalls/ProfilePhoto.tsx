@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useMatch, useNavigate, useParams } from "react-router-dom";
+import { useMatch, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import selfieImg from '../Images/taking_selfie.svg'
 import backArrow from '../Images/chevron-left-primary.svg'
 import defaultUserImg from '../Images/defaultUserImg.jpg'
@@ -11,22 +10,22 @@ import HenceForthApi from "../Utiles/HenceForthApi";
 
 type props = {
     steps: Array<number>,
-    setSteps: (value : Array<number>) => void,
+    setSteps: (value: Array<number>) => void,
     saveExitbtn: number,
-    setSpinner: (value:boolean) => void,
+    setSpinner: (value: boolean) => void,
     spinner: boolean
 }
 
 export default function Stalls9(props: props) {
-    const { steps, setSteps, saveExitbtn, spinner , setSpinner } = props
+    const { steps, setSteps, saveExitbtn, spinner, setSpinner } = props
     const [userImg, setUserImg] = useState<string>('')
     const [loader, setLoader] = useState<boolean>(false)
 
     HenceForthApi.setToken(localStorage.getItem("token"))
     const navigate = useNavigate()
     const match = useMatch('/create-stall/step9/:id')
-    
-    const {id} = useParams() as any
+
+    const { id } = useParams() as any
     // const navigate = useNavigate()
 
     const list = async () => {
@@ -53,8 +52,6 @@ export default function Stalls9(props: props) {
         }
 
     }
-    console.log(id);
-
     const uploadImg = async (url: string) => {
         const list = {
             publicData: {
@@ -84,12 +81,11 @@ export default function Stalls9(props: props) {
         console.log(res);
 
         {
-            navigation === 'Next' ?
+            navigation === 'next' ?
                 navigate(`/create-stall/Description/${id}`)
                 :
                 navigate(`/create-stall/last-step/${id}`)
         }
-
     }
 
     useEffect(() => {
@@ -99,7 +95,7 @@ export default function Stalls9(props: props) {
 
     useEffect(() => {
         if (saveExitbtn) {
-            nextPage('Last')
+            nextPage('last')
         }
     }, [saveExitbtn])
 
@@ -135,9 +131,9 @@ export default function Stalls9(props: props) {
                                 <div className="d-flex justify-content-between border-top mt-5">
                                     <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
                                         <img src={backArrow} alt='' className="pr-1" /> Back </button>
-                                    <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={() => nextPage('Next')}
+                                    <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={() => nextPage('next')}
                                         disabled={loader}
-                                    > {spinner ? <Spinner /> :  "Next" } </button>
+                                    > {spinner ? <Spinner /> : "Next"} </button>
                                 </div>
 
                             </div>

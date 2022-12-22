@@ -5,21 +5,25 @@ import HenceForthApi from "../Utiles/HenceForthApi"
 import CompletedSteps from "./CompletedSteps"
 import finishListing from "../Images/finish_your_listing.svg"
 import backArrow from "../Images/chevron-left-primary.svg"
+import { toast, ToastContainer } from "react-toastify"
+import preDefaultImg from '../Images/default_image.png'
+
 
 type props = {
     setSteps: (value: Array<number>) => void
     steps: Array<number>,
     spinner: boolean,
     setSpinner: (value: boolean) => void
-    setSaveExitbtn: (value:number) => void
+    setSaveExitbtn: (value: number) => void
     saveExitbtn: number
 }
 const LastStep = (props: props) => {
-    const { steps, setSteps, spinner, setSpinner , setSaveExitbtn  , saveExitbtn } = props
-
-    const [allStep , setAllSteps] =useState<any>([])
-    const [loading,setLoading]=useState(false)
-    let [coverPhoto, setCoverPhoto] = useState<string>("")
+    const { steps, setSteps, spinner, setSpinner, setSaveExitbtn, saveExitbtn } = props
+    const [allStep, setAllSteps] = useState<any>([])
+    const [loading, setLoading] = useState(false)
+    const [proImg, setProImg] = useState<any>('')
+    const [coverPhoto, setCoverPhoto] = useState<string>("")
+    const [title , setTitle] = useState<string>("")
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/LastStep/:id`)
 
@@ -27,13 +31,16 @@ const LastStep = (props: props) => {
         setLoading(true)
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
-            console.log('ids',res?.data?.attributes?.publicData?.stepsCompleted);
+            console.log('ids', res?.data?.attributes?.publicData?.stepsCompleted);
             setSteps([...res?.data?.attributes?.publicData?.stepsCompleted]);
             setCoverPhoto(res?.data?.attributes?.publicData?.cover_photo?.url);
-            
+            setProImg(res?.data?.attributes?.publicData?.host_image);
+            setTitle(res?.data?.attributes?.title)
+
+
         } catch (error) {
             console.log(error);
-        }finally{
+        } finally {
             setLoading(false)
         }
     }
@@ -41,10 +48,10 @@ const LastStep = (props: props) => {
         listId()
         setSaveExitbtn(0)
         // eslint-disable-next-line 
-    },[])
+    }, [])
 
     console.log(steps);
-    
+
 
 
     const allSteps = [
@@ -89,7 +96,14 @@ const LastStep = (props: props) => {
             stepNumber: 8
 
         },
-        // {id:7, step:"Profile Photo" , url:"Timmings/:id"},
+        {
+            id: 7,
+            step: "Profile Photo",
+            url: `create-stall/profile-photo/${match?.params.id}`,
+            stepNumber: 13,
+            proImg: proImg
+
+        },
         {
             id: 7,
             step: "Check in and Check out",
@@ -127,14 +141,17 @@ const LastStep = (props: props) => {
         },
     ]
 
-
     const lastStep = () => {
-        setSpinner(true)
-        navigate(`/manage-listing/publish-listing/${match?.params.id}`)
-        setSpinner(false)
+        let sets = Array.from(new Set(steps))
+        if (sets.length >= 10) {
+            setSpinner(true)
+            navigate(`/manage-listing/publish-listing/${match?.params.id}`)
+            setSpinner(false)
+        }
+        else {
+            toast.warn("complete all steps")
+        }
     }
-
-
     return (
         <>
             <div className="progress" style={{ height: "8px" }}>
@@ -142,26 +159,27 @@ const LastStep = (props: props) => {
                 </div>
             </div>
             <div className="container">
+                <ToastContainer />
                 <div className="row mt-3 border-bottom pb-4">
-                   {loading?"": <div className="col-md-5">
+                    {loading ? "" : <div className="col-md-5">
                         <h3 className="heading-large text-black line-height-space mb-3">Finish your listing to start earning..</h3>
                         <h6 className="text-lite mb-3">You can always edit your listing after you publish it.</h6>
                         {allSteps.map((e: any, index: any) =>
-                            <CompletedSteps stepsArray={steps} stepName={e.step} key={index} url={e.url} stepNumber={e.stepNumber} />
+                            <CompletedSteps stepsArray={steps} img={e.proImg} stepName={e.step} key={index} url={e.url} stepNumber={e.stepNumber} />
                         )}
                     </div>}
                     <div className="col-md-7 text-center d-flex flex-column">
                         <div className="d-flex align-items-center flex-column justify-content-center flex-grow-1">
                             <div className="d-flex flex-column w-md-100">
-                                <img alt="" src={finishListing} width="400px" className="d-none d-md-block" />
+                                <img src={finishListing} alt="" width="400px" className="d-none d-md-block" />
                                 <div className="px-0 mt-4 flex-basis-auto">
                                     <div className="steps-preview d-flex align-items-center justify-content-between p-3 ml-md-5">
                                         <div className="text-left">
-                                            <h6 className="font-medium single-line-ellipsis">oo</h6>
-                                            <Link className="pointer text-decoration-none" style={{ color: "#00A4B4" }} to={""}>Preview</Link>
+                                            <h6 className="font-medium single-line-ellipsis">{title}</h6>
+                                            <Link className="pointer text-decoration-none" style={{ color: "#00a4b4" }} to={""}>Preview</Link>
                                         </div>
                                         <div className="prev-img">
-                                            <img alt="" className="obj-cover  ng-star-inserted ng-lazyloaded" src={`${HenceForthApi.API_FILE_ROOT_MEDIUM}${coverPhoto}`} />
+                                            <img className="obj-cover  ng-star-inserted ng-lazyloaded" alt="" src={coverPhoto ? `${HenceForthApi.API_FILE_ROOT_MEDIUM}${coverPhoto}` : preDefaultImg} />
                                         </div>
                                     </div>
                                 </div>

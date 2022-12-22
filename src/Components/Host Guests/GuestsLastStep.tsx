@@ -13,6 +13,7 @@ type props ={
 const GuestsLastStep = (props: props) => {
 const {steps , setSteps}=props
     let [ coverPhoto , setCoverPhoto ] = useState<string>("")
+    const [proImg , setProImg] = useState()
     const navigate = useNavigate()
     const match = useMatch(`create-guest/GuestsLastStep/:id`)
 
@@ -22,6 +23,7 @@ const {steps , setSteps}=props
             console.log();
             setCoverPhoto(res?.data?.attributes?.publicData?.cover_photo.url);
             setSteps(res?.data?.attributes?.publicData?.stepsCompleted);
+            setProImg(res?.data?.attributes?.publicData?.host_image)
         } catch (error) {
             console.log(error);
         }
@@ -126,7 +128,7 @@ const {steps , setSteps}=props
                         <h3 className="heading-large text-black line-height-space mb-3">Finish your listing to start earning..</h3>
                         <h6 className="text-lite mb-3">You can always edit your listing after you publish it.</h6>
                         {allSteps.map((e: any, index: any) =>
-                            <CompletedSteps stepsArray={steps} stepName={e.step} key={index} url={e.url} stepNumber={e.stepNumber} />
+                            <CompletedSteps stepsArray={steps} img={e.proImg} stepName={e.step} key={index} url={e.url} stepNumber={e.stepNumber} />
                         )}
                     </div>
                     <div className="col-md-7 text-center d-flex flex-column">

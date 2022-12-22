@@ -16,6 +16,7 @@ const AdLastStep = (props: props) => {
 
     const match = useMatch('/add-experience/last-step/:id')
     const [step, setStep] = useState<any>([])
+    const [proImg , setProImg] = useState()
 
     HenceForthApi.setToken(localStorage.getItem('token'));
 
@@ -78,6 +79,7 @@ const AdLastStep = (props: props) => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
             setAdSteps(res.data.arrtibutes.publicData.stepsCompleted)
+            setProImg(res?.data?.attributes?.publicData?.host_image)
         }
         catch (error) {
 
@@ -106,7 +108,7 @@ const AdLastStep = (props: props) => {
                         <h3 className="heading-large text-black line-height-space mb-3">Finish your listing to start earning..</h3>
                         <h6 className="text-lite mb-3">You can always edit your listing after you publish it.</h6>
                         {allSteps.map((e: any, index: any) =>
-                            <CompletedSteps stepsArray={step} stepName={e.step} key={index} url={e.url} stepNumber={e.stepNumber} />
+                            <CompletedSteps stepsArray={step} img={e.proImg} stepName={e.step} key={index} url={e.url} stepNumber={e.stepNumber} />
                         )}
                     </div>
                     <div className="col-md-7 text-center d-flex flex-column">
