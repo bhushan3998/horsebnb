@@ -1,15 +1,23 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 type props = {
     state: any
 }
 const GMap = ({state}: props) => {
+
+
+  const [addMarker , setAddMarker] = useState<any>({})
   const googleMapRef = useRef(null);
   let googleMap: any = null;
 
-//   let geoLoc = [{state  }]
+  // for (var i = 0;  1<= 50; i++) {
+  //   // const element = array[];
+    // console.log(state);
+    // console.log(state?.data[0]?.attributes?.geolocation);
+  // }
+  // let geoLoc = state[i]
+  // console.log(geoLoc);
 
-//   console.log(geoLoc);
   
 
   // list of icons
@@ -31,13 +39,31 @@ const GMap = ({state}: props) => {
   useEffect(() => {
     googleMap = initGoogleMap();
     var bounds = new window.google.maps.LatLngBounds();
+    
     state?.map((x: any , index:any) => {
-      const marker: any = createMarker(x[index]?.attributes?.geolocation);
-      bounds.extend(marker.position);
+      // console.log(x);
+      // let loc = x?.data[index]?.attributes?.geolocation
+      // console.log(loc);
+      
+      console.log(x?.data[index]?.attributes?.geolocation);
+      
+      // const marker: any = createMarker(loc);
+
+      setAddMarker(x?.data[index]?.attributes?.geolocation)
+      
+      
+      // bounds.extend(marker.position);
+      
+      
     });
     googleMap.fitBounds(bounds); // the map to contain all markers
+    // console.log(bounds);
   }, []);
+  
+  console.log(addMarker);
+  
 
+  
 
   // initialize the google map
   const initGoogleMap = (): any => {
@@ -47,16 +73,30 @@ const GMap = ({state}: props) => {
     });
   }
 
+  // const icon = {
+   
+  // };
+
+
   // create marker on google map
-  const createMarker = (markerObj: any) => new window.google.maps.Marker({
-    position: { lat: markerObj.lat, lng: markerObj.lng },
-    map: googleMap,
-    icon: {
-      url: markerObj.icon,
-      // set marker width and height
-      scaledSize: new window.google.maps.Size(50, 50)
+  // debugger
+  const createMarker = (markerObj: any) => new window.google.maps.Marker(
+    {
+      // position: { lat: parseFloat(markerObj.lat), lng: parseFloat(markerObj.lng) },
+      // position:addMarker,
+      
+      map: googleMap,
+      icon:  {
+        url: iconList.icon1,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25),
+      }
+      
     }
-  });
+    );
+    // console.log(markerObj)
 
   return <div
     ref={googleMapRef}

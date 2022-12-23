@@ -23,7 +23,7 @@ const SearchComponent = (props: props) => {
 
     const getCardData = async () => {
         setLoading(true)
-        let res1 = (await HenceForthApi.listing.querylisting(types, 50, 1)).data
+        let res1 = (await HenceForthApi.listing.querylisting(types, 50, 1))
         setLoading(false)
         setstate(res1)
     }
@@ -87,7 +87,7 @@ const SearchComponent = (props: props) => {
                                 <span className="visually-hidden">Loading...</span>
                             </div>}
                         </div>
-                        {state.map((e: any, index: any) =>
+                        {state?.data?.map((e: any, index: any) =>
                             <div className="d-flex flex-column flex-md-row border-bottom py-4 ng-star-inserted"><div className="position-relative"><div className="result-img mr-3">
                                 <img alt="..." className="obj-cover  ng-star-inserted ng-lazyloaded" src={`${HenceForthApi.API_FILE_ROOT_MEDIUM}${e?.attributes?.publicData?.cover_photo?.url}`} />
                             </div>
