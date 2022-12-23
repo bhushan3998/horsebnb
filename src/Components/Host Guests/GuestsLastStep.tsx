@@ -5,15 +5,15 @@ import HenceForthApi from "../Utiles/HenceForthApi"
 import finishListing from "../Images/finish_your_listing.svg"
 import backArrow from "../Images/chevron-left-primary.svg"
 
-type props ={
-    setSteps:(value: Array<number>) => void
+type props = {
+    setSteps: (value: Array<number>) => void
     steps: Array<number>
 }
 
 const GuestsLastStep = (props: props) => {
-const {steps , setSteps}=props
-    let [ coverPhoto , setCoverPhoto ] = useState<string>("")
-    const [proImg , setProImg] = useState()
+    const { steps, setSteps } = props
+    let [coverPhoto, setCoverPhoto] = useState<string>("")
+    const [proImg, setProImg] = useState<any>()
     const navigate = useNavigate()
     const match = useMatch(`create-guest/GuestsLastStep/:id`)
 
@@ -37,83 +37,90 @@ const {steps , setSteps}=props
         {
             id: 1,
             step: "Title",
-            url: `create-guest/step1/${match?.params.id}` ,
-            stepNumber:1
+            url: `create-guest/step1/${match?.params.id}`,
+            stepNumber: 1
         },
         {
             id: 2,
             step: "Rooms",
             url: `create-guest/step3/${match?.params.id}`,
-            stepNumber:3
+            stepNumber: 3
 
         },
         {
             id: 3,
             step: "Location",
             url: `create-guest/step5/${match?.params.id}`,
-            stepNumber:5
+            stepNumber: 5
 
         },
         {
             id: 4,
             step: "Amenities",
             url: `create-guest/step6/${match?.params.id}`,
-            stepNumber:6
+            stepNumber: 6
 
         },
         {
             id: 5,
             step: "Photos",
             url: `create-guest/step7/${match?.params.id}`,
-            stepNumber:7
+            stepNumber: 7
 
         },
         {
             id: 6,
             step: "Description",
             url: `create-guest/step8/${match?.params.id}`,
-            stepNumber:8
+            stepNumber: 8
 
         },
-        // {id:7, step:"Profile Photo" , url:"Timmings/:id"},
+        {
+            id: 7,
+            step: "Profile Photo",
+            url: "Timmings/:id",
+            stepNumber: 13,
+            proImg : proImg
+
+        },
         {
             id: 7,
             step: "Check in and Check out",
             url: `create-guest/step9/${match?.params.id}`,
-            stepNumber:9
+            stepNumber: 9
 
         },
         {
             id: 8,
             step: "Agreement",
             url: `create-guest/step10/${match?.params.id}`,
-            stepNumber:14
+            stepNumber: 14
 
         },
         {
             id: 9,
             step: "Calendar Availability",
             url: `create-guest/step11/${match?.params.id}`,
-            stepNumber:15
+            stepNumber: 15
 
         },
         {
             id: 10,
             step: "Pricing",
             url: `create-guest/step12/${match?.params.id}`,
-            stepNumber:11
+            stepNumber: 11
 
         },
         {
             id: 11,
             step: "Stripe Connect",
             url: `create-guest/step3/${match?.params.id}`,
-            stepNumber:12
+            stepNumber: 12
         },
     ]
 
-    const lastStep= () => {
-            navigate(`/manage-listing/publish-listing/${match?.params.id}`)
+    const lastStep = () => {
+        navigate(`/manage-listing/publish-listing/${match?.params.id}`)
     }
 
     return (
@@ -160,11 +167,9 @@ const {steps , setSteps}=props
                                     </Link>
                                 </div>
                                 <div className="">
-                                    
-                                        <button className="btn my-3 px-3 text-white" style={{ background: "rgb(0, 164, 180)" }} onClick={lastStep}> Next
-                                        </button>
-                                  
-                        
+
+                                    <button className="btn my-3 px-3 text-white" style={{ background: "rgb(0, 164, 180)" }} onClick={lastStep}> Next
+                                    </button>
                                 </div>
                             </div>
                         </div>

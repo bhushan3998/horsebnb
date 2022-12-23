@@ -2,20 +2,15 @@ import { useEffect } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import backArrow from "../Images/chevron-left-primary.svg"
-import horseImg from "../Images/horseImage.png"
-
 
 type props = {
     steps: Array<number> ,
     setSteps: (value : Array<number>) => void
     saveExitbtn : number
 }
-
 const Step11 = (props: props) => {
 
     const {steps , setSteps , saveExitbtn} = props
-
-
     const navigate = useNavigate()
     const match = useMatch(`/create-guest/Step11/:id`)
 
@@ -42,7 +37,7 @@ const Step11 = (props: props) => {
                 navigate(`/create-guest/Step12/${match?.params.id}`)
                 
             } else {
-                navigate(`/create-guest/GuestLastStep/${match?.params.id}`)
+                navigate(`/create-guest/GuestsLastStep/${match?.params.id}`)
                 
             }
         } catch (error) {

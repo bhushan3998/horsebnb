@@ -68,7 +68,7 @@ const Step6 = (props: props) => {
                     navigate(`/create-guest/Step7/${match?.params.id}`)
                     
                 } else {
-                    navigate(`/create-guest/GuestLastStep/${match?.params.id}`)
+                    navigate(`/create-guest/GuestsLastStep/${match?.params.id}`)
                     
                 }
             } catch (error) {

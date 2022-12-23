@@ -125,10 +125,10 @@ const Step7 = (props: props) => {
             try {
                 await HenceForthApi?.Auth?.Updatedlisting(list)
                 if (navigation === 'next') {
-                    navigate(`/create-guest/Step8/${match?.params.id}`)
+                    navigate(`/create-guest/profile-photo/${match?.params.id}`)
                     
                 } else {
-                    navigate(`/create-guest/GuestLastStep/${match?.params.id}`)
+                    navigate(`/create-guest/GuestsLastStep/${match?.params.id}`)
                     
                 }
             } catch (error) {

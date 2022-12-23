@@ -20,6 +20,11 @@ const YourLocation = (props: props) => {
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/YourLocation/:id`)
 
+    const [geoLoc, setGeoLoc] = useState<any>({
+        lat: 0 as number,
+        lng: 0 as number
+    })
+
     const listId = async () => {
         try {
             let res = await HenceForthApi.Auth.Listid(match?.params.id)
@@ -33,10 +38,31 @@ const YourLocation = (props: props) => {
         // eslint-disable-next-line 
     }, [])
 
+
+    const getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(function (position) {
+                console.log("Latitude is :", position.coords.latitude);
+
+                console.log("Longitude is :", position.coords.longitude);
+                setGeoLoc({
+                    ...geoLoc,
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                })
+            });
+        }
+    }
+
+
     const addLocation = async (navigation: string) => {
 
         let list = {
             id: match?.params.id,
+            geolocation: {
+                lat: geoLoc.lat,
+                lng: geoLoc.lng,
+            },
             publicData: {
                 stepsCompleted: [...steps, 5],
 
@@ -78,7 +104,7 @@ const YourLocation = (props: props) => {
                                         <h3 className="fw-600 heading-big">Where is your place located?</h3>
                                         <div className="">
                                             <p className="font-small-bold my-3">Please input your exact address. Guests will not be able to see your exact address until they have made a booking.</p>
-                                            <button className="btn btn-sky-outline-lg my-3 mb-4 position-relative d-flex align-items-center justify-content-center" style={{ border: "1px solid rgb(0, 164, 180)" }}>
+                                            <button className="btn btn-sky-outline-lg my-3 mb-4 position-relative d-flex align-items-center justify-content-center" style={{ border: "1px solid rgb(0, 164, 180)" }} onClick={getLocation}>
                                                 <img src="../../Horsebnb Assets/near_me.svg" alt="" className="img-fluid" />Use current location </button>
                                             
                                             <input className="form-control  mt-4" placeholder="Enter a location" value={location} onChange={(e: any) => { setLocation(e.target.value) }} />

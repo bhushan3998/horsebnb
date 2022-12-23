@@ -71,7 +71,7 @@ const Navbar = (props: props) => {
               </ul>
             </div>
           </div>
-          {token !== null ? <HiddenNavbar setToken={setToken} getStartedShow={getStartedShow}  profileData={profileData} saveAndExit={saveAndExit} /> : (<div className="d-flex">
+          {token !== null ? <HiddenNavbar setToken={setToken}   profileData={profileData} saveAndExit={saveAndExit} /> : (<div className="d-flex">
             <button className="btn  border-0" data-bs-toggle="modal" data-bs-target="#loginModal" onClick={() => { setModal(true) }}>Log In</button>
             <button
               className="btn text-white ms-2"

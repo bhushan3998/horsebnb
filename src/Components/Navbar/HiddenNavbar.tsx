@@ -2,22 +2,23 @@ import HenceForthApi from '../Utiles/HenceForthApi'
 import image2 from "../Images/explore_one.png"
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SaveAndExit from '../SaveAndExit/SaveandExit';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import GetStarted from './GetStarded';
-// import { match } from 'assert';
+
 
 type props = {
   setToken: (token: string | null) => void,
-  getStartedShow: () => void,
+  // getStartedShow: () => void,
   
   profileData: any,
   saveAndExit:(value:number)=> void
   // setDisplayName:(value:string) => void
 }
 const HiddenNavbar = (props: props) => {
-  const { setToken, getStartedShow, profileData , saveAndExit } = props
+  const { setToken, profileData , saveAndExit } = props
 
   const navigate = useNavigate()
+  const [userdata , setUserData] = useState<any>()
 
   const location = useLocation()
   const logOut = () => {
@@ -26,14 +27,21 @@ const HiddenNavbar = (props: props) => {
 
   }
 
+  const getData = async() => {
+    let res = await HenceForthApi.Auth.getdata()
+    setUserData(res)
+  }
+  
   useEffect(() => {
-    getStartedShow()
+
+    getData()
   }, [])
+  let userImg = userdata?.data?.attributes?.profile?.publicData?.profile_image
+  let userName = userdata?.data?.attributes?.profile?.displayName
 
   // const saveAndExitfun = () =>{
   //   navigate(`/create-stall/LastStep/:id}`)
   // }
-
 
 
 
@@ -48,10 +56,10 @@ const HiddenNavbar = (props: props) => {
           </Link>
         </li>
         <li className="nav-item mx-3">
-          <Link to="/hostStalls" className="nav-link fw-semibold" onClick={getStartedShow} >Host your Stalls</Link>
+          <Link to="/hostStalls" className="nav-link fw-semibold" onClick={getData} >Host your Stalls</Link>
         </li>
         <li className="nav-item mx-3">
-          <Link to={"/host-guests/"} className="nav-link fw-semibold" onClick={getStartedShow}>Host Guests</Link>
+          <Link to={"/host-guests/"} className="nav-link fw-semibold" onClick={getData}>Host Guests</Link>
         </li>
         <li className="nav-item mx-3">
           <Link to={"/host-an-experience"} className="nav-link fw-semibold" >Host an Adventure</Link>
@@ -66,9 +74,9 @@ const HiddenNavbar = (props: props) => {
 
           <button className="drotabIndex={0}pdown-toggle btn btn-profile" data-bs-toggle="dropdown" aria-expanded="false">
             <div className="profile-img">
-              <img className="obj-cover  ng-lazyloaded" src={profileData.profileImage ? profileData.profileImage : "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"} />
+              <img className="obj-cover  ng-lazyloaded" src={userImg ? userImg : "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"} />
             </div>
-            <span >{profileData.displayName}</span>
+            <span >{userName}</span>
           </button>
           <div className="dropdown_items dropdown-menu" x-placement="bottom-right" style={{ top: "0px", left: "0px", willChange: "transform", position: "absolute", transform: "translate(-28px, 47px)" }}>
             <Link to='/bookings' className='text-decoration-none'>

@@ -110,7 +110,7 @@ const SearchComponent = (props: props) => {
                         )}
                     </div>
                     <div className={check ? 'col-lg-6' : "d-none"}>
-                        <GoogleMaps />
+                        <GoogleMaps state={state}  />
                     </div>
                 </div>
             </div>

@@ -64,7 +64,7 @@ const Step8 = (props: props) => {
                 if (navigation === 'next') {
                     navigate(`/create-guest/Step9/${match?.params.id}`)
                 } else {
-                    navigate(`/create-guest/GuestLastStep/${match?.params.id}`)
+                    navigate(`/create-guest/GuestsLastStep/${match?.params.id}`)
                 }
             } catch (error) {
                 console.log(error);

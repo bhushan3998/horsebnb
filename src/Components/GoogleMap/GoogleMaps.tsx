@@ -1,46 +1,44 @@
-import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import React, { useState, useEffect } from 'react';
+import GMap from './GMap';
 
-const containerStyle = {
-  width: '780px',
-  height: '750px'
+// API key of the google map
+const GOOGLE_MAP_API_KEY = 'AIzaSyB43wC4ocf6N7samRwYUjRCJag2PYJ0xEU';
+
+// load google map script
+const loadGoogleMapScript = (callback : any) => {
+  if (
+    typeof window.google === 'object' &&
+    typeof window.google.maps === 'object'
+  ) {
+    callback();
+  } else {
+    const googleMapScript = document.createElement('script');
+    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}`;
+    window.document.body.appendChild(googleMapScript);
+    googleMapScript.addEventListener('load', callback);
+  }
 };
 
-const center = {
-  lng: 76.717873,
-  lat: 30.704649
-};
-
-function GoogleMaps() {
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyB43wC4ocf6N7samRwYUjRCJag2PYJ0xEU"
-  })
-
-  const [map, setMap] = React.useState(null)
-  const onLoad = React.useCallback(function callback(map: any) {
-   
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    setMap(map)
-  }, [])
-
-  const onUnmount = React.useCallback(function callback(map : any) {
-    setMap(null)
-  }, [])
-
-  return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={3}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
-  ) : <></>
+type props ={
+  state: any
 }
 
-export default React.memo(GoogleMaps)
+const App = ({state}: props) => {
+  const [loadMap, setLoadMap] = useState(false);
+
+  useEffect(() => {
+    loadGoogleMapScript(() => {
+      setLoadMap(true);
+    });
+  }, []);
+
+  return (
+    <div className="App">
+     
+      {!loadMap ? <div>Loading...</div> : <GMap state={state} />}
+     
+    </div>
+  );
+};
+
+export default App;

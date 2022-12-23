@@ -52,7 +52,7 @@ import Payments from './Components/UserAccount/Payments';
 import UpdatePassword from './Components/UserAccount/UpdatePassword';
 import UserAccount from './Components/UserAccount/UserAccount';
 import HostProfile from './Components/BookingDetails/HostProfile';
-import ProfilePhoto  from './Components/HostYourStalls/ProfilePhoto';
+import ProfilePhoto from './Components/HostYourStalls/ProfilePhoto';
 
 
 function App() {
@@ -60,33 +60,33 @@ function App() {
   const [steps, setSteps] = useState<Array<number>>([])
   const [spinner, setSpinner] = useState<boolean>(false)
   const [pageNumber, setPageNumber] = useState<any>({})
-  const[saveExitbtn , setSaveExitbtn]=useState<number>(0)
+  const [saveExitbtn, setSaveExitbtn] = useState<number>(0)
   const [profileData, setProfileData] = useState({
     displayName: "" as string,
     profileImage: "" as string,
-    firstName:"" as string
+    firstName: "" as string
   })
   console.log(steps);
 
   HenceForthApi.setToken(localStorage.getItem("token"))
-  const getStartedShow = async () =>  {
+  const getStartedShow = async () => {
     try {
       let res = (await HenceForthApi.Auth.getdata()).data
       setProfileData(
         {
           displayName: res?.attributes?.profile?.displayName,
           profileImage: res?.attributes?.profile?.publicData?.profile_image,
-          firstName:res?.attributes?.profile?.firstName
+          firstName: res?.attributes?.profile?.firstName
         }
       )
 
-     
- 
+
+
     } catch (error) {
       console.log(error);
     }
-  }  
-  const saveAndExit=(value:number)=>{
+  }
+  const saveAndExit = (value: number) => {
     setSaveExitbtn(value)
   }
   console.log(saveExitbtn);
@@ -95,19 +95,19 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='*' element={<Components saveAndExit={saveAndExit} getStartedShow={getStartedShow} token={token}  setToken={setToken} profileData={profileData}  />}>
+          <Route path='*' element={<Components saveAndExit={saveAndExit} getStartedShow={getStartedShow} token={token} setToken={setToken} profileData={profileData} />}>
             <Route index element={<ExploreHorsebnb setPageNumber={setPageNumber} pageNumber={pageNumber} />} />
             <Route path='hostStalls' element={<HostStalls getStartedShow={getStartedShow} />} />
             <Route path='create-stall/step1' element={<Step1 setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} profileData={profileData} />} >
               <Route path=':listingId' element={<Step1 setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} profileData={profileData} />} />
             </Route>
-            <Route path='create-stall/NumberOfStalls/:id' element={<NumberOfStalls saveExitbtn={saveExitbtn} setSteps={setSteps}  steps={steps} setSpinner={setSpinner} spinner={spinner}  />} />
-            <Route path='create-stall/YourLocation/:id'  element={<YourLocation saveExitbtn={saveExitbtn}  setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
-            <Route path='create-stall/Amenities/:id' element={<Amenities saveExitbtn={saveExitbtn}  setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
-            <Route path='create-stall/AddPhotos/:id' element={<AddPhotos saveExitbtn={saveExitbtn}  getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
-            <Route path='create-stall/profile-photo/:id' element={<ProfilePhoto saveExitbtn={saveExitbtn} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner}/>} />
+            <Route path='create-stall/NumberOfStalls/:id' element={<NumberOfStalls saveExitbtn={saveExitbtn} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/YourLocation/:id' element={<YourLocation saveExitbtn={saveExitbtn} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/Amenities/:id' element={<Amenities saveExitbtn={saveExitbtn} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/AddPhotos/:id' element={<AddPhotos saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
+            <Route path='create-stall/profile-photo/:id' element={<ProfilePhoto saveExitbtn={saveExitbtn} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/Description/:id' element={<Description saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
-           
+
             <Route path='create-stall/Timmings/:id' element={<Timmings saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/Availability/:id' element={<Availability saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/Calender/:id' element={<Calender saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
@@ -123,13 +123,15 @@ function App() {
             <Route path='create-guest/step5/:id' element={<Step5 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/step6/:id' element={<Step6 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/step7/:id' element={<Step7 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
+            <Route path='create-guest/profile-photo/:id' element={<ProfilePhoto saveExitbtn={saveExitbtn} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-guest/step8/:id' element={<Step8 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
+
             <Route path='create-guest/step9/:id' element={<Step9 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/step10/:id' element={<Step10 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/step11/:id' element={<Step11 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/step12/:id' element={<Step12 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/step13/:id' element={<Step13 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
-            <Route path='create-guest/GuestsLastStep/:id' element={<GuestsLastStep setSteps={setSteps} steps={steps}  />} />
+            <Route path='create-guest/GuestsLastStep/:id' element={<GuestsLastStep setSteps={setSteps} steps={steps} />} />
 
             <Route path="host-an-experience" element={<AdventureStalls />} />
             <Route path="add-experience/step1" element={<AdStep1 adSteps={steps} />} >
@@ -144,7 +146,7 @@ function App() {
             <Route path="add-experience/step8/:id" element={<AdStep8 adSteps={steps} setAdSteps={setSteps} saveExitbtn={saveExitbtn} />} />
             <Route path="add-experience/step9/:id" element={<AdStep9 adSteps={steps} setAdSteps={setSteps} saveExitbtn={saveExitbtn} />} />
             <Route path="add-experience/last-step/:id" element={<AdLastStep adSteps={steps} setAdSteps={setSteps} />} />
-           
+
             <Route path="manage-listing/publish-listing/:id" element={<AdPublish />} />
             <Route path='ManageListing' element={<ManageListing />} />
             <Route path="search/type=:type" element={<SearchComponent setPageNumber={setPageNumber} pageNumber={pageNumber} />} />
