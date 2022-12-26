@@ -3,7 +3,10 @@ import { Link, useParams } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import "./SearchComponent.css"
 import mapImg from "../Images/map.svg"
+import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import GoogleMaps from "../GoogleMap/GoogleMaps"
+import Pagination from "../Pagination/Pagination"
+
 type props = {
 
     pageNumber: any,
@@ -19,15 +22,19 @@ const SearchComponent = (props: props) => {
     const [types, setTypes] = useState<number>(type)
     const [loading, setLoading] = useState<boolean>(false)
     const [state, setstate] = useState<any>([])
+    const [metaData , setMetaData] = useState<any>([])
     HenceForthApi.setToken(localStorage.getItem('token'))
 
     const getCardData = async () => {
         setLoading(true)
-        let res1 = (await HenceForthApi.listing.querylisting(types, 50, 1))
+        let res1 = (await HenceForthApi.listing.querylisting(types, 10, 1))
         setLoading(false)
         setstate(res1)
+        setMetaData(res1.meta)
     }
 
+    console.log(metaData);
+    
     const handleRow = (e: any) => {
         setCheck(e.target.checked)
     }
@@ -42,6 +49,10 @@ const SearchComponent = (props: props) => {
         // eslint-disable-next-line
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }, [types])
+
+    const render = (status: Status) => {
+        return <h1>{status}</h1>;
+      };
     return (
         <>
             <div className="container-fluid">
@@ -76,7 +87,7 @@ const SearchComponent = (props: props) => {
                                         <span > Prices   </span>
                                     </div>
                                     <div className="flex-grow-1 mr-2 my-2">
-                                        <input ngx-google-places-autocomplete="" className="mybadge form-control lens-bg br-20 pb-0 pac-target-input" style={{ maxWidth: "300px" }} title="94, near Vishkarma Mandir, Vishwakarma Chowk, Sant Pura, Industrial Area- A, Ludhiana, Punjab 141003, India" placeholder="Enter a location" autoComplete="off" />
+                                        <input ngx-google-places-autocomplete="" className="mybadge form-control lens-bg br-20 pb-0 pac-target-input" style={{ maxWidth: "300px" }} title="" placeholder="Enter a location" autoComplete="off" />
                                     </div>
                                 </div>
                             </div>
@@ -108,9 +119,21 @@ const SearchComponent = (props: props) => {
                                 </div>
                             </div>
                         )}
+                        {/* <Pagination
+                        count={metaData.totalItems}
+                        // data={state.data}
+                        page={Number(metaData)}
+                        // limit={Number(perPage)}
+                        loading={state.loading}
+                        // onPageChange={(e) => onChangePagination(e)} 
+                        /> */}
                     </div>
                     <div className={check ? 'col-lg-6' : "d-none"}>
-                        <GoogleMaps state={state}  />
+                        <GoogleMaps  state={state} />
+                        
+
+
+                     
                     </div>
                 </div>
             </div>

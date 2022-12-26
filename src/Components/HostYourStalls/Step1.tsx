@@ -23,7 +23,7 @@ const Step1 = (props: props) => {
 
     const { listingId } = useParams() as any
     const step1 = async () => {
-        debugger
+        // debugger
         if (listingId) {
             setSpinner(true)
             let res = await HenceForthApi.Auth.Updatedlisting({

@@ -42,9 +42,8 @@ const YourLocation = (props: props) => {
     const getLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition(function (position) {
-                console.log("Latitude is :", position.coords.latitude);
-
-                console.log("Longitude is :", position.coords.longitude);
+                // console.log("Latitude is :", position.coords.latitude);
+                // console.log("Longitude is :", position.coords.longitude);
                 setGeoLoc({
                     ...geoLoc,
                     lat: position.coords.latitude,
@@ -53,10 +52,11 @@ const YourLocation = (props: props) => {
             });
         }
     }
+    console.log(geoLoc);
+    
 
 
     const addLocation = async (navigation: string) => {
-
         let list = {
             id: match?.params.id,
             geolocation: {
