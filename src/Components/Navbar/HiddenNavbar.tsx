@@ -9,16 +9,16 @@ import GetStarted from './GetStarded';
 type props = {
   setToken: (token: string | null) => void,
   // getStartedShow: () => void,
-  
+
   profileData: any,
-  saveAndExit:(value:number)=> void
+  saveAndExit: (value: number) => void
   // setDisplayName:(value:string) => void
 }
 const HiddenNavbar = (props: props) => {
-  const { setToken, profileData , saveAndExit } = props
+  const { setToken, profileData, saveAndExit } = props
 
   // const navigate = useNavigate()
-  const [userdata , setUserData] = useState<any>()
+  const [userdata, setUserData] = useState<any>()
 
   const location = useLocation()
   const logOut = () => {
@@ -27,11 +27,11 @@ const HiddenNavbar = (props: props) => {
 
   }
 
-  const getData = async() => {
+  const getData = async () => {
     let res = await HenceForthApi.Auth.getdata()
     setUserData(res)
   }
-  
+
   useEffect(() => {
 
     getData()
@@ -94,10 +94,10 @@ const HiddenNavbar = (props: props) => {
       </ul>) :
         location.pathname.startsWith('/create-stall/step1') || location.pathname.match("/create-stall/LastStep/") ? ""
           : (location.pathname.startsWith('/c') ? <SaveAndExit saveAndExit={saveAndExit} /> : (<div className="getStarted">
-            
-            
-              <GetStarted/>         
-            
+
+
+            <GetStarted />
+
           </div>))
       }
     </>

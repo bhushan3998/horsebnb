@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Link, useMatch, useNavigate } from "react-router-dom"
 import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
-
 import stripeConnectImg from "../Images/connect_stripe_buttin.png"
 import backArrow from "../Images/chevron-left-primary.svg"
 import stripePayments from "../Images/stripe_payments.svg"
@@ -48,7 +47,6 @@ const StripeConnect = (props: props) => {
                 navigate(`/create-stall/LastStep/${match?.params.id}`)
             } else {
                 navigate(`/create-stall/LastStep/${match?.params.id}`)
-
             }
         } catch (error) {
         }
@@ -87,7 +85,6 @@ const StripeConnect = (props: props) => {
                             
                                 <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center " disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={() => StripeConnect("next")}> {!spinner ?   " Next" : <Spinner/>}
                                 </button>
-                           
                         </div>
                     </div>
                 </div>
