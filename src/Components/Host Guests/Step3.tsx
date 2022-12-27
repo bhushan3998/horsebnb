@@ -7,19 +7,14 @@ import addCount from "../Images/addCount.svg"
 import guestStepsImg from "../Images/guestSteps.png"
 import backArrow from "../Images/chevron-left-primary.svg"
 
-
 type props = {
     steps: Array<number>,
     setSteps: (value: Array<number>) => void
     saveExitbtn: number
 }
 const Step3 = (props: props) => {
-
-
     const { steps, setSteps , saveExitbtn } = props
     let [count, setCount] = useState<number>(0)
-
-
     const navigate = useNavigate();
     const match = useMatch(`/create-guest/Step3/:id`)
     const listId = async () => {

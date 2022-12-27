@@ -3,9 +3,8 @@ import { Link, useParams } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import "./SearchComponent.css"
 import mapImg from "../Images/map.svg"
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
+
 import GoogleMaps from "../GoogleMap/GoogleMaps"
-import Pagination from "../Pagination/Pagination"
 
 type props = {
 
@@ -15,14 +14,14 @@ type props = {
 
 
 const SearchComponent = (props: props) => {
-    const { pageNumber, setPageNumber } = props
+    // const { pageNumber, setPageNumber } = props
     const [check, setCheck] = useState<boolean>(true)
     const { type } = useParams() as any
 
     const [types, setTypes] = useState<number>(type)
     const [loading, setLoading] = useState<boolean>(false)
     const [state, setstate] = useState<any>([])
-    const [metaData , setMetaData] = useState<any>([])
+    const [metaData, setMetaData] = useState<any>([])
     HenceForthApi.setToken(localStorage.getItem('token'))
 
     const getCardData = async () => {
@@ -34,7 +33,7 @@ const SearchComponent = (props: props) => {
     }
 
     console.log(metaData);
-    
+
     const handleRow = (e: any) => {
         setCheck(e.target.checked)
     }
@@ -46,13 +45,10 @@ const SearchComponent = (props: props) => {
     }
     useEffect(() => {
         getCardData()
-        // eslint-disable-next-line
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }, [types])
 
-    const render = (status: Status) => {
-        return <h1>{status}</h1>;
-      };
+
     return (
         <>
             <div className="container-fluid">
@@ -129,11 +125,11 @@ const SearchComponent = (props: props) => {
                         /> */}
                     </div>
                     <div className={check ? 'col-lg-6' : "d-none"}>
-                        <GoogleMaps  state={state} />
-                        
+                        <GoogleMaps state={state} />
 
 
-                     
+
+
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { useState } from "react"
 import HenceForthApi from "../Utiles/HenceForthApi"
+import { ToastContainer } from "react-toastify"
 
 
 type props = {
@@ -68,8 +69,8 @@ const ModalComponent = ({ modal, setModal, userLoginEmail, login, userPassword, 
             }))
             console.log(res);
 
-        } catch (error) {
-            console.log(error);
+        } catch (error : any) {
+            console.log(error.res.data.error_description);
 
         }
     }
@@ -90,6 +91,7 @@ const handleChange = (e: any) => {
         <>
 
             <div className="modal fade" id="loginModal" tabIndex={-1} aria-labelledby="loginModal" aria-hidden="true">
+                <ToastContainer/>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -137,7 +139,6 @@ const handleChange = (e: any) => {
                                         // country={'us'}
                                         value={signUpUser.phoneNumber}
                                         onChange={(value :any, data: any) => {(value.slice(data.dialCode.length));}}
-      
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -156,8 +157,6 @@ const handleChange = (e: any) => {
                                 </div>
                                 <button type="submit" className="btn  col-12" style={{ backgroundColor: "#00a4b4" }}>Submit</button>
                             </form>)}
-
-
                         </div>
                         <div className="container-fluid border">
 
@@ -173,7 +172,7 @@ const handleChange = (e: any) => {
                                 <Facebook handleToken={handleToken} />
                             </div>
                         </div>
-                        {modal ? (<p className="ps-5">Don’t have an HorseBnB account ? <button className="border-0 bg-white" onClick={() => { setModal(false) }} style={{ color: "#00a4b4" }}>Sign Up</button> </p>)
+                        {modal ? (<p className="ps-5">Don't have an HorseBnB account ? <button className="border-0 bg-white" onClick={() => { setModal(false) }} style={{ color: "#00a4b4" }}>Sign Up</button> </p>)
 
                             : (<p className="ps-5">Already have an HorseBnB account ? <button className="border-0 bg-white " onClick={() => { setModal(true) }} style={{ color: "#00a4b4" }}>Log In</button> </p>)}
                     </div>

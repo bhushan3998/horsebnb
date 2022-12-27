@@ -1,5 +1,5 @@
 import HenceForthApi from '../Utiles/HenceForthApi'
-import image2 from "../Images/explore_one.png"
+// import image2 from "../Images/explore_one.png"
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SaveAndExit from '../SaveAndExit/SaveandExit';
 import { useEffect, useState } from 'react';
@@ -17,7 +17,7 @@ type props = {
 const HiddenNavbar = (props: props) => {
   const { setToken, profileData , saveAndExit } = props
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [userdata , setUserData] = useState<any>()
 
   const location = useLocation()

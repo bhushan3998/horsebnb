@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
-import Booking from './Bookings/Bookings'
-import DashBoardHome from './DashBoard/DashBoardHome'
+import { ToastContainer } from 'react-toastify'
+
 import Footer from './Footer/Footer'
 import Navbar from './Navbar/Navbar'
 
@@ -19,7 +19,8 @@ export const Components = (props: props) => {
   return (
     <>
       <Navbar saveAndExit={saveAndExit} getStartedShow={getStartedShow} token={token} setToken={setToken} profileData={profileData} />
-      <Outlet />
+      
+      <Outlet context={<ToastContainer/>} />
       <Footer />
     </>
   )

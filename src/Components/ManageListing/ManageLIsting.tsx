@@ -63,7 +63,7 @@ const ManageListing = () => {
                                     <th scope="col" style={{ width: "300px" }}>Location</th>
                                     <th scope="col">Created On</th>
                                     <th scope="col">
-                                        <img src="" />
+                                        <img alt="" src="" />
                                     </th>
                                 </tr>
                             </thead>

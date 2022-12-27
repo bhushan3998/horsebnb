@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
 import ModalComponent from '../Modal/ModalComponent'
 import HenceForthApi from '../Utiles/HenceForthApi'
 import HiddenNavbar from './HiddenNavbar'
@@ -14,7 +15,7 @@ type props = {
 }
 
 const Navbar = (props: props) => {
-  const { getStartedShow, token, setToken, saveAndExit, profileData } = props
+  const {  token, setToken, saveAndExit, profileData } = props
   const [modal, setModal] = useState<boolean>(false)
   const [userLoginEmail, setUserLoginEmail] = useState<string>("")
   const [userPassword, setUserPassword] = useState<string>("")
@@ -35,7 +36,9 @@ const Navbar = (props: props) => {
       console.log(res.data.token);
       localStorage.setItem("token", res.data.token)
       handleToken(res.data.token)
-    } catch (error) {
+      // setModal(false)
+    } catch (error: any) {
+       toast.warn(error.res.data.error_description)
       console.log(error);
     }
   }
@@ -43,6 +46,7 @@ const Navbar = (props: props) => {
     <>
       <nav className="navbar bg-light navbar-expand-lg shadow bg-white p-3">
         <div className="container-fluid">
+        
           <a className="navbar-brand " href="/">
             <svg xmlns="http://www.w3.org/2000/svg" width="164.247" height="50" viewBox="0 0 164.247 50">
               <g id="logo" transform="translate(-528 -155)">

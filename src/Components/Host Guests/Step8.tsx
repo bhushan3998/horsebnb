@@ -105,7 +105,7 @@ useEffect(() => {
                             <form className="ng-dirty ng-invalid ng-touched">
                                 <textarea rows={5} cols={5} placeholder="Type here..." maxLength={1000} value={state.description} name="description" onChange={handleText} className="form-control ng-dirty ng-invalid ng-touched"  >
                                 </textarea>
-                                {/* <small  className="d-block text-right float-right total-caracteres">0/1000</small> */}
+                                
                                 <div className="invalid-feedback d-block">
                                 </div>
                                 <div className="mt-5">
