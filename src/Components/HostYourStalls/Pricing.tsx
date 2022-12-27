@@ -15,7 +15,6 @@ type props = {
 }
 const Pricing = (props: props) => {
     const { steps, setSteps, getStartedShow, spinner, setSpinner , saveExitbtn } = props
-
     const navigate = useNavigate()
     const match = useMatch(`/create-stall/Pricing/:id`)
     const [state, setstate] = useState({
@@ -100,11 +99,11 @@ const Pricing = (props: props) => {
                                     <h5 className="pb-2">Do you want to allow guests to make instant bookings?</h5>
                                 </div>
                                 <div className="form-check row "  >
-                                    <input className="form-check-input col-md-1" type="radio" id="flexRadioDefault1" value={1} checked={state.bookingAcceptType == 1 } name="bookingAcceptType" onChange={handleState} />
+                                    <input className="form-check-input col-md-1" type="radio" id="flexRadioDefault1" value={1} checked={state.bookingAcceptType === 1 } name="bookingAcceptType" onChange={handleState} />
                                     <label className="form-check-label col-md-2" htmlFor="flexRadioDefault1">
                                         Yes
                                     </label>
-                                    <input className="form-check-input col-md-1" type="radio" name="bookingAcceptType" id="flexRadioDefault2" value={2} checked={(state.bookingAcceptType) == 2} onChange={handleState} />
+                                    <input className="form-check-input col-md-1" type="radio" name="bookingAcceptType" id="flexRadioDefault2" value={2} checked={(state.bookingAcceptType) === 2} onChange={handleState} />
                                     <label className="form-check-label col-md-2" htmlFor="flexRadioDefault2">
                                         No
                                     </label>

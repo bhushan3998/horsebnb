@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import HenceForthApi from "../Utiles/HenceForthApi"
+import Geocode from "react-geocode";    
 
 const ManageListing = () => {
     const [allData, setAllData] = useState([])
@@ -15,6 +16,33 @@ const ManageListing = () => {
     useEffect(() => {
         ManageListing()
     }, [])
+
+
+    // Geocode.fromLatLng("48.8583701", "2.2922926").then(
+    //     (response) => {
+    //       const address = response.results[0].formatted_address;
+    //       console.log(address);
+    //     },
+    //     (error) => {
+    //       console.error(error);
+    //     }
+    //   )
+
+
+    const handleAddress = (event: any): any => {
+        Geocode.setApiKey("AIzaSyB43wC4ocf6N7samRwYUjRCJag2PYJ0xEU");
+        
+        Geocode.fromLatLng((event?.lat), (event?.lng)).then(
+            (response : any) => {
+              const address = response.results[0].formatted_address;
+              return console.log(address , event?.lat , event?.lng );
+            },
+            (error) => {
+            return console.log(error ,  event?.lat , event?.lng);
+            ;
+            }
+          )
+    }
     return (
         <>
             <div className="min-frame-height py-5">
@@ -66,7 +94,8 @@ const ManageListing = () => {
                                                 </td>
                                                 <td style={{ width: "300px" }}>
                                                     <p className="mt-0 mb-4 ng-star-inserted">
-
+                                                        {handleAddress(e?.attributes?.geolocation)}
+                                                    
                                                     </p>
                                                 </td>
                                                 <td >{(new Date(e?.attributes?.createdAt)).toLocaleDateString()}</td>

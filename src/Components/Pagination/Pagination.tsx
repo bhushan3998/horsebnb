@@ -1,7 +1,7 @@
 import Spinner from "../Spinner/Spinner"
 
 export default ({ count, data, page, limit, loading, onPageChange }: any):any => {
-    const visited_page_size = (limit * (page - 1)) + data.length
+    const visited_page_size = (limit * (page - 1)) + data.length        
     return data.length ? <div className="d-flex justify-content-center mt-4">
         {loading ? <Spinner /> :
             <nav aria-label="...">

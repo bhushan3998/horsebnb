@@ -43,6 +43,8 @@ const HiddenNavbar = (props: props) => {
   //   navigate(`/create-stall/LastStep/:id}`)
   // }
 
+  console.log(userImg);
+  
 
 
 
@@ -74,7 +76,7 @@ const HiddenNavbar = (props: props) => {
 
           <button className="drotabIndex={0}pdown-toggle btn btn-profile" data-bs-toggle="dropdown" aria-expanded="false">
             <div className="profile-img">
-              <img className="obj-cover  ng-lazyloaded" src={userImg ? userImg : "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"} />
+              <img className="obj-cover  ng-lazyloaded" src={userImg ? `${HenceForthApi.API_FILE_ROOT_SMALL}${userImg}` : "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"} />
             </div>
             <span >{userName}</span>
           </button>

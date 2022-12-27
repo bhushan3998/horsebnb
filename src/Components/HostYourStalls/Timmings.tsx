@@ -17,7 +17,6 @@ type props = {
 
 const Timmings = (props: props) => {
     const { steps, setSteps, getStartedShow, spinner, setSpinner, saveExitbtn } = props
-
     const [arrive, setArrive] = useState<string>("")
     const [leave, setLeave] = useState<string>("")
     const navigate = useNavigate()

@@ -3,7 +3,6 @@ import { Link, useMatch, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
 import Spinner from "../Spinner/Spinner"
 import HenceForthApi from "../Utiles/HenceForthApi"
-
 import subCount from "../Images/decCount.svg"
 import addCount from "../Images/addCount.svg"
 import backArrow from "../Images/chevron-left-primary.svg"
@@ -58,9 +57,6 @@ const NumberOfStalls = (props: props) => {
             toast.warn("Please add Stalls Count")
             console.log(error);
         }
-        //     } else {
-
-        //     }
     }
 
     useEffect(() => {
@@ -73,7 +69,6 @@ const NumberOfStalls = (props: props) => {
 
     return (
         <>
-
             <div className="App">
                 <section className="stall_step3">
                     <div className="progress" style={{ height: "8px" }}>

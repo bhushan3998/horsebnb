@@ -2,6 +2,7 @@
 import React from 'react'
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
+
 const containerStyle = {
   width: '780px',
   height: '750px'
@@ -41,9 +42,10 @@ function GoogleMaps({ state }: props) {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={3}
+      zoom={10}
       onLoad={onLoad}
       onUnmount={onUnmount}
+      
 
     >
       {state?.data?.map((e: any, index: any) => {
@@ -53,7 +55,6 @@ function GoogleMaps({ state }: props) {
               lng: parseFloat(e?.attributes?.geolocation.lng),
               lat: parseFloat(e?.attributes?.geolocation.lat)
             }} 
-            // title={e.attributes.title}
             />}
           </>
         )
