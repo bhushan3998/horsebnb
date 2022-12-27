@@ -36,17 +36,10 @@ const HiddenNavbar = (props: props) => {
 
     getData()
   }, [])
+
   let userImg = userdata?.data?.attributes?.profile?.publicData?.profile_image
   let userName = userdata?.data?.attributes?.profile?.displayName
-
-  // const saveAndExitfun = () =>{
-  //   navigate(`/create-stall/LastStep/:id}`)
-  // }
-
   console.log(userImg);
-  
-
-
 
   return (
     <>
@@ -89,7 +82,7 @@ const HiddenNavbar = (props: props) => {
               <button type="button" className="dropdown-item" tabIndex={0}>Dashboard</button>
             </Link>
             <Link to='/ManageListing' className='text-decoration-none'>
-              <button type="button" className="dropdown-item" tabIndex={0} >Manage Listings </button>
+              <button type="button" className="d  ropdown-item" tabIndex={0} >Manage Listings </button>
             </Link>
             <Link to='/account' className='text-decoration-none'>
               <button type="button" className="dropdown-item" tabIndex={0}>Account</button>
@@ -102,9 +95,9 @@ const HiddenNavbar = (props: props) => {
         location.pathname.startsWith('/create-stall/step1') || location.pathname.match("/create-stall/LastStep/") ? ""
           : (location.pathname.startsWith('/c') ? <SaveAndExit saveAndExit={saveAndExit} /> : (<div className="getStarted">
             
-            {/* <Link to={"/create-stall/step1 "}>  */}
+            
               <GetStarted/>         
-            {/* </Link> */}
+            
           </div>))
       }
     </>
