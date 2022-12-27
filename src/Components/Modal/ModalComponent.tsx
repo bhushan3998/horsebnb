@@ -84,6 +84,20 @@ const handleChange = (e: any) => {
     })
 }
 
+const handleCode = (value: any , data: any) => {
+    //  (value.slice(data.dialCode.length))
+    //  console.log((value.slice(data.dialCode.length)));
+
+    setSignUpUser({
+        ...signUpUser,
+        country_code:data.dialCode
+        // console.log(value.dialcode , data);
+        // console.log("data"  , data.dialCode);
+    })
+    
+    
+     
+}
 
 
 
@@ -138,7 +152,7 @@ const handleChange = (e: any) => {
                                     <PhoneInput
                                         // country={'us'}
                                         value={signUpUser.phoneNumber}
-                                        onChange={(value :any, data: any) => {(value.slice(data.dialCode.length));}}
+                                        onChange={(value: any , data: any)=>handleCode(value , data)}
                                     />
                                 </div>
                                 <div className="mb-3">
