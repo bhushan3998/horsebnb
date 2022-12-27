@@ -209,7 +209,7 @@ const AddPhotos = (props: props) => {
                             )}
                         </div>
                         <div className="d-flex justify-content-between mt-5 border-top">
-                            <Link to="/create-stall/step6">
+                            <Link to={`create-stall/Amenities/${match?.params.id}`}>
                                 <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
                                     <img src={backArrow}
                                         alt=""

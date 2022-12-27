@@ -100,7 +100,7 @@ const NumberOfStalls = (props: props) => {
                                 <hr className="my-5 py-5 border-0" />
                                 <div className="d-flex justify-content-between mt-5 mb-0 border-top">
                                     <a className="text-decoration-none" href="/create-stall/step1/408">
-                                        <Link to={"/create-stall/step1"}><button className="btn border-0 font-regular px-0 my-3" style={{ color: "rgb(0, 164, 180)" }}>
+                                        <Link to={`/create-stall/step1${match?.params.id}`}><button className="btn border-0 font-regular px-0 my-3" style={{ color: "rgb(0, 164, 180)" }}>
                                             <img src={backArrow} alt="" className="ps-1" /> Back</button></Link>
                                     </a>
                                     <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={() => stallUpdate("next")} > {!spinner ? " Next" : <Spinner />}

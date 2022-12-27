@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useMatch, useNavigate, useParams } from "react-router-dom";
+import { Link, useMatch, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import selfieImg from '../Images/taking_selfie.svg'
@@ -129,8 +129,11 @@ export default function Stalls9(props: props) {
                                     </div>
                                 </div>
                                 <div className="d-flex justify-content-between border-top mt-5">
-                                    <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
-                                        <img src={backArrow} alt='' className="pr-1" /> Back </button>
+                                    <Link to={`/create-stall/AddPhotos/${match?.params.id}`} >
+
+                                        <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
+                                            <img src={backArrow} alt='' className="pr-1" /> Back </button>
+                                    </Link>
                                     <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={() => nextPage('next')}
                                         disabled={loader}
                                     > {spinner ? <Spinner /> : "Next"} </button>

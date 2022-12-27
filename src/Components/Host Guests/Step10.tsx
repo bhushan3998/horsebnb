@@ -100,7 +100,7 @@ const Step10 = (props: props) => {
                             </label>
                         </form>
                         <div className="d-flex justify-content-between border-top mt-auto">
-                            <Link to={"/create-stall/Timmings"}>
+                            <Link to={`create-guest/step9/${match?.params.id}`}>
                                 <button type="button" className="btn btn-transparent font-regular my-3 px-0">
                                     <img src={backArrow} className="pr-1" alt="" /> Back
                                 </button>

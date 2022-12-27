@@ -190,7 +190,7 @@ const LastStep = (props: props) => {
                         <div className="col-6 ">
                             <div className="d-flex justify-content-between mt-5 border-top">
                                 <div className="">
-                                    <Link to="/create-stall/StripeConnect">
+                                    <Link to={`/create-stall/StripeConnect/${match?.params.id}`}>
                                         <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
                                             <img alt="" src={backArrow} className="pr-1" /> Back
                                         </button>

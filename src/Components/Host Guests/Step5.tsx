@@ -68,6 +68,8 @@ const Step5 = (props: props) => {
                             </form>
                             <form className="ng-untouched ng-pristine ng-invalid">
                                 <div className="d-flex justify-content-between border-top mt-5">
+                                    <Link to={`/create-guest/step3/${match?.params.id}`}>
+                                    </Link>
                                     <button type="button" className="btn btn-transparent font-regular my-3 px-0" tabIndex={0} >
                                         <img src={backArrow} className="pr-1" /> Back
                                     </button>

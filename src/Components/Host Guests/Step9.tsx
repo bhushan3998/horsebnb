@@ -94,7 +94,7 @@ const Step9 = (props: props) => {
                             </label>
                         </div>
                         <div className="d-flex justify-content-between border-top btn-footer mt-auto">
-                            <Link to={""}>    <button type="button" className="btn btn-transparent font-regular my-3" tabIndex={0} >
+                            <Link to={`/create-guest/step8/${match?.params.id}`}>    <button type="button" className="btn btn-transparent font-regular my-3" tabIndex={0} >
                                 <img src="" alt="" className="pr-1" />
                                 Back
                             </button>

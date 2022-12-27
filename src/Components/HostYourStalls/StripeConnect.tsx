@@ -79,7 +79,7 @@ const StripeConnect = (props: props) => {
                             </Link>
                         </div>
                         <div className="d-flex justify-content-between mt-5 border-top">
-                            <Link to="/create-stall/Pricing">
+                            <Link to={`/create-stall/Pricing/${match?.params.id}`}>
                                 <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
                                     <img alt="" src={backArrow} className="pr-1" /> Back
                                 </button>

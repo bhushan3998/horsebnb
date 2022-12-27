@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import {  useMatch, useNavigate } from "react-router-dom"
+import {  Link, useMatch, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
 import HenceForthApi from "../Utiles/HenceForthApi"
 import guestStepsImg from "../Images/guestSteps.png"
@@ -115,10 +115,12 @@ useEffect(() => {
                                     </textarea>
                                 </div>
                                 <div className="d-flex justify-content-between border-top mt-5">
+                                    <Link to={`/create-guest/step7/${match?.params.id}`}>
                                     <button type="button" className="btn btn-transparent font-regular my-3 px-0" tabIndex={0} >
                                         <img alt="" src={backArrow} className="pr-1" />
                                         Back
                                     </button>
+                                    </Link>
 
                                     <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={()=>handleStep8('next')} > Next </button>
 

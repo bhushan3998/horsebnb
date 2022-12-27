@@ -76,7 +76,7 @@ const Amenities = (props: props) => {
                 setSpinner(false)
             } catch (error) {
                 console.log(error);
-                }
+            }
         } else {
             toast.warn("Select the Amenities Offers")
         }
@@ -86,9 +86,9 @@ const Amenities = (props: props) => {
         if (saveExitbtn) {
             uploadAmenities("last")
         }
-    } , [saveExitbtn])
+    }, [saveExitbtn])
 
-    
+
     const amenitiesOffers = [
         { option: "Climate Contolled Barn", id: 1 },
         { option: "Indoor Arena", id: 2 },
@@ -152,9 +152,12 @@ const Amenities = (props: props) => {
                     <hr />
                     <div className="d-flex justify-content-between mt-5 mb-0 border-top">
 
+                        <Link to={`/create-stall/YourLocation/${match?.params.id}`}>
+                        
                         <button className="btn border-0 font-regular px-0 my-3" style={{ color: "#00A4B4" }}>
                             <img src={backArrow} alt="" className="ps-1" /> Back
                         </button>
+                        </Link>
 
                         <button className="btn my-3 px-3 text-white d-flex align-items-center justify-content-center" disabled={spinner} style={{ background: "rgb(0, 164, 180)" }} onClick={() => uploadAmenities("next")}> {!spinner ? " Next" : <Spinner />}
                         </button>

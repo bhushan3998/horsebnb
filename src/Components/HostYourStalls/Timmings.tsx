@@ -92,7 +92,7 @@ const Timmings = (props: props) => {
                             </label>
                         </div>
                         <div className="d-flex justify-content-between border-top btn-footer mt-auto">
-                            <Link to={"create-stall/Description"}>    <button type="button" className="btn btn-transparent font-regular my-3" tabIndex={0} >
+                            <Link to={`/create-stall/Description${match?.params.id}`}>    <button type="button" className="btn btn-transparent font-regular my-3" tabIndex={0} >
                                 <img src={backArrow} alt="" className="pr-1" />
                                 Back
                             </button></Link>

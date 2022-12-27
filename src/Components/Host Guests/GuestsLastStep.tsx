@@ -80,7 +80,7 @@ const GuestsLastStep = (props: props) => {
             step: "Profile Photo",
             url: "Timmings/:id",
             stepNumber: 13,
-            proImg : proImg
+            proImg: proImg
 
         },
         {
@@ -122,7 +122,6 @@ const GuestsLastStep = (props: props) => {
     const lastStep = () => {
         navigate(`/manage-listing/publish-listing/${match?.params.id}`)
     }
-
     return (
         <>
             <div className="progress" style={{ height: "8px" }}>
@@ -146,7 +145,8 @@ const GuestsLastStep = (props: props) => {
                                     <div className="steps-preview d-flex align-items-center justify-content-between p-3 ml-md-5">
                                         <div className="text-left">
                                             <h6 className="font-medium single-line-ellipsis">oo</h6>
-                                            <Link className="pointer text-decoration-none" style={{ color: "#00A4B4" }} to={""}>Preview</Link>
+                                            <Link className="pointer text-decoration-none" style={{ color: "#00A4B4" }} to={""}>Preview
+                                            </Link>
                                         </div>
                                         <div className="prev-img">
                                             <img alt="" className="obj-cover  ng-star-inserted ng-lazyloaded" src={`${HenceForthApi.API_FILE_ROOT_MEDIUM}${coverPhoto}`} />
@@ -160,7 +160,7 @@ const GuestsLastStep = (props: props) => {
                         <div className="col-6 ">
                             <div className="d-flex justify-content-between mt-5 border-top">
                                 <div className="">
-                                    <Link to="">
+                                    <Link to={`/create-guest/step13/${match?.params.id}`}>
                                         <button type="button" className="btn btn-transparent font-regular my-3 px-0" >
                                             <img alt="" src={backArrow} className="pr-1" /> Back
                                         </button>

@@ -60,7 +60,7 @@ const Step11 = (props: props) => {
                         <input type="date" name="" id="" />
                     </div>
                     <div className="d-flex justify-content-between border-top mt-auto">
-                        <Link to={""}>   <button type="button" className="btn btn-transparent font-regular my-3 px-0">
+                        <Link to={`create-guest/step10/${match?.params.id}`}>   <button type="button" className="btn btn-transparent font-regular my-3 px-0">
                             <img src={backArrow} className="pr-1" alt="" /> Back </button></Link>
                             <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={() => handleStep11("next")} > Next </button>
                     </div>

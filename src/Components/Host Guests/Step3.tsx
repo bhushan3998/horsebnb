@@ -41,7 +41,7 @@ const Step3 = (props: props) => {
         const list = {
             id: match?.params.id,
             publicData: {
-                rooms: count,
+                guests: count,
                 stepsCompleted: [...steps, 3]
             }
         }
@@ -109,6 +109,8 @@ const Step3 = (props: props) => {
                         <div className="mt-5"> Note : Occupancy of 2 guests in a room.</div>
                         <hr />
                         <div className="d-flex justify-content-between mt-auto border-top">
+                            <Link to={`/create-guest/step1${match?.params.id}`}>
+                            </Link>
                             <button type="button" className="btn btn-transparent font-regular px-0 my-3" tabIndex={0}  >
                                 <img src={backArrow} className="pr-1" />
                                 Back

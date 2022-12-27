@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react"
-import {  useMatch, useNavigate } from "react-router-dom"
+import {  Link, useMatch, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify";
 import HenceForthApi from "../Utiles/HenceForthApi";
 import guestStepsImg from "../Images/guestSteps.png"
@@ -137,9 +137,11 @@ const Step6 = (props: props) => {
                             )}
                             {/* </div> */}
                             <div className="d-flex justify-content-between mt-5 border-top">
+                                <Link to={`/create-guest/step5/${match?.params.id}`}>
                                 <button type="button" className="btn btn-transparent font-regular my-3 px-0" tabIndex={0} >
                                     <img src="" className="pr-1" alt="" /> Back
                                 </button>
+                                </Link>
                         
                                     <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" onClick={() => handleStep6('next')}>
                                         Next

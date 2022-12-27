@@ -107,7 +107,6 @@ function App() {
             <Route path='create-stall/AddPhotos/:id' element={<AddPhotos saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/profile-photo/:id' element={<ProfilePhoto saveExitbtn={saveExitbtn} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/Description/:id' element={<Description saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
-
             <Route path='create-stall/Timmings/:id' element={<Timmings saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/Availability/:id' element={<Availability saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-stall/Calender/:id' element={<Calender saveExitbtn={saveExitbtn} getStartedShow={getStartedShow} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
@@ -125,14 +124,13 @@ function App() {
             <Route path='create-guest/step7/:id' element={<Step7 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/profile-photo/:id' element={<ProfilePhoto saveExitbtn={saveExitbtn} setSteps={setSteps} steps={steps} setSpinner={setSpinner} spinner={spinner} />} />
             <Route path='create-guest/step8/:id' element={<Step8 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
-
             <Route path='create-guest/step9/:id' element={<Step9 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/step10/:id' element={<Step10 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/step11/:id' element={<Step11 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/step12/:id' element={<Step12 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/step13/:id' element={<Step13 setSteps={setSteps} steps={steps} saveExitbtn={saveExitbtn} />} />
             <Route path='create-guest/GuestsLastStep/:id' element={<GuestsLastStep setSteps={setSteps} steps={steps} />} />
-
+            
             <Route path="host-an-experience" element={<AdventureStalls />} />
             <Route path="add-experience/step1" element={<AdStep1 adSteps={steps} />} >
               <Route path=":id" element={<AdStep1 adSteps={steps} />} />

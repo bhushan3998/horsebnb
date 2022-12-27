@@ -111,7 +111,7 @@ const YourLocation = (props: props) => {
                                         </div>
                                         <div className="d-flex justify-content-between mt-5 mb-0 border-top">
                                             <a href="/create-stall/step3/408">
-                                                <Link to={"/create-stall/NumberOfStalls"}><button className="btn border-0 font-regular px-0 my-3" style={{ color: "#00A4B4" }}>
+                                                <Link to={`/create-stall/NumberOfStalls${match?.params.id}`}><button className="btn border-0 font-regular px-0 my-3" style={{ color: "#00A4B4" }}>
                                                     <img src={backArrow} alt="" className="ps-1" /> Back
                                                 </button>
                                                 </Link>

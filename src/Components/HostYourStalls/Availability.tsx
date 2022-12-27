@@ -94,7 +94,7 @@ const Availability = (props: props) => {
                         </label>
 
                         <div className="d-flex justify-content-between border-top mt-auto">
-                            <Link to={"/create-stall/Timmings"}>   <button type="button" className="btn btn-transparent font-regular my-3 px-0">
+                            <Link to={`/create-stall/Timmings${match?.params.id}`}>   <button type="button" className="btn btn-transparent font-regular my-3 px-0">
                                 <img src={backArrow} className="pr-1" alt="" /> Back </button></Link>
                             <button type="button" className="btn btn-primary my-3 px-3 position-relative d-flex align-items-center justify-content-center" disabled={spinner} onClick={() => setAvailability("next")}> {!spinner ? " Next" : <Spinner />} </button>
                         </div>
